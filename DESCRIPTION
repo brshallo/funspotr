@@ -1,0 +1,33 @@
+Package: indexrfiles
+Title: Identify Functions & Packages in Files
+Version: 0.0.0.9000
+Authors@R: 
+  person(given = "Bryan",
+         family = "Shalloway",
+         role = c("aut", "cre"),
+         email = "brshallodev@gmail.com")
+Description: Helpers for identifying R functions in files.
+  Created to help with identifying functions and 
+  packages used in repos such as blogdown blogs.
+License: MIT + file LICENSE
+BugReports: https://github.com/tidyverse/dplyr/issues
+Imports:
+  dplyr (>= 0.8.3),
+  tidyr,
+  purrr,
+  stringr,
+  glue,
+  NCmisc,
+  knitr,
+  httr,
+  callr,
+  readr,
+  formatR,
+  fs,
+  tibble, 
+  utils
+Suggests:
+  remotes
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
