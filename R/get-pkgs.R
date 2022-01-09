@@ -25,7 +25,7 @@
 #' @export
 #'
 #' @examples
-#' library(indexrfiles)
+#' library(funspotr)
 #'
 #' file_lines <- "
 #' library(dplyr)
@@ -91,7 +91,7 @@ get_pkgs <- function(file_path, as_yaml_tags = FALSE){
 #' @export
 #'
 #' @examples
-#' library(indexrfiles)
+#' library(funspotr)
 #' get_pkgs_from_DESCRIPTION(
 #'   "https://raw.githubusercontent.com/brshallo/animatrixr/master/DESCRIPTION"
 #' )
@@ -108,7 +108,7 @@ get_pkgs_from_DESCRIPTION <- function(DESCRIPTION_path) {
 
 #' Check Packages Availability
 #'
-#' See example for common way would be used in {indexrfiles}.
+#' See example for common way would be used in {funspotr}.
 #'
 #' @param pkgs Character vector with package names checked.
 #'
@@ -117,7 +117,7 @@ get_pkgs_from_DESCRIPTION <- function(DESCRIPTION_path) {
 #' @export
 #'
 #' @examples
-#' library(indexrfiles)
+#' library(funspotr)
 #' library(dplyr)
 #'
 #' file_lines <- "
@@ -160,7 +160,7 @@ check_pkgs_availability <- function(pkgs){
 #'
 #' @examples
 #' \dontrun{
-#' library(indexrfiles)
+#' library(funspotr)
 #' library(dplyr)
 #'
 #' file_lines <- "
@@ -184,7 +184,7 @@ check_pkgs_availability <- function(pkgs){
 #' # because # {madeUpPkg} doesn't exist on CRAN
 #' get_pkgs(file_output) %>%
 #'   check_pkgs_availability() %>%
-#'   indexrfiles:::install_missing_pkgs()
+#'   funspotr:::install_missing_pkgs()
 #' }
 install_missing_pkgs <- function(pkgs_availability){
 

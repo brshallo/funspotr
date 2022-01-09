@@ -21,6 +21,6 @@ Keep only R and Rmarkdown files
 \examples{
 library(dplyr)
 
-indexrfiles:::github_contents("brshallo/feat-eng-lags-presentation", branch = "main") \%>\%
-  indexrfiles:::str_detect_r_rmd()
+funspotr:::github_contents("brshallo/feat-eng-lags-presentation", branch = "main") \%>\%
+  funspotr:::str_detect_r_rmd()
 }

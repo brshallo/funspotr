@@ -11,7 +11,7 @@
 #'
 #' @examples
 #'
-#' indexrfiles:::github_contents("brshallo/feat-eng-lags-presentation", branch = "main")
+#' funspotr:::github_contents("brshallo/feat-eng-lags-presentation", branch = "main")
 github_contents <- function(repo, branch = "main"){
 
   req <- httr::GET(glue::glue("https://api.github.com/repos/{repo}/git/trees/{branch}?recursive=1"))
@@ -26,7 +26,7 @@ github_rbf_to_url <- function(repo, branch, file) glue::glue("https://raw.github
 ### github
 #' Github Contents and URLS
 #'
-#' Runs `indexrfiles:::github_contents()` and then maps this through
+#' Runs `funspotr:::github_contents()` and then maps this through
 #' `github_rbf_to_url()` returning URL's to the "raw" location.
 #'
 #' @inheritParams github_contents
@@ -35,7 +35,7 @@ github_rbf_to_url <- function(repo, branch, file) glue::glue("https://raw.github
 #' @export
 #' @examples
 #'
-#' indexrfiles:::github_contents_urls("brshallo/feat-eng-lags-presentation", branch = "main")
+#' funspotr:::github_contents_urls("brshallo/feat-eng-lags-presentation", branch = "main")
 github_contents_urls <- function(repo, branch = "main"){
   # This step should probably be taken out of the function and instead it should
   # be to pass in a list of files and then select only the r versions... maybe
@@ -58,8 +58,8 @@ github_contents_urls <- function(repo, branch = "main"){
 #' @examples
 #' library(dplyr)
 #'
-#' indexrfiles:::github_contents("brshallo/feat-eng-lags-presentation", branch = "main") %>%
-#'   indexrfiles:::str_detect_r_rmd()
+#' funspotr:::github_contents("brshallo/feat-eng-lags-presentation", branch = "main") %>%
+#'   funspotr:::str_detect_r_rmd()
 str_detect_r_rmd <- function(contents, rmv_index = TRUE){
   contents_lower <- stringr::str_to_lower(contents)
   contents_subset <- str_detect(contents_lower, "\\.(r|rmd|rmarkdown)$")
@@ -138,7 +138,7 @@ github_get_funs <- function(repo, branch = "main", preview_urls = FALSE, rmv_ind
 #' @seealso get_pkgs get_funs
 #'
 #' @examples
-#' library(indexrfiles)
+#' library(funspotr)
 #'
 #' github_get_funs("brshallo/feat-eng-lags-presentation", branch = "main")
 #' @name github_get_things

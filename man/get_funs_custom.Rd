@@ -69,7 +69,7 @@ Note that any commented out functions or packages in the file are (currently)
 included in the output.
 }
 \examples{
-library(indexrfiles)
+library(funspotr)
 
 file_lines <- "
 library(dplyr)

@@ -1,4 +1,4 @@
-Package: indexrfiles
+Package: funspotr
 Title: Identify Functions & Packages in Files
 Version: 0.0.0.9000
 Authors@R: 
@@ -7,8 +7,8 @@ Authors@R:
          role = c("aut", "cre"),
          email = "brshallodev@gmail.com")
 Description: Helpers for identifying R functions in files.
-  Created to help with identifying functions and 
-  packages used in repos such as blogdown blogs.
+  Created to help with spotting which functions and 
+  packages were used in repos such as blogdown blogs.
 License: MIT + file LICENSE
 BugReports: https://github.com/tidyverse/dplyr/issues
 Imports:

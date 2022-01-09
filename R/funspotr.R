@@ -1,4 +1,4 @@
-#' @description To learn more about indexrfiles see https://github.com/brshallo/indexrfiles
+#' @description To learn more about funspotr see https://github.com/brshallo/funspotr
 #' @keywords internal
 #' @import dplyr
 #' @importFrom stringr str_extract_all str_detect str_remove_all

@@ -20,5 +20,5 @@ inspiration: https://stackoverflow.com/a/25485782/9059865
 }
 \examples{
 
-indexrfiles:::github_contents("brshallo/feat-eng-lags-presentation", branch = "main")
+funspotr:::github_contents("brshallo/feat-eng-lags-presentation", branch = "main")
 }

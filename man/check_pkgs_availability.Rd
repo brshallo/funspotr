@@ -14,10 +14,10 @@ Named logical indicating whether each package is available on the
 machine.
 }
 \description{
-See example for common way would be used in {indexrfiles}.
+See example for common way would be used in {funspotr}.
 }
 \examples{
-library(indexrfiles)
+library(funspotr)
 library(dplyr)
 
 file_lines <- "

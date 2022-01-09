@@ -131,7 +131,7 @@ list_functions_in_file_to_df <- function(funs){
 #' @export
 #'
 #' @examples
-#' library(indexrfiles)
+#' library(funspotr)
 #'
 #' file_lines <- "
 #' library(dplyr)
@@ -207,7 +207,7 @@ get_funs_custom <- function(pkgs,
 #' @export
 #'
 #' @examples
-#' library(indexrfiles)
+#' library(funspotr)
 #'
 #' file_lines <- "
 #' library(dplyr)

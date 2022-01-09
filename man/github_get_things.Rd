@@ -39,7 +39,7 @@ unexported functions in R/github-get.R for some potentially helpful building
 blocks.
 }
 \examples{
-library(indexrfiles)
+library(funspotr)
 
 github_get_funs("brshallo/feat-eng-lags-presentation", branch = "main")
 }

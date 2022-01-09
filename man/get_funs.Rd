@@ -40,7 +40,7 @@ version and does not require passing in the packages separately. See
 \code{?get_funs_custom} for details on how the function works.
 }
 \examples{
-library(indexrfiles)
+library(funspotr)
 
 file_lines <- "
 library(dplyr)

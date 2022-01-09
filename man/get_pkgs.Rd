@@ -31,7 +31,7 @@ This would be better handled by something like \code{renv::dependencies()} or
 established packages for identifying package dependencies.
 }
 \examples{
-library(indexrfiles)
+library(funspotr)
 
 file_lines <- "
 library(dplyr)

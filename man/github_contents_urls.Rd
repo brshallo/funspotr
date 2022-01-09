@@ -15,10 +15,10 @@ github_contents_urls(repo, branch = "main")
 Dataframe with columns \code{contents} and \code{urls}.
 }
 \description{
-Runs \code{indexrfiles:::github_contents()} and then maps this through
+Runs \code{funspotr:::github_contents()} and then maps this through
 \code{github_rbf_to_url()} returning URL's to the "raw" location.
 }
 \examples{
 
-indexrfiles:::github_contents_urls("brshallo/feat-eng-lags-presentation", branch = "main")
+funspotr:::github_contents_urls("brshallo/feat-eng-lags-presentation", branch = "main")
 }
