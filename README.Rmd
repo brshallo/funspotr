@@ -84,13 +84,13 @@ gh_ex <- github_spot_funs(
 gh_ex
 ```
 
-These results may then be unnested to provide a table of which functions and packages are used in each file.
+These results may then be unnested to provide a table of which functions and packages are used in each file. You can then manipulate and search this table like any other data. For example say we want to find all places where `{here}`, `{readr}` or `{rsample}` packages are used.
 
 ```{r}
 gh_ex %>% 
   dplyr::relocate(spotted) %>% 
   tidyr::unnest(spotted) %>% 
-  dplyr::arrange(pkgs, contents)
+  filter(pkgs %in% c("here", "readr", "rsample"))
 ```
 
 You can set `preview = TRUE` in `github_spot_funs()` to first view the files you intend to parse. (This is particularly helpful to start with in repositories with many files where it will take a while to run.)

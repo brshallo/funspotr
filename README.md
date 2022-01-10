@@ -117,27 +117,27 @@ gh_ex
 ```
 
 These results may then be unnested to provide a table of which functions
-and packages are used in each file.
+and packages are used in each file. You can then manipulate and search
+this table like any other data. For example say we want to find all
+places where `{here}`, `{readr}` or `{rsample}` packages are used.
 
 ``` r
 gh_ex %>% 
   dplyr::relocate(spotted) %>% 
   tidyr::unnest(spotted) %>% 
-  dplyr::arrange(pkgs, contents)
-#> # A tibble: 128 x 5
-#>    funs               pkgs      in_multiple_pkgs contents                  urls 
-#>    <chr>              <chr>     <lgl>            <chr>                     <chr>
-#>  1 extract_dates_rset (unknown) FALSE            R/feat-engineering-lags.R http~
-#>  2 plot_dates_rset    (unknown) FALSE            R/feat-engineering-lags.R http~
-#>  3 where              (unknown) FALSE            R/feat-engineering-lags.R http~
-#>  4 c                  base      FALSE            R/feat-engineering-lags.R http~
-#>  5 getOption          base      FALSE            R/feat-engineering-lags.R http~
-#>  6 is.na              base      FALSE            R/feat-engineering-lags.R http~
-#>  7 library            base      FALSE            R/feat-engineering-lags.R http~
-#>  8 list               base      FALSE            R/feat-engineering-lags.R http~
-#>  9 max                base      FALSE            R/feat-engineering-lags.R http~
-#> 10 options            base      FALSE            R/feat-engineering-lags.R http~
-#> # ... with 118 more rows
+  filter(pkgs %in% c("here", "readr", "rsample"))
+#> # A tibble: 9 x 5
+#>   funs               pkgs    in_multiple_pkgs contents      urls                
+#>   <chr>              <chr>   <lgl>            <chr>         <chr>               
+#> 1 here               here    FALSE            R/Rmd-to-R.R  https://raw.githubu~
+#> 2 tidy               rsample TRUE             R/feat-engin~ https://raw.githubu~
+#> 3 read_csv           readr   FALSE            R/feat-engin~ https://raw.githubu~
+#> 4 initial_time_split rsample FALSE            R/feat-engin~ https://raw.githubu~
+#> 5 sliding_period     rsample FALSE            R/feat-engin~ https://raw.githubu~
+#> 6 testing            rsample FALSE            R/feat-engin~ https://raw.githubu~
+#> 7 training           rsample FALSE            R/feat-engin~ https://raw.githubu~
+#> 8 here               here    FALSE            R/load-inspe~ https://raw.githubu~
+#> 9 write_csv          readr   FALSE            R/load-inspe~ https://raw.githubu~
 ```
 
 You can set `preview = TRUE` in `github_spot_funs()` to first view the
