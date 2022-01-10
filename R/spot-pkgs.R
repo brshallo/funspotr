@@ -2,7 +2,7 @@
 # regex based method and should likely be moved to use `renv::dependencies()` or
 # other established packages for dependency detection and management.
 
-#' Get packages loaded or used in file
+#' Spot packages loaded or used in file
 #'
 #' Extract all `pkg` called in either `library(pkg)`, `require(pkg)`
 #' `requireNamespace("pkg")` or `pkg::fun()`. Will not identify packages loaded
@@ -44,13 +44,13 @@
 #' file_output <- tempfile(fileext = ".R")
 #' writeLines(file_lines, file_output)
 #'
-#' get_pkgs(file_output)
+#' spot_pkgs(file_output)
 #'
 #' # For if you use blogdown, there is an argument to return the identified
 #' # packages in a way that is convenient for adding them to the tags section of
 #' # a yaml header.
-#' get_pkgs(file_output, as_yaml_tags = TRUE)
-get_pkgs <- function(file_path, as_yaml_tags = FALSE){
+#' spot_pkgs(file_output, as_yaml_tags = TRUE)
+spot_pkgs <- function(file_path, as_yaml_tags = FALSE){
 
   # file <- readr::read_lines(file_path)
   file <- formatR::tidy_source(file_path, comment = FALSE, output = FALSE)$text.tidy %>%
@@ -80,7 +80,7 @@ get_pkgs <- function(file_path, as_yaml_tags = FALSE){
   output
 }
 
-#' Get package dependencies from DESCRIPTION file
+#' Spot package dependencies from DESCRIPTION file
 #'
 #' Given explicit path to DESCRIPTION file return package dependencies therein.
 #' inspiration: https://stackoverflow.com/a/30225680/9059865
@@ -92,10 +92,10 @@ get_pkgs <- function(file_path, as_yaml_tags = FALSE){
 #'
 #' @examples
 #' library(funspotr)
-#' get_pkgs_from_DESCRIPTION(
+#' spot_pkgs_from_DESCRIPTION(
 #'   "https://raw.githubusercontent.com/brshallo/animatrixr/master/DESCRIPTION"
 #' )
-get_pkgs_from_DESCRIPTION <- function(DESCRIPTION_path) {
+spot_pkgs_from_DESCRIPTION <- function(DESCRIPTION_path) {
 
   file_path <- r_to_r_temp(DESCRIPTION_path, fileext = "")
 
@@ -137,7 +137,7 @@ get_pkgs_from_DESCRIPTION <- function(DESCRIPTION_path) {
 #' file_output <- tempfile(fileext = ".R")
 #' writeLines(file_lines, file_output)
 #'
-#' get_pkgs(file_output) %>%
+#' spot_pkgs(file_output) %>%
 #'   check_pkgs_availability()
 #'
 check_pkgs_availability <- function(pkgs){
@@ -182,7 +182,7 @@ check_pkgs_availability <- function(pkgs){
 #'
 #' # should verify pkgs are available on CRAN -- this won't work in this case
 #' # because # {madeUpPkg} doesn't exist on CRAN
-#' get_pkgs(file_output) %>%
+#' spot_pkgs(file_output) %>%
 #'   check_pkgs_availability() %>%
 #'   funspotr:::install_missing_pkgs()
 #' }

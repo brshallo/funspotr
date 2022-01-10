@@ -32,7 +32,6 @@ github_rbf_to_url <- function(repo, branch, file) glue::glue("https://raw.github
 #' @inheritParams github_contents
 #'
 #' @return Dataframe with columns `contents` and `urls`.
-#' @export
 #' @examples
 #'
 #' funspotr:::github_contents_urls("brshallo/feat-eng-lags-presentation", branch = "main")
@@ -69,8 +68,8 @@ str_detect_r_rmd <- function(contents, rmv_index = TRUE){
   contents_subset
 }
 
-# engine for `github_get*()`
-github_get <- function(get_things, repo, branch = "main", preview_urls = FALSE, rmv_index = TRUE){
+# engine for `github_spot*()`
+github_spot <- function(spot_things, repo, branch = "main", preview_urls = FALSE, rmv_index = TRUE){
 
 
   contents_urls <- github_contents_urls(repo, branch)
@@ -81,9 +80,9 @@ github_get <- function(get_things, repo, branch = "main", preview_urls = FALSE, 
   if(preview_urls) return(contents_urls)
 
   output <- contents_urls %>%
-    mutate(index = map(urls, purrr::possibly(get_things, otherwise = NULL)))
+    mutate(spotted = map(urls, purrr::possibly(spot_things, otherwise = NULL)))
 
-  output_errors <- filter(output, map_lgl(index, is.null))
+  output_errors <- filter(output, map_lgl(spotted, is.null))
 
   if(nrow(output_errors) > 0){
     warning("Did not evaluate properly for the following URL's which were filtered from output:")
@@ -93,55 +92,56 @@ github_get <- function(get_things, repo, branch = "main", preview_urls = FALSE, 
   message("Packages should be referenced in the same file as they are used.
           See README for example with repo that uses a DESCRIPTION file.")
 
-  filter(output, !map_lgl(index, is.null))
+  filter(output, !map_lgl(spotted, is.null))
 }
 
 
 #' @export
-#' @rdname github_get_things
-github_get_pkgs <- function(repo, branch = "main", preview_urls = FALSE, rmv_index = TRUE){
+#' @rdname github_spot_things
+github_spot_pkgs <- function(repo, branch = "main", preview_urls = FALSE, rmv_index = TRUE){
 
-  github_get(get_pkgs, repo, branch, preview_urls, rmv_index)
+  github_spot(spot_pkgs, repo, branch, preview_urls, rmv_index)
 }
 
 #' @export
-#' @rdname github_get_things
-github_get_funs <- function(repo, branch = "main", preview_urls = FALSE, rmv_index = TRUE){
+#' @rdname github_spot_things
+github_spot_funs <- function(repo, branch = "main", preview_urls = FALSE, rmv_index = TRUE){
 
-  github_get(get_funs, repo, branch, preview_urls, rmv_index)
+  github_spot(spot_funs, repo, branch, preview_urls, rmv_index)
 }
 
 
-#' Get Packages or Functions from Github Repository
+#' Spot Packages or Functions from Github Repository
 #'
-#' `github_get_pkgs()` : Get all packages that show-up in R or Rmarkdown
+#' `github_spot_pkgs()` : Spot all packages that show-up in R or Rmarkdown
 #' documents in the github repository.
 #'
-#' `github_get_funs()` : Get all functions and their corresponding packages that
+#' `github_spot_funs()` : Spot all functions and their corresponding packages that
 #' show-up in R or Rmarkdown documents in the github repository.
 #'
 #' Meant for cases where packages and scripts are in *the same* file, in cases
 #' where this is not the case will need to build an alternative workflow. See
-#' unexported functions in R/github-get.R for some potentially helpful building
+#' unexported functions in R/github-spot.R for some potentially helpful building
 #' blocks.
 #'
 #' @param repo Github repository, e.g. "brshallo/feat-eng-lags-presentation"
 #' @param branch Branch of github repository, default is "main".
-#' @param preview_urls Logical, if set to `TRUE` will print urls that will be indexed
+#' @param preview_urls Logical, if set to `TRUE` will print urls that will be
+#'   passed through `spot_funs()` or `spot_pkgs()`
 #' @param rmv_index Logical, most repos containing blogdown sites will have an
 #'   index.R file. By default these are removed from list of files.
 #'
 #' @return Dataframe with `contents` and `urls` of file paths along with a
-#'   list-column `index` containing packages or functions & packages used in
+#'   list-column `spotted` containing packages or functions & packages used in
 #'   each file.
 #'
-#' @seealso get_pkgs get_funs
+#' @seealso spot_pkgs spot_funs
 #'
 #' @examples
 #' library(funspotr)
 #'
-#' github_get_funs("brshallo/feat-eng-lags-presentation", branch = "main")
-#' @name github_get_things
+#' github_spot_funs("brshallo/feat-eng-lags-presentation", branch = "main")
+#' @name github_spot_things
 NULL
 
 

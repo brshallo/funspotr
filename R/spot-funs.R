@@ -51,7 +51,7 @@ copy_to_local_tempfile <- function(file_path){
 #'   This is a helper function that converts output from
 #'   NCmisc::list.functions.in.file() into a tibble and cleans-up a few things.
 #'
-#'   `list_functions_in_file_to_df()` is the last step inside `get_funs()` --
+#'   `list_functions_in_file_to_df()` is the last step inside `spot_funs()` --
 #'   check there for documentation on the returned output.
 #'
 #' @param funs List output returned from running
@@ -75,15 +75,15 @@ list_functions_in_file_to_df <- function(funs){
 
 ####################################
 
-#' Get Functions Custom
+#' Spot Functions Custom
 #'
-#' Engine that runs `get_funs()`. `get_funs_custom()` has options for returning
+#' Engine that runs `spot_funs()`. `spot_funs_custom()` has options for returning
 #' print statements and errors that may be useful when you don't have all
 #' packages installed. It also requires you to provide a character vector for
-#' `pkgs` rather than identifying these automatically via `get_pkgs()`.
+#' `pkgs` rather than identifying these automatically via `spot_pkgs()`.
 #'
-#' `get_funs_custom()` is what you should use in cases where you don't trust
-#' `get_pkgs()` to properly identify package dependencies and instead want to
+#' `spot_funs_custom()` is what you should use in cases where you don't trust
+#' `spot_pkgs()` to properly identify package dependencies and instead want to
 #' pass in your own character vector of packages.
 #'
 #' HOW IT WORKS: Loads packages (`pkgs`) in a new R process and then extracts
@@ -100,7 +100,7 @@ list_functions_in_file_to_df <- function(funs){
 #' included in the output.
 #'
 #' @param pkgs Character vector of packages to `require` for script. Generally
-#'   will be the returned value from `get_pkgs(file_path)`.
+#'   will be the returned value from `spot_pkgs(file_path)`.
 #' @param file_path character vector of path to file. This function depends on
 #'   `NCmisc::list.function.in_file()` which requries an actual file_path for a
 #'   file passed in.
@@ -150,15 +150,15 @@ list_functions_in_file_to_df <- function(funs){
 #' file_output <- tempfile(fileext = ".R")
 #' writeLines(file_lines, file_output)
 #'
-#' pkgs <- get_pkgs(file_output)
+#' pkgs <- spot_pkgs(file_output)
 #'
 #' # Notice is not able to determine singular package for as_tibble()
-#' get_funs_custom(pkgs, file_output)
+#' spot_funs_custom(pkgs, file_output)
 #'
 #' # If you'd rather it error when a pkg doesn't exist (e.g. {madeUpPkg})
 #' # You could run:
-#' # get_funs_custom(pkgs, file_output, error_if_missing_pkg = TRUE)
-get_funs_custom <- function(pkgs,
+#' # spot_funs_custom(pkgs, file_output, error_if_missing_pkg = TRUE)
+spot_funs_custom <- function(pkgs,
                             file_path,
                             print_pkgs_load_status = FALSE,
                             error_if_missing_pkg = FALSE) {
@@ -189,21 +189,21 @@ get_funs_custom <- function(pkgs,
 # put parts together so can input an R or Rmarkdown file
 # return the set of functions
 
-#' Get Functions
+#' Spot Functions
 #'
 #' Given `file_path` extract all functions and their associated packages from
 #' specified file.
 #'
-#' `get_funs()` uses `get_funs_custom()` to run -- it is just a less verbose
+#' `spot_funs()` uses `spot_funs_custom()` to run -- it is just a less verbose
 #' version and does not require passing in the packages separately. See
-#' `?get_funs_custom` for details on how the function works.
+#' `?spot_funs_custom` for details on how the function works.
 #'
-#' @inheritParams get_funs_custom
+#' @inheritParams spot_funs_custom
 #' @param ... This allows you to pass additional arguments to
-#'   `get_funs_custom()` that may be useful when not all packages in `file_path`
-#'   are available on the machine. See `?get_funs_custom` for documentation.
+#'   `spot_funs_custom()` that may be useful when not all packages in `file_path`
+#'   are available on the machine. See `?spot_funs_custom` for documentation.
 #'
-#' @inherit get_funs_custom return
+#' @inherit spot_funs_custom return
 #' @export
 #'
 #' @examples
@@ -227,9 +227,9 @@ get_funs_custom <- function(pkgs,
 #' writeLines(file_lines, file_output)
 #'
 #' # Notice is not able to determine singular package for as_tibble()
-#' get_funs(file_output)
-get_funs <- function(file_path, ...){
+#' spot_funs(file_output)
+spot_funs <- function(file_path, ...){
 
-  pkgs <- get_pkgs(file_path)
-  get_funs_custom(pkgs, file_path, ...)
+  pkgs <- spot_pkgs(file_path)
+  spot_funs_custom(pkgs, file_path, ...)
 }
