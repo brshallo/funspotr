@@ -12,7 +12,7 @@ NCmisc::list.functions.in.file()}
 }
 \description{
 This is a helper function that converts output from
-NCmisc::list.functions.in.file() into a tibble and cleans-up a few things.
+\code{NCmisc::list.functions.in.file()} into a tibble and cleans-up a few things.
 }
 \details{
 \code{list_functions_in_file_to_df()} is the last step inside \code{spot_funs()} --

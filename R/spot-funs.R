@@ -49,7 +49,7 @@ copy_to_local_tempfile <- function(file_path){
 #' List Functions in File to Dataframe
 #'
 #'   This is a helper function that converts output from
-#'   NCmisc::list.functions.in.file() into a tibble and cleans-up a few things.
+#'   `NCmisc::list.functions.in.file()` into a tibble and cleans-up a few things.
 #'
 #'   `list_functions_in_file_to_df()` is the last step inside `spot_funs()` --
 #'   check there for documentation on the returned output.
@@ -67,8 +67,8 @@ list_functions_in_file_to_df <- function(funs){
            pkg_len = map_int(pkg_list, length)) %>%
     mutate(pkglist = ifelse(pkg_len == 0, list("(unknown)"), pkg_list)) %>%
     select(funs = value, pkgs = pkglist, in_multiple_pkgs) %>%
-    unnest(pkgs) %>%
-    unnest(funs)
+    unnest(funs) %>%
+    unnest(pkgs)
 
   funs_df
 }
