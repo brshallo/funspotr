@@ -6,17 +6,17 @@
 \alias{github_spot_things}
 \title{Spot Packages or Functions from Github Repository}
 \usage{
-github_spot_pkgs(repo, branch = "main", preview_urls = FALSE, rmv_index = TRUE)
+github_spot_pkgs(repo, branch = "main", preview = FALSE, rmv_index = TRUE)
 
-github_spot_funs(repo, branch = "main", preview_urls = FALSE, rmv_index = TRUE)
+github_spot_funs(repo, branch = "main", preview = FALSE, rmv_index = TRUE)
 }
 \arguments{
 \item{repo}{Github repository, e.g. "brshallo/feat-eng-lags-presentation"}
 
 \item{branch}{Branch of github repository, default is "main".}
 
-\item{preview_urls}{Logical, if set to \code{TRUE} will print urls that will be
-passed through \code{spot_funs()} or \code{spot_pkgs()}}
+\item{preview}{Logical, if set to \code{TRUE} will print urls that will be
+passed through \code{spot_funs()} or \code{spot_pkgs()} without parsing files.}
 
 \item{rmv_index}{Logical, most repos containing blogdown sites will have an
 index.R file. By default these are removed from list of files.}

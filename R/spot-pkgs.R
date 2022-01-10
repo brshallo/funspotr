@@ -52,8 +52,10 @@
 #' spot_pkgs(file_output, as_yaml_tags = TRUE)
 spot_pkgs <- function(file_path, as_yaml_tags = FALSE){
 
+  file_temp <- copy_to_local_tempfile(file_path)
+
   # file <- readr::read_lines(file_path)
-  file <- formatR::tidy_source(file_path, comment = FALSE, output = FALSE)$text.tidy %>%
+  file <- formatR::tidy_source(file_temp, comment = FALSE, output = FALSE)$text.tidy %>%
     readr::read_lines()
 
   lib_calls <- str_extract_all(file, "(?<=library\\()[:alnum:]+(?=[:punct:])", simplify = TRUE) %>%

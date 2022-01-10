@@ -69,7 +69,7 @@ str_detect_r_rmd <- function(contents, rmv_index = TRUE){
 }
 
 # engine for `github_spot*()`
-github_spot <- function(spot_things, repo, branch = "main", preview_urls = FALSE, rmv_index = TRUE){
+github_spot <- function(spot_things, repo, branch = "main", preview = FALSE, rmv_index = TRUE){
 
 
   contents_urls <- github_contents_urls(repo, branch)
@@ -77,7 +77,7 @@ github_spot <- function(spot_things, repo, branch = "main", preview_urls = FALSE
   contents_urls <- contents_urls %>%
     filter(str_detect_r_rmd(urls, rmv_index))
 
-  if(preview_urls) return(contents_urls)
+  if(preview) return(contents_urls)
 
   output <- contents_urls %>%
     mutate(spotted = map(urls, purrr::possibly(spot_things, otherwise = NULL)))
@@ -89,8 +89,8 @@ github_spot <- function(spot_things, repo, branch = "main", preview_urls = FALSE
     print(ouput_errors)
   }
 
-  message("Packages should be referenced in the same file as they are used.
-          See README for example with repo that uses a DESCRIPTION file.")
+  # message("Packages should be referenced in the same file as they are used.
+  #         See README for example with repo that uses a DESCRIPTION file.")
 
   filter(output, !map_lgl(spotted, is.null))
 }
@@ -98,16 +98,16 @@ github_spot <- function(spot_things, repo, branch = "main", preview_urls = FALSE
 
 #' @export
 #' @rdname github_spot_things
-github_spot_pkgs <- function(repo, branch = "main", preview_urls = FALSE, rmv_index = TRUE){
+github_spot_pkgs <- function(repo, branch = "main", preview = FALSE, rmv_index = TRUE){
 
-  github_spot(spot_pkgs, repo, branch, preview_urls, rmv_index)
+  github_spot(spot_pkgs, repo, branch, preview, rmv_index)
 }
 
 #' @export
 #' @rdname github_spot_things
-github_spot_funs <- function(repo, branch = "main", preview_urls = FALSE, rmv_index = TRUE){
+github_spot_funs <- function(repo, branch = "main", preview = FALSE, rmv_index = TRUE){
 
-  github_spot(spot_funs, repo, branch, preview_urls, rmv_index)
+  github_spot(spot_funs, repo, branch, preview, rmv_index)
 }
 
 
@@ -126,8 +126,8 @@ github_spot_funs <- function(repo, branch = "main", preview_urls = FALSE, rmv_in
 #'
 #' @param repo Github repository, e.g. "brshallo/feat-eng-lags-presentation"
 #' @param branch Branch of github repository, default is "main".
-#' @param preview_urls Logical, if set to `TRUE` will print urls that will be
-#'   passed through `spot_funs()` or `spot_pkgs()`
+#' @param preview Logical, if set to `TRUE` will print urls that will be
+#'   passed through `spot_funs()` or `spot_pkgs()` without parsing files.
 #' @param rmv_index Logical, most repos containing blogdown sites will have an
 #'   index.R file. By default these are removed from list of files.
 #'
