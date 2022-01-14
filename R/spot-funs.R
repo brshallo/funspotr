@@ -3,14 +3,9 @@
 ### HELPERS TO MAKE LOCAL TEMPFILES
 # `rmd_chunks_to_r_temp()` ; `r_to_r_temp()` ; go into
 # `copy_to_local_tempfile()` which is a helper for creating local R temp files
-# from other file locations which is needed because
-# NCmisc::list.functions.in.file() expects local versions of the file (which is
-# important so you can provide a URL as a filepath for example). It would
-# probably be more efficient to first have a check whether the file is local or
-# not before going straight into making the temp file... It also may be helpful
-# to add some parsing capabilities in these functions, to e.g. take-out any
-# commented parts of code... but this would be tough to actually do correctly
-# https://stackoverflow.com/questions/23630530/is-there-a-way-to-delete-all-comments-in-a-r-script-using-rstudio
+# from other file locations .
+# It would probably be more efficient to first have a check whether the file is
+# local or not before going straight into making the temp file...
 
 # RMD to local R temp file
 # inspiration: https://gist.github.com/noamross/a549ee50e8a4fd68b8b1
@@ -45,89 +40,189 @@ copy_to_local_tempfile <- function(file_path){
   file_temp
 }
 
+#' List Functions in File
+#'
+#' Simply a wrapper on `utils::getParseData()` . Is mostly copied from:
+#' NCmisc::list.functions.in.file(). Rewrote because function made order of
+#' output dependent on packages. Also wanted to add `show_each_use` arg.
+#'
+#' @param show_each_use If changed to `TRUE` will return each instance a function
+#'   is used rather than once for everything
+list_functions_in_file <- function(file_path, show_each_use = FALSE){
+  tmp <- utils::getParseData(parse(file_path, keep.source = TRUE))
+  nms <- tmp$text[which(tmp$token == "SYMBOL_FUNCTION_CALL")]
+  nms_unique <- unique(nms)
+
+  # only do `find()` once for each function, even if `show_each_use = TRUE`
+  funs <- sapply(nms_unique, utils::find)
+  if(show_each_use) funs <- funs[nms]
+
+  funs
+}
 
 #' List Functions in File to Dataframe
 #'
 #'   This is a helper function that converts output from
-#'   `NCmisc::list.functions.in.file()` into a tibble and cleans-up a few things.
-#'
+#'   `funspotr:::list_functions_in_file()` into a tibble and cleans-up a few
+#'   things.
+#'   '
 #'   `list_functions_in_file_to_df()` is the last step inside `spot_funs()` --
 #'   check there for documentation on the returned output.
 #'
+#'   Note that the `map_chr(pkgs, 1)` step at the end means that it only keeps
+#'   the version of the function at the top of the fabricated search list. This is
+#'   not perfect however. It also does nothing with reexported functions etc.
+#'   (e.g. `as_tibble()` home is {tibble} but it is reexported by {dplyr} and
+#'   {tidyr} -- this is meaningless to `spot_funs()` though which is just
+#'   looking at the top of the search space via `utils::find()`)
+#'
 #' @param funs List output returned from running
-#'   NCmisc::list.functions.in.file()
-list_functions_in_file_to_df <- function(funs){
+#'   `funspotr:::list_functions_in_file()`
+#' @param keep_search_list Logical, default is `TRUE` if change to `FALSE` will
+#'   include entire search list as a list-column.
+list_functions_in_file_to_df <- function(funs, keep_search_list = FALSE){
 
-  if(nrow(funs) == 0) return(tibble(pkgs = character(), funs = character(), pkg_multiple = logical()))
+  output <- tibble::enframe(funs) %>%
+    rename(funs = name, pkgs = value) %>%
+    mutate(pkgs_len = map_int(pkgs, length),
+           in_multiple_pkgs = ifelse(pkgs_len > 1, TRUE, FALSE),
+           pkgs = map(pkgs, ~str_extract(.x, "(?<=package:)[:alpha:]+") %>% unique()),
+           pkgs = ifelse(pkgs_len == 0, list("(unknown)"), pkgs)) %>%
+    select(-pkgs_len)
 
-  funs_df <- funs %>%
-    tibble::enframe() %>%
-    mutate(in_multiple_pkgs = str_detect(name, ","),
-           pkg_list = str_extract_all(name, "(?<=package:)[:alpha:]+"),
-           pkg_len = map_int(pkg_list, length)) %>%
-    mutate(pkglist = ifelse(pkg_len == 0, list("(unknown)"), pkg_list)) %>%
-    select(funs = value, pkgs = pkglist, in_multiple_pkgs) %>%
-    unnest(funs) %>%
-    unnest(pkgs)
+  if(keep_search_list) return(output) # previously unnested... but if also `show_each_use = TRUE` is confusing
 
-  funs_df
+  mutate(output, pkgs = map_chr(pkgs, 1))
 }
+
+#' Call R List Functions
+#'
+#'  The next several function are all created to make namespaces *slightly*
+#' better -- honestly not sure is worth the added complexity this created. But
+#' what I do is essentially: if there are no explicit function calls (i.e.
+#' pkg::fun() ) `spot_funs()` / `spot_funs_custom()` will run `call_r_list_functions()` to identify
+#' functions and packages, but if there are explicit functions it will run
+#' `call_r_list_functions_explicit()` which does the same thing as `call_r_list_functions()` except it
+#' first loads any regular packages AND THEN attaches any explicit function
+#' calls -- this has the impact of giving explicit function calls precedence
+#' in terms of being identified while not attaching the entire pacakge (the way prior approaches did). This still has problems in
+#' some cases but on the whole I think is better... These functions use the
+#' {import} package to manage this process and takes the approach described
+#' here: https://github.com/rticulate/import/issues/57
+#' @name call_r_list_functions_doc
+NULL
+
+#'
+#' @rdname call_r_list_functions_doc
+call_r_list_functions <- function(pkgs, file_temp, show_each_use = FALSE){
+
+  callr::r(function(pkgs, file_temp, show_each_use) {
+
+    # load packages, inspiration: https://stackoverflow.com/a/8176099/9059865
+    lapply(pkgs, require, character.only = TRUE);
+
+    # inspiration: https://stackoverflow.com/a/53009440/9059865
+    funspotr:::list_functions_in_file(file_temp, show_each_use) },
+
+    args = list(pkgs, file_temp, show_each_use))
+}
+
+# Add specific functions to search space that will be recognized by
+# utils::find()
+attach_pkg_fun <- function(pkg_fun){
+  pkg <- pkg_fun$pkg
+  fun <- pkg_fun$fun
+  env <- new.env()
+  env_nm <- paste0("explicitpackage:", pkg)
+
+  import::from(pkg, fun, .into = {env}, .character_only = TRUE)
+
+  attach(env, name = env_nm)
+}
+
+try_attach_pkg_fun <- function(pkg_fun) try(attach_pkg_fun(pkg_fun))
+
+#'
+#' @rdname call_r_list_functions_doc
+call_r_list_functions_explicit <- function(pkgs, pkgs_explicit, file_temp, show_each_use = FALSE){
+
+  callr::r(function(pkgs, pkgs_explicit, file_temp, show_each_use) {
+    # load packages, inspiration: https://stackoverflow.com/a/8176099/9059865
+    lapply(pkgs, require, character.only = TRUE);
+
+    lapply(pkgs_explicit, funspotr:::try_attach_pkg_fun);
+
+    # inspiration: https://stackoverflow.com/a/53009440/9059865
+    funspotr:::list_functions_in_file(file_temp, show_each_use) },
+
+    args = list(pkgs, pkgs_explicit, file_temp, show_each_use))
+}
+####
+
 
 ####################################
 
 #' Spot Functions Custom
 #'
-#' Engine that runs `spot_funs()`. `spot_funs_custom()` has options for returning
-#' print statements and errors that may be useful when you don't have all
-#' packages installed. It also requires you to provide a character vector for
-#' `pkgs` rather than identifying these automatically via `spot_pkgs()`.
+#' Engine that runs `spot_funs()`. `spot_funs_custom()` has options for changing
+#' returned output and for producing print statements and errors. It also
+#' requires you to provide a character vector for `pkgs` rather than identifying
+#' these automatically via `spot_pkgs()`.
 #'
 #' `spot_funs_custom()` is what you should use in cases where you don't trust
-#' `spot_pkgs()` to properly identify package dependencies and instead want to
-#' pass in your own character vector of packages.
+#' `spot_pkgs()` to properly identify package dependencies from within the same
+#' file and instead want to pass in your own character vector of packages.
 #'
-#' HOW IT WORKS: Loads packages (`pkgs`) in a new R process and then extracts
-#' all functions in specified file via `NCmisc::list.functions.in.file()`. The
-#' reason it is necessary to load this in a separate process is it prevents
-#' any packages open in your current session from being used to identify
-#' functions in the source file of interest.
+#' HOW IT WORKS: See README
 #'
 #' If a package is not included in `pkgs`, any functions called that should come
-#' from that package will be assigned to an "(unknown)" value in the returned
-#' output.
+#' from that package will be assigned to value of "(unknown)" in the `pkgs`
+#' column of the returned output. You can also use the `print_pkgs_load_status`
+#' and `error_if_missing_pkg` arguments to alter how output works in cases when
+#' not all packages are on the machine.
 #'
-#' Note that any commented out functions or packages in the file are (currently)
-#' included in the output.
-#'
-#' @param pkgs Character vector of packages to `require` for script. Generally
-#'   will be the returned value from `spot_pkgs(file_path)`.
-#' @param file_path character vector of path to file. This function depends on
-#'   `NCmisc::list.function.in_file()` which requries an actual file_path for a
-#'   file passed in.
-#'
+#' @param pkgs Character vector of packages that are added to search space via
+#'   `require()` or `import::from()` so can be found by `utils::find()`.
+#'   Generally will be the returned value from `spot_pkgs(file_path,
+#'   show_explicit_funs = TRUE)`.
+#' @param file_path character vector of path to file.
+#' @param show_each_use Logical, default is `FALSE`. If changed to `TRUE` will
+#'   return individual rows for each time a function is used (rather than just
+#'   once for the entire file).
+#' @param keep_search_list Logical, default is `TRUE`. If changed to `FALSE`
+#'   will include entire search list for function. May be helpful for debugging
+#'   in cases where {funspotr} may not be doing a good job of recreating the
+#'   search list for identifying which packages function(s) came from. This will
+#'   print all packages in the search list for each function.
+#' @param copy_local Logical, if changed to `FALSE` will not copy to a local
+#'   temporary folder prior to doing analysis. Many functions require file to
+#'   already be an .R file and for the file to exist locally. This should
+#'   generally not be set to `TRUE` unless these hold.
 #' @param print_pkgs_load_status Logical, default is `FALSE`. If set to `TRUE`
-#'   will *print* a named vector of logicals showing whether packages are on
+#'   will print a named vector of logicals showing whether packages are on
 #'   machine along with any warning messages that come when running `require()`.
-#'   Along with output.
+#'   Will continue on to produce output of function.
 #' @param error_if_missing_pkg Logical, default is `FALSE`. If set to `TRUE` then
 #'   `print_pkgs_load_status = TRUE` automatically. If a package is not
 #'   installed on the machine then will print load status of individual pkgs and
 #'   result in an error.
 #'
-#' @return Given default arguments and no missing packages A dataframe with the
-#'   following columns is returned: `funs`: specifying functions in file.
+#' @return Given default arguments and no missing packages, a dataframe with the
+#'   following columns is returned:
+#'   `funs`: specifying functions in file.
 #'   `pkgs`: the package a function came from. If `funs` is a custom function or
 #'   if it came from a package not installed on your machine, `pkgs` will return
-#'   "(unknown)". `in_multiple_pkgs`: logical, sometimes a function name may
-#'   exist in multiple packages loaded. If that is the case then a separate line
-#'   will be printed for each loaded package containing the function and
-#'   `in_multiple_pkgs` will be `TRUE` for each. (Ideally this column would not
-#'   need to exist and the function could determine which pkg the function is
-#'   coming from -- maybe in a future version...)
+#'   "(unknown)".
+#'   `in_multiple_pkgs`: logical, whether a function exists in multiple packages
+#'   loaded (i.e. on the search space of `utils::find()`.
 #'
-#' Note that any unknown pkgs do not show-up in `pkgs` but are simply dropped
-#' (any of their functions simply have `pkgs` equal to "unknown").
+#'   Note that any unused loaded packages/ `pkgs` are dropped from output.
+#'   Any functions without an available package are returned with the value
+#'   "(unknown)".
 #'
+#'   See README for further documentation.
+#'
+#' @seealso spot_funs
 #' @export
 #'
 #' @examples
@@ -152,16 +247,18 @@ list_functions_in_file_to_df <- function(funs){
 #'
 #' pkgs <- spot_pkgs(file_output)
 #'
-#' # Notice is not able to determine singular package for as_tibble()
 #' spot_funs_custom(pkgs, file_output)
 #'
 #' # If you'd rather it error when a pkg doesn't exist (e.g. {madeUpPkg})
 #' # You could run:
 #' # spot_funs_custom(pkgs, file_output, error_if_missing_pkg = TRUE)
 spot_funs_custom <- function(pkgs,
-                            file_path,
-                            print_pkgs_load_status = FALSE,
-                            error_if_missing_pkg = FALSE) {
+                             file_path,
+                             show_each_use = FALSE,
+                             keep_search_list = FALSE,
+                             copy_local = TRUE,
+                             print_pkgs_load_status = FALSE,
+                             error_if_missing_pkg = FALSE) {
 
 
   if(print_pkgs_load_status || error_if_missing_pkg){
@@ -175,35 +272,50 @@ spot_funs_custom <- function(pkgs,
     }
   }
 
-  file_temp <- copy_to_local_tempfile(file_path)
+  if(copy_local){
+    file_temp <- copy_to_local_tempfile(file_path)
+  } else file_temp <- file_path
 
-  callr::r(function(pkgs, file_temp) {
-    # load packages, inspiration: https://stackoverflow.com/a/8176099/9059865
-    lapply(pkgs, require, character.only = TRUE);
-    # inspiration: https://stackoverflow.com/a/53009440/9059865
-    NCmisc::list.functions.in.file(file_temp) },
-    args = list(pkgs, file_temp)) %>%
-    list_functions_in_file_to_df()
+  pkgs_explicit <- str_subset(pkgs, "::", negate = FALSE)
+
+  if(length(pkgs_explicit) == 0){
+    return(
+
+      call_r_list_functions(pkgs, file_temp, show_each_use) %>%
+        list_functions_in_file_to_df(keep_search_list)
+    )
+  } else {
+
+    pkgs_full <- str_subset(pkgs, "::", negate = TRUE)
+    pkgs_explicit <- map(pkgs_explicit,
+                         ~list(pkg = str_extract(.x, ".+(?=::)"),
+                               fun = str_extract(.x, "(?<=::).+"))
+                         )
+
+    call_r_list_functions_explicit(pkgs_full, pkgs_explicit, file_temp, show_each_use) %>%
+      list_functions_in_file_to_df(keep_search_list)
+
+  }
 }
-
-# put parts together so can input an R or Rmarkdown file
-# return the set of functions
 
 #' Spot Functions
 #'
 #' Given `file_path` extract all functions and their associated packages from
 #' specified file.
 #'
-#' `spot_funs()` uses `spot_funs_custom()` to run -- it is just a less verbose
-#' version and does not require passing in the packages separately. See
-#' `?spot_funs_custom` for details on how the function works.
+#' `spot_funs()` uses `spot_funs_custom()` to run -- it is a less verbose
+#' version and does not require passing in the packages separately. See README
+#' and `?spot_funs_custom` for details on how the function works and arguments
+#' that can be passed through (via `...`).
+#'
+#' If code syntax is malformed and cannot be properly parsed, function will error.
 #'
 #' @inheritParams spot_funs_custom
-#' @param ... This allows you to pass additional arguments to
-#'   `spot_funs_custom()` that may be useful when not all packages in `file_path`
-#'   are available on the machine. See `?spot_funs_custom` for documentation.
+#' @param ... This allows you to pass additional arguments through to
+#'   `spot_funs_custom()`.
 #'
 #' @inherit spot_funs_custom return
+#' @seealso spot_funs_custom github_spot_funs
 #' @export
 #'
 #' @examples
@@ -226,10 +338,20 @@ spot_funs_custom <- function(pkgs,
 #' file_output <- tempfile(fileext = ".R")
 #' writeLines(file_lines, file_output)
 #'
-#' # Notice is not able to determine singular package for as_tibble()
 #' spot_funs(file_output)
 spot_funs <- function(file_path, ...){
 
-  pkgs <- spot_pkgs(file_path)
-  spot_funs_custom(pkgs, file_path, ...)
+  file_temp <- copy_to_local_tempfile(file_path)
+
+  # Creating `file_temp` above and setting `copy_local = FALSE` here prevents
+  # redundant files being created. This is helpful in functions like
+  # `github_spot_funs()` that hit `spot_funs()` several times in that reduces
+  # the number of times the github API will be hit (otherwise with many files
+  # are likely to hit a 403 error).
+  pkgs <- spot_pkgs(file_temp, show_explicit_funs = TRUE, copy_local = FALSE)
+
+  spot_funs_custom(pkgs,
+                   file_temp,
+                   copy_local = FALSE,
+                   ...)
 }

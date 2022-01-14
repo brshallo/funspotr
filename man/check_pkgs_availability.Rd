@@ -4,17 +4,20 @@
 \alias{check_pkgs_availability}
 \title{Check Packages Availability}
 \usage{
-check_pkgs_availability(pkgs)
+check_pkgs_availability(pkgs, quietly = TRUE)
 }
 \arguments{
-\item{pkgs}{Character vector with package names checked.}
+\item{pkgs}{Character vector of package names. (Typically the output from
+\code{spot_pkgs()}).}
+
+\item{quietly}{logical: should progress and error messages be suppressed?}
 }
 \value{
-Named logical indicating whether each package is available on the
-machine.
+Named logical vector indicating whether each package is available on
+the machine.
 }
 \description{
-See example for common way would be used in {funspotr}.
+See example for way may use in {funspotr}.
 }
 \examples{
 library(funspotr)

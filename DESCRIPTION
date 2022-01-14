@@ -8,7 +8,7 @@ Authors@R:
          email = "brshallodev@gmail.com")
 Description: Helpers for identifying R functions in files.
   Created to help with spotting which functions and 
-  packages were used in repos such as blogdown blogs.
+  packages were used in some popular R repositories.
 License: MIT + file LICENSE
 BugReports: https://github.com/tidyverse/dplyr/issues
 Imports:
@@ -25,7 +25,8 @@ Imports:
   formatR,
   fs,
   tibble, 
-  utils
+  utils,
+  import
 Suggests:
   remotes
 Encoding: UTF-8

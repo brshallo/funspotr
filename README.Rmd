@@ -18,15 +18,16 @@ knitr::opts_chunk$set(
 # funspotr
 
 <!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of funspotr is to make it easy to identify which functions and associated packages are used in files.
+The goal of funspotr is to make it easy to identify which functions and packages are used in files.
 
-Currently `{funspotr}` cannot disambiguate when function names are shared beween package dependencies and may not identify *every* function in a script. See [Limitations, Problems, Musings] (or read the source code).
+`{funspotr}` may not identify *every* function and/or package. See [Limitations, Problems, Musings] or read the source code for details.
 
 ## Spot functions in a file
 
-The foundational function in `{funspotr}` is `spot_funs()` which returns a dataframe showing the functions and associated packages used in a single file.
+The primary function in `{funspotr}` is `spot_funs()` which returns a dataframe showing the functions and associated packages used in a file.
 
 ```{r}
 library(funspotr)
@@ -35,48 +36,67 @@ library(dplyr)
 file_lines <- "
 library(dplyr)
 require(tidyr)
-library(madeUpPkg)
 
-as_tibble(mpg) %>%
- group_by(class) %>%
- nest() %>%
- mutate(stats = purrr::map(data,
-                           ~lm(cty ~ hwy, data = .x)))
-
+as_tibble(mpg) %>% 
+  mutate(class = as.character(class)) %>%
+  group_by(class) %>%
+  nest() %>%
+  mutate(stats = purrr::map(data,
+                            ~lm(cty ~ hwy, data = .x)))
+ 
 made_up_fun()
 "
 
 file_output <- tempfile(fileext = ".R")
 writeLines(file_lines, file_output)
 
-# Notice is not able to determine singular package for as_tibble()
-# See [Limitations...] for more
 spot_funs(file_path = file_output)
 ```
 
-`spot_funs_custom()` allows the user to explicitly specify `pkgs` where functions may come from. This is useful in cases where the packages loaded are not in the same location as the `file_path` (e.g. they are loaded via `source()` or a DESCRIPTION file, or some other workflow). 
+* `funs`: function used in script
+* `pkgs`: `{funspotr}`s best guess as to the package it came from
+* `in_multiple_pkgs` : Whether the function has multiple packages/environments on it's search space. By default only the package at the top of the search space is  returned^[E.g. `as_tibble()` is attributed to `{tidyr}` by `spot_funs()` however `as_tibble()` is also in `{dplyr}`. I don't worry about getting to the root source of the package or the fact that both of those packages are just reexporting it from `{tibble}`. Setting `keep_search_list = TRUE` will return rows for each item in the search list which may be helpful if getting unexpected results.)]. 
 
 <!-- The example below uses `spot_pkgs_from_DESCRIPTION()` to load in package dependencies and then passes the resulting character vector to `spot_funs_custom()`. -->
 
-For example, let's check which functions go into creating the functions written in one of the R files in `{funspotr}`:
+`spot_funs_custom()` allows the user to explicitly specify `pkgs` where functions may come from. This is useful in cases where the packages loaded are not in the same location as the `file_path` (e.g. they are loaded via `source()` or a DESCRIPTION file, or some other workflow). For example, below is a made-up example where the `library()` calls are made in a separate file and `source()`d in.
 
 ```{r}
-funspotr_deps <- spot_pkgs_from_DESCRIPTION("https://raw.githubusercontent.com/brshallo/funspotr/main/DESCRIPTION")
+# file where packages are loaded
+file_libs <- "library(dplyr)
+library(lubridate)"
 
-# using dplyr::filter() to remove functions created in {funspotr}
+file_libs_output <- tempfile(fileext = ".R")
+writeLines(file_libs, file_libs_output)
+
+# File of interest where things happen
+file_run <- glue::glue(
+"source('{ file_libs_output }')
+  
+tibble::tibble(days_from_today = 0:10) %>% 
+    mutate(date = today() + days(days_from_today))
+", 
+file_libs_output = stringr::str_replace_all(file_libs_output, "\\\\", "/")
+)
+
+file_run_output <- tempfile(fileext = ".R")
+writeLines(file_run, file_run_output)
+
+# Identify packages using both files and then pass in explicitly to `spot_funs_custom()`
+pkgs <- c(spot_pkgs(file_libs_output), 
+          spot_pkgs(file_run_output, show_explicit_funs = TRUE))
+
 spot_funs_custom(
-  pkgs = funspotr_deps,
-  file_path = "https://raw.githubusercontent.com/brshallo/funspotr/main/R/spot-funs.R"
-  ) %>% 
-  dplyr::filter(pkgs != "(unknown)")
+  pkgs = pkgs,
+  file_path = file_run_output)
 ```
 
 ## Spot functions in a github repo
 
-`github_spot_funs()` identifies the R and Rmarkdown files in a github repository and then maps `spot_funs()` across all file URLs, outputting the results to a `spotted` list-column in a dataframe.
+`github_spot_funs()` is a wrapper on `spot_funs()` that maps it across all R or Rmarkdown files in a github repository.
 
 ```{r}
-# repo for an old presentation
+# repo for an old presentation I gave
 gh_ex <- github_spot_funs(
   repo = "brshallo/feat-eng-lags-presentation", 
   branch = "main")
@@ -84,37 +104,87 @@ gh_ex <- github_spot_funs(
 gh_ex
 ```
 
-These results may then be unnested to provide a table of which functions and packages are used in each file. You can then manipulate and search this table like any other data. For example say we want to find all places where `{here}`, `{readr}` or `{rsample}` packages are used.
+* `contents` : filepath in github repo
+* `urls`: URL to raw file on github
+* `spotted`: List-column of results when mapping `spot_funs()` across `urls`^[If any file could not be parsed will be  a `purrr::safely()` list-column output where each item is a list containing `result` and `error`.]. 
+
+These results may then be unnested with the helper `funspotr::unnest_github_results()` to provide a table of which functions and packages are used. You can manipulate this -- for example say we want to filter to those places where `{here}`, `{readr}` or `{rsample}` packages are used.
 
 ```{r}
 gh_ex %>% 
-  dplyr::relocate(spotted) %>% 
-  tidyr::unnest(spotted) %>% 
+  unnest_github_results() %>% 
   filter(pkgs %in% c("here", "readr", "rsample"))
 ```
 
-You can set `preview = TRUE` in `github_spot_funs()` to first view the files you intend to parse. (This is particularly helpful to start with in repositories with many files where it will take a while to run.)
+You can set `preview = TRUE` in `github_spot_funs()` to first view the files you intend to parse.
 
 ```{r}
-github_spot_funs(
+preview_files <- github_spot_funs(
   repo = "brshallo/feat-eng-lags-presentation", 
   branch = "main",
   preview = TRUE)
+
+preview_files
+```
+
+You can pass in a custom set of urls by inputting a dataframe to the argument `custom_urls`. E.g. say we only want to parse the "types-of-splits.R" and "Rmd-to-R.R" files.
+
+```{r}
+files <- preview_files %>% 
+  filter(stringr::str_detect(contents, "types-of-splits|Rmd-to-R"))
+
+github_spot_funs(custom_urls = files) %>% 
+  unnest_github_results()
 ```
 
 ## Files you didn't write
 
-Functions created in a file and functions from unavailable packages will output as `pkgs = "(unknown)"`. *To spot which package a function is from you must have the package installed locally.*
+Functions created in a file and functions from unavailable packages or packages that don't exist will output as `pkgs = "(unknown)"`. 
 
-Hence for files on other peoples' github repositories or that you created on a different machine, it is a good idea to start with `funspotr::check_pkgs_availability()` to see which packages you may be missing. `check_pkgs_availability(file_path) %>% funspotr:::install_missing_pkgs()` is a quick helper for installing missing packages (see "R/spot-pkgs.R" for documentation). 
+```{r}
+file_lines_missing_pkgs <- "
+library(dplyr)
 
-Alternatively, you may want to clone the repository locally and then use `renv::dependencies()` to identify and install the package dependencies to your local repository (see [{renv}](https://rstudio.github.io/renv/) for documentation) and only then start using `{funspotr}`. (`{renv}` is a more robust approach than using the `{funspotr}` functions and is particular important in cases where you are missing many dependencies or don't want to alter the packages in your global library).
+as_tibble(mpg)
+
+hello_world <- function() print('hello world')
+
+madeuppkg::made_up_fun()
+
+hello_world()
+"
+
+missing_pkgs_ex <- tempfile(fileext = ".R")
+writeLines(file_lines_missing_pkgs, missing_pkgs_ex)
+
+spot_funs(file_path = missing_pkgs_ex)
+```
+
+*To spot which package a function is from you must have the package installed locally.* Hence for files on other peoples' github repositories or that you created on a different machine, it is a good idea to start with `funspotr::check_pkgs_availability()` to see which packages you are missing.
+
+A quick helper for installing missing packages (see "R/spot-pkgs.R" for documentation):
+
+```r
+check_pkgs_availability(file_path) %>% 
+  funspotr:::install_missing_pkgs()
+```
+
+Alternatively, you may want to clone the repository locally and then use `renv::dependencies()` to identify and install the package dependencies to your local repository and only then start using `{funspotr}`. ([renv](https://rstudio.github.io/renv/) is a more robust approach to finding and installing dependencies than using the `{funspotr}` functions -- particularly in cases where you are missing many dependencies or don't want to alter the packages in your global library.)
 
 # Other Things
 
-**Helper for `{blogdown}` tags:**
+## Show all function calls
 
-`spot_pkgs()` has an argument for `as_yaml_tags` that flattens the dependencies and outputs them in a format that can be pasted into the **tags** section of a blogdown post's YAML header. See ([blogdown#647](https://github.com/rstudio/blogdown/issues/647)).
+Passing in `show_each_use = TRUE` to `...` in `get_funs()` or `github_spot_funs()` will return *all* instances of a function call rather than just once for each file. 
+
+Note `mutate()` at both rows 4 and 8:
+```{r}
+spot_funs(file_path = file_output, show_each_use = TRUE)
+```
+
+## Helper for `{blogdown}` tags
+
+Setting `as_yaml_tags = TRUE` in `spot_pkgs() flattens the dependencies and outputs them in a format that can be pasted into the **tags** section of a blogdown post's YAML header. See ([blogdown#647](https://github.com/rstudio/blogdown/issues/647)).
 
 ```{r}
 # Example from old blogdown post
@@ -123,25 +193,40 @@ spot_pkgs(
   as_yaml_tags = TRUE)
 ```
 
-**Unexported functions:**
+## Unexported functions
 
 Many of the unexported functions (in "R/github-spot.R" in particular) may be helpful in building up other workflows for mapping `spot_funs()` across multiple files. (Most unexported functions in `funspotr` still include documentation). *If you have a suggestion for a function or set of functions for spotting functions, feel free to open an issue.* 
 
 <!-- **If you've used {funspotr} to map the R functions and packages of a public blog or repository, open an issue to add a link in the README.** -->
 
+# How `funspotr::spot_funs()` works
 
-## Limitations, Problems, Musings
+At a high-level...
 
-* As mentioned elsewhere, the default parsing of `spot_funs()` and functions that build on this is primarily for cases where package dependencies are loaded in the same file that they are used in (i.e. in interactive scripts or notebooks where you use `library()` or related calls within the script). Scripts that are not self-contained typically require passing in a `pkgs` argument explicitly to `spot_funs_custom()`.
-* Feel free to open an issue if you'd be interested in a simplifying function or vignette for mapping `spot_funs()` through local repos or other folder structures outside of github repos containing largely self-contained files as in `github_spot_funs()`. E.g. for mapping across a local repository, across a package, a data workflow, etc.
-* All the functions in "R/spot-pkgs.R" would be better handled by something like `renv::dependencies()` or a parsing based approach. The simple regex's I use have a variety of problems. As just one example `funspotr::get_pkgs()` will not recognize when a package is within quotes or being escaped, e.g. in this case `lines <- "library(pkg)"`  the `pkg` would show-up as a dependency despite just being part of a quote rather than actually loaded.
-* The foundation of "R/spot-funs.R" is `NCmisc::list.functions.in.file()` which would likely be better if instead handled by however `R CMD check` does function parsing. 
-    * The current approach is much slower than `R CMD check`
-    * `NCmisc::list.functions.in.file()` does not properly consider namespaces -- making the `in_multiple_pkgs` column in the output of `spot_funs()` necessary in cases of ambigugity (a better handling of namespaces should obviate the need for this column).
-        * Even when there is an explicit call to a function (e.g. `pkg::fun()`), `NCmisc::list.functions.in.file()` will not know `fun` is coming from `pkg` specifically if there is another package loaded elsewhere that also contains a function named `fun()`
-    * Does not identify infix operators, e.g. `+` (maybe this is fine though)
+1. Create a new R instance using [callr](https://github.com/r-lib/callr)
+2. Load packages. Explicit calls (e.g. `pkg::fun()`) are loaded individually via [import](https://github.com/rticulate/import) and are loaded last (putting them at the top of the search space)^[This heuristic is imperfect and means that a file with "library(dplyr); select(); MASS::select()" would view both `select()` calls as coming from `{MASS}` -- when what it should do is view the first was as coming from {dplyr} and the second from {MASS}.].
+
+(steps 1 and 2 needed so that later `find()` step will have best chance of identifying the package a function comes from in the file.)
+
+3. Pass file through `utils::getParseData()` and filter to just functions
+4. Pass functions through `utils::find()` to identify associated package
+
+# Limitations, Problems, Musings
+
+* If a file contains R syntax that is not well defined it will not be parsed
+* `knitr::read_chunk()` and `knitr::purl()` will also often frequently break parsing. See [knitr#1753](https://github.com/yihui/knitr/issues/1753) & [knitr#1938](https://github.com/yihui/knitr/issues/1938)
+* Please open an issue if you find other cases where it breaks :-) .
+* As mentioned elsewhere, the default parsing of `spot_funs()` and functions that build on this is primarily for cases where package dependencies are loaded in the same file that they are used in^[i.e. in interactive R scripts or Rmd documents where you use `library()` or related calls within the script.]. Scripts that are not self-contained typically should have the `pkgs` argument provided explicitly via `spot_funs_custom()`.
+* Feel free to open an issue if you'd be interested in a simplifying function or vignette for mapping `spot_funs()` through local repos or other folder structures other than github respositories (as in `github_spot_funs()`)^[E.g. for mapping across a local repository, across a package, a data workflow, etc.]
+* All the functions in "R/spot-pkgs.R" would probably be better handled by something like `renv::dependencies()` or a parsing based approach. The simple regex's I use have a variety of problems. As just one example `funspotr::get_pkgs()` will not recognize when a package is within quotes or being escaped^[e.g. in this case `lines <- "library(pkg)"`  the `pkg` would show-up as a dependency despite just being part of a quote rather than actually loaded.].
+* I am curiuos if there is something to be learned from how `R CMD check` does function parsing. 
+    * `{funspotr}`s urrent approach is slow
+    * Current approach uses some imperfect heuristics
+* Does not identify infix operators, e.g. `+` (maybe this is fine though)
 * `funspotr` has LOTS of dependencies
 * It may have made more sense to have `github_get_funs()` clone the repo locally rather than pointing to URL's to parse each file.
+* Currently is possible to have github block you pretty soon due to hitting too many files (in which case you'll likely get a 403 or connection error). There are some things that could probably be done to reduce number of github API hits (e.g. above bullet).
+* Throughout the code and package documentation I have "inspiration" bullets followed by a link pointing to places where I took stuff from stack overflow, github, or other packages
 
 ## Installation
 

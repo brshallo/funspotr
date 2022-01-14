@@ -17,8 +17,7 @@ Given explicit path to DESCRIPTION file return package dependencies therein.
 inspiration: https://stackoverflow.com/a/30225680/9059865
 }
 \examples{
-library(funspotr)
-spot_pkgs_from_DESCRIPTION(
+funspotr:::spot_pkgs_from_DESCRIPTION(
   "https://raw.githubusercontent.com/brshallo/animatrixr/master/DESCRIPTION"
 )
 }

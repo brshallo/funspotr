@@ -4,17 +4,28 @@
 \alias{list_functions_in_file_to_df}
 \title{List Functions in File to Dataframe}
 \usage{
-list_functions_in_file_to_df(funs)
+list_functions_in_file_to_df(funs, keep_search_list = FALSE)
 }
 \arguments{
 \item{funs}{List output returned from running
-NCmisc::list.functions.in.file()}
+\code{funspotr:::list_functions_in_file()}}
+
+\item{keep_search_list}{Logical, default is \code{TRUE} if change to \code{FALSE} will
+include entire search list as a list-column.}
 }
 \description{
 This is a helper function that converts output from
-\code{NCmisc::list.functions.in.file()} into a tibble and cleans-up a few things.
-}
-\details{
+\code{funspotr:::list_functions_in_file()} into a tibble and cleans-up a few
+things.
+'
 \code{list_functions_in_file_to_df()} is the last step inside \code{spot_funs()} --
 check there for documentation on the returned output.
+}
+\details{
+Note that the \code{map_chr(pkgs, 1)} step at the end means that it only keeps
+the version of the function at the top of the fabricated search list. This is
+not perfect however. It also does nothing with reexported functions etc.
+(e.g. \code{as_tibble()} home is {tibble} but it is reexported by {dplyr} and
+{tidyr} -- this is meaningless to \code{spot_funs()} though which is just
+looking at the top of the search space via \code{utils::find()})
 }

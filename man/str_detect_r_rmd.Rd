@@ -10,10 +10,11 @@ str_detect_r_rmd(contents, rmv_index = TRUE)
 \item{contents}{Vector of folder and file pathways.}
 
 \item{rmv_index}{Logical, most repos containing blogdown sites will have an
-index.R file. By default these are removed from list of files.}
+index.R file at the root. Change to \code{TRUE} if you don't want this file
+removed.}
 }
 \value{
-Subsetted character vector.
+Logical vector.
 }
 \description{
 Keep only R and Rmarkdown files

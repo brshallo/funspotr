@@ -7,37 +7,38 @@
 spot_funs(file_path, ...)
 }
 \arguments{
-\item{file_path}{character vector of path to file. This function depends on
-\code{NCmisc::list.function.in_file()} which requries an actual file_path for a
-file passed in.}
+\item{file_path}{character vector of path to file.}
 
-\item{...}{This allows you to pass additional arguments to
-\code{spot_funs_custom()} that may be useful when not all packages in \code{file_path}
-are available on the machine. See \code{?spot_funs_custom} for documentation.}
+\item{...}{This allows you to pass additional arguments through to
+\code{spot_funs_custom()}.}
 }
 \value{
-Given default arguments and no missing packages A dataframe with the
-following columns is returned: \code{funs}: specifying functions in file.
+Given default arguments and no missing packages, a dataframe with the
+following columns is returned:
+\code{funs}: specifying functions in file.
 \code{pkgs}: the package a function came from. If \code{funs} is a custom function or
 if it came from a package not installed on your machine, \code{pkgs} will return
-"(unknown)". \code{in_multiple_pkgs}: logical, sometimes a function name may
-exist in multiple packages loaded. If that is the case then a separate line
-will be printed for each loaded package containing the function and
-\code{in_multiple_pkgs} will be \code{TRUE} for each. (Ideally this column would not
-need to exist and the function could determine which pkg the function is
-coming from -- maybe in a future version...)
+"(unknown)".
+\code{in_multiple_pkgs}: logical, whether a function exists in multiple packages
+loaded (i.e. on the search space of \code{utils::find()}.
 
-Note that any unknown pkgs do not show-up in \code{pkgs} but are simply dropped
-(any of their functions simply have \code{pkgs} equal to "unknown").
+Note that any unused loaded packages/ \code{pkgs} are dropped from output.
+Any functions without an available package are returned with the value
+"(unknown)".
+
+See README for further documentation.
 }
 \description{
 Given \code{file_path} extract all functions and their associated packages from
 specified file.
 }
 \details{
-\code{spot_funs()} uses \code{spot_funs_custom()} to run -- it is just a less verbose
-version and does not require passing in the packages separately. See
-\code{?spot_funs_custom} for details on how the function works.
+\code{spot_funs()} uses \code{spot_funs_custom()} to run -- it is a less verbose
+version and does not require passing in the packages separately. See README
+and \code{?spot_funs_custom} for details on how the function works and arguments
+that can be passed through (via \code{...}).
+
+If code syntax is malformed and cannot be properly parsed, function will error.
 }
 \examples{
 library(funspotr)
@@ -59,6 +60,8 @@ made_up_fun()
 file_output <- tempfile(fileext = ".R")
 writeLines(file_lines, file_output)
 
-# Notice is not able to determine singular package for as_tibble()
 spot_funs(file_output)
+}
+\seealso{
+spot_funs_custom github_spot_funs
 }

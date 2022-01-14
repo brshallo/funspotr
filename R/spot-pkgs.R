@@ -1,5 +1,5 @@
 # ESSENTIALLY EVERYTHING HERE WOULD BE BETTER DONE WITH a parsing rather than
-# regex based method and should likely be moved to use `renv::dependencies()` or
+# regex based approach and should perhaps be moved to use `renv::dependencies()` or
 # other established packages for dependency detection and management.
 
 #' Spot packages loaded or used in file
@@ -10,18 +10,32 @@
 #' DESCRIPTION file for a pkg or something like `source("lib-calls.R")`).
 #' Inspiration: https://github.com/rstudio/blogdown/issues/647
 #'
-#' This would be better handled by something like `renv::dependencies()` or
-#' established packages for identifying package dependencies.
+#'   Packages are extracted solely based on text -- not whether the
+#'   package actually exists or not. Hence even packages that you do not have
+#'   installed on your machine but show-up in the script will be returned in the
+#'   character vector.
 #'
 #' @param file_path Character of length one of path to file of interest.
+#' @param show_explicit_funs In cases where a function is called explicitly,
+#'   show both the package dependency and the function together. For example a
+#'   script containing `dplyr::select()` (as opposed to `library(dplyr);
+#'   select()`) would have `spot_pkgs(show_explicit_funs = TRUE)` return the
+#'   item as "dplyr::select" rather than just "dplyr")
+#' @param copy_local Logical, if changed to `FALSE` will not copy to a local
+#'   temporary folder prior to doing analysis. Many processes require file to
+#'   already be a .R file and for the file to exist locally, hence this should
+#'   usually be set to `TRUE` unless these are known to be the case.
 #' @param as_yaml_tags Logical, default is `FALSE`. If set to `TRUE` flattens
 #'   and puts into a format convenient for pasting in "tags" section of a
-#'   blogdown post.
+#'   blogdown post Rmd document.
 #'
-#' @return Character vector of all packages used in file. Packages are extracted
-#'   solely based on text -- not whether the package actually exists or not.
-#'   Hence even packages that you do not have installed on your machine but
-#'   show-up in the script will be returned in the character vector.
+#' @return Character vector of all packages used in file (or in cases where
+#'   show_explicit_funs = TRUE and there are explicit calls in the package,
+#'   "pkg:fun").
+#'
+#'
+#' @seealso spot_pkgs_from_description github_spot_pkgs renv::dependencies
+#'
 #' @export
 #'
 #' @examples
@@ -46,34 +60,46 @@
 #'
 #' spot_pkgs(file_output)
 #'
-#' # For if you use blogdown, there is an argument to return the identified
-#' # packages in a way that is convenient for adding them to the tags section of
-#' # a yaml header.
+#' # To view `purrr::map` as an explicit call
+#' spot_pkgs(file_output, show_explicit_funs = TRUE)
+#'
+#' # To output for blogdown post YAML header tags
 #' spot_pkgs(file_output, as_yaml_tags = TRUE)
-spot_pkgs <- function(file_path, as_yaml_tags = FALSE){
+spot_pkgs <- function(file_path, show_explicit_funs = FALSE, copy_local = TRUE, as_yaml_tags = FALSE){
 
-  file_temp <- copy_to_local_tempfile(file_path)
+  if(copy_local){
+    file_temp <- copy_to_local_tempfile(file_path)
+  } else file_temp <- file_path
 
-  # file <- readr::read_lines(file_path)
-  file <- formatR::tidy_source(file_temp, comment = FALSE, output = FALSE)$text.tidy %>%
-    readr::read_lines()
+  # Remove comments so regexs don't run through
+  file <- formatR::tidy_source(file_temp, comment = FALSE, output = FALSE)$text.tidy
+  if(stringr::str_trim(str_flatten(file)) == "") {
+    message("No R code in file.")
+    return(character())
+  } else file <- readr::read_lines(file)
 
-  lib_calls <- str_extract_all(file, "(?<=library\\()[:alnum:]+(?=[:punct:])", simplify = TRUE) %>%
+
+  lib_calls <- "(?<=library\\()[:alnum:]+(?=[:punct:])"
+  req_calls <- "(?<=require\\()[:alnum:]+(?=[:punct:])"
+  reqns_calls <- "(?<=requireNamespace\\([:punct:])[:alnum:]+(?=[:punct:])"
+
+  if(show_explicit_funs){
+    explicit_calls <- "[[:alnum:]|\\.]+::[^\\(]+"
+  } else explicit_calls <- "[[:alnum:]|\\.]+(?=::)"
+
+  regex_calls <- str_flatten(c(lib_calls, req_calls, reqns_calls, explicit_calls), collapse = "|")
+
+  pkg_calls <- str_extract_all(file, regex_calls, simplify = TRUE) %>%
     str_remove_all('"')
-  req_calls <- str_extract_all(file, "(?<=require\\()[:alnum:]+(?=[:punct:])", simplify = TRUE) %>%
-    str_remove_all('"')
-  reqns_calls <- str_extract_all(file, "(?<=requireNamespace\\([:punct:])[:alnum:]+(?=[:punct:])", simplify = TRUE) %>%
-    str_remove_all('"')
-  explicit_calls <- str_extract_all(file, "[[:alnum:]|\\.]+(?=::)", simplify = TRUE)
 
-  output <- c(lib_calls, req_calls, reqns_calls, explicit_calls) %>%
+  output <- pkg_calls %>%
     stringr::str_subset(pattern = ".+") %>%
-    sort() %>%
+    # sort() %>% # instead show in-order they are loaded
     unique()
 
   if(as_yaml_tags){
     output_tags <- output %>%
-      stringr::str_flatten("\n  - ") %>%
+      str_flatten("\n  - ") %>%
       stringr::str_c("  - ", .)
 
     return( cat(output_tags) )
@@ -90,11 +116,9 @@ spot_pkgs <- function(file_path, as_yaml_tags = FALSE){
 #' @param DESCRIPTION_path Path to DESCRIPTION file
 #'
 #' @return Character vector of packages.
-#' @export
 #'
 #' @examples
-#' library(funspotr)
-#' spot_pkgs_from_DESCRIPTION(
+#' funspotr:::spot_pkgs_from_DESCRIPTION(
 #'   "https://raw.githubusercontent.com/brshallo/animatrixr/master/DESCRIPTION"
 #' )
 spot_pkgs_from_DESCRIPTION <- function(DESCRIPTION_path) {
@@ -110,12 +134,14 @@ spot_pkgs_from_DESCRIPTION <- function(DESCRIPTION_path) {
 
 #' Check Packages Availability
 #'
-#' See example for common way would be used in {funspotr}.
+#' See example for way may use in {funspotr}.
 #'
-#' @param pkgs Character vector with package names checked.
+#' @param pkgs Character vector of package names. (Typically the output from
+#'   `spot_pkgs()`).
+#' @param quietly logical: should progress and error messages be suppressed?
 #'
-#' @return Named logical indicating whether each package is available on the
-#'   machine.
+#' @return Named logical vector indicating whether each package is available on
+#'   the machine.
 #' @export
 #'
 #' @examples
@@ -142,17 +168,23 @@ spot_pkgs_from_DESCRIPTION <- function(DESCRIPTION_path) {
 #' spot_pkgs(file_output) %>%
 #'   check_pkgs_availability()
 #'
-check_pkgs_availability <- function(pkgs){
-  purrr::map_lgl(pkgs, requireNamespace) %>%
+check_pkgs_availability <- function(pkgs, quietly = TRUE){
+
+  # remove function components of explicit function calls:
+  # "pkg::fun" becomes "pkg"
+  pkgs <- stringr::str_remove(pkgs, "::.+") %>%
+    unique()
+
+  purrr::map_lgl(pkgs, requireNamespace, quietly = quietly) %>%
     purrr::set_names(pkgs)
 }
 
 
 #' Install missing packages
 #'
-#' Attempt to install missing packages from CRAN. This whole set of functions
-#' would be better if handled by taking advantage of something like
-#' `renv::dependencies()`.
+#' Attempt to install missing packages from CRAN.
+#'
+#' In most cases, is probably safer to clone and use `renv::dependencies()` -- README.
 #'
 #' @param pkgs_availability Named logical vector where names are packages --
 #'   generally the output of running `check_pkgs_availability()`.
@@ -182,7 +214,7 @@ check_pkgs_availability <- function(pkgs){
 #' file_output <- tempfile(fileext = ".R")
 #' writeLines(file_lines, file_output)
 #'
-#' # should verify pkgs are available on CRAN -- this won't work in this case
+#' # should verify pkgs are available on CRAN -- this wouldn't work in this case
 #' # because # {madeUpPkg} doesn't exist on CRAN
 #' spot_pkgs(file_output) %>%
 #'   check_pkgs_availability() %>%

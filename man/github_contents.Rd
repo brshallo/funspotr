@@ -9,7 +9,7 @@ github_contents(repo, branch = "main")
 \arguments{
 \item{repo}{Github user/repo}
 
-\item{branch}{Default is "main", "master" is likely also common.}
+\item{branch}{Default is "main"; "master" is also common.}
 }
 \value{
 Character vector of contents from github repo.

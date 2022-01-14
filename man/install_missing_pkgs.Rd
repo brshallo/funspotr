@@ -15,7 +15,8 @@ Installs packages from cran using \code{remotes::install_cran()} if
 available else \code{install.packages()}
 }
 \description{
-Attempt to install missing packages from CRAN. This whole set of functions
-would be better if handled by taking advantage of something like
-\code{renv::dependencies()}.
+Attempt to install missing packages from CRAN.
+}
+\details{
+In most cases, is probably safer to clone and use \code{renv::dependencies()} -- README.
 }

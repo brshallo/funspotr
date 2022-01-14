@@ -9,7 +9,7 @@ github_contents_urls(repo, branch = "main")
 \arguments{
 \item{repo}{Github user/repo}
 
-\item{branch}{Default is "main", "master" is likely also common.}
+\item{branch}{Default is "main"; "master" is also common.}
 }
 \value{
 Dataframe with columns \code{contents} and \code{urls}.

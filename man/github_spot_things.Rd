@@ -6,35 +6,61 @@
 \alias{github_spot_things}
 \title{Spot Packages or Functions from Github Repository}
 \usage{
-github_spot_pkgs(repo, branch = "main", preview = FALSE, rmv_index = TRUE)
+github_spot_pkgs(
+  repo,
+  branch = "main",
+  ...,
+  preview = FALSE,
+  rmv_index = TRUE,
+  custom_urls = NULL
+)
 
-github_spot_funs(repo, branch = "main", preview = FALSE, rmv_index = TRUE)
+github_spot_funs(
+  repo,
+  branch = "main",
+  ...,
+  preview = FALSE,
+  rmv_index = TRUE,
+  custom_urls = NULL
+)
 }
 \arguments{
 \item{repo}{Github repository, e.g. "brshallo/feat-eng-lags-presentation"}
 
 \item{branch}{Branch of github repository, default is "main".}
 
-\item{preview}{Logical, if set to \code{TRUE} will print urls that will be
-passed through \code{spot_funs()} or \code{spot_pkgs()} without parsing files.}
+\item{...}{Arguments passed onto \verb{spot_*()}.}
+
+\item{preview}{Logical, if set to \code{TRUE} will return dataframe of urls that
+will be passed through \code{spot_funs()} or \code{spot_pkgs()} without parsing
+files. See README for example of how this can be combined with
+\code{custom_urls} to only parse a subset of files identified.}
 
 \item{rmv_index}{Logical, most repos containing blogdown sites will have an
-index.R file. By default these are removed from list of files.}
+index.R file at the root. Change to \code{TRUE} if you don't want this file
+removed.}
+
+\item{custom_urls}{Option to pass in a dataframe with columns \code{contents} and
+\code{urls} to overrride the default urls in the repo to parse. Default is
+\code{NULL}. See README for example.}
 }
 \value{
 Dataframe with \code{contents} and \code{urls} of file paths along with a
-list-column \code{spotted} containing packages or functions & packages used in
-each file.
+list-column \code{spotted} containing \code{purrr::safely()} lists of "result" and
+"error" for each file parsed. See \code{unnest_github_results()} for helper to
+put into an easier to read format.
 }
 \description{
 \code{github_spot_pkgs()} : Spot all packages that show-up in R or Rmarkdown
-documents in the github repository.
+documents in the github repository. Essentially a wrapper for mapping
+\code{spot_pkgs()} across multiple files.
 }
 \details{
-\code{github_spot_funs()} : Spot all functions and their corresponding packages that
-show-up in R or Rmarkdown documents in the github repository.
+\code{github_spot_funs()} : Spot all functions and their corresponding packages
+that show-up in R or Rmarkdown documents in the github repository.
+Essentially a wrapper for mapping \code{spot_pkgs()} across multiple files.
 
-Meant for cases where packages and scripts are in \emph{the same} file, in cases
+Meant for cases where packages and scripts are in \emph{the same} file. In cases
 where this is not the case will need to build an alternative workflow. See
 unexported functions in R/github-spot.R for some potentially helpful building
 blocks.
@@ -43,7 +69,17 @@ blocks.
 library(funspotr)
 
 github_spot_funs("brshallo/feat-eng-lags-presentation", branch = "main")
+
+# Say you only want to parse a subset of the R file discovered, you could do
+# something like:
+library(dplyr)
+
+github_spot_funs("brshallo/feat-eng-lags-presentation", branch = "main", preview = TRUE) \%>\%
+  slice(1:2) \%>\%
+  github_spot_funs(custom_urls = .)
 }
 \seealso{
+spot_pkgs spot_funs spot_funs_custom unnest_github_results
+
 spot_pkgs spot_funs
 }
