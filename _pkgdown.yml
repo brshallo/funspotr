@@ -1,2 +1,21 @@
 url: https://brshallo.github.io/funspotr/
+template:
+  bootstrap: 5
 
+reference:
+- title: "Individual files"
+  desc: >
+    Functions for reviewing individual files
+  contents:
+  - spot_funs
+  - spot_funs_custom
+  - spot_pkgs
+  - check_pkgs_availability
+- title: "Github repository"
+  desc: >
+    Functions for mapping functions across files in
+    a github repository or related.
+  contents:
+  - github_spot_funs
+  - github_spot_pkgs
+  - unnest_github_results

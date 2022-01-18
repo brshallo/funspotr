@@ -11,7 +11,8 @@ To learn more about funspotr see https://github.com/brshallo/funspotr
 \seealso{
 Useful links:
 \itemize{
-  \item Report bugs at \url{https://github.com/tidyverse/dplyr/issues}
+  \item \url{https://brshallo.github.io/funspotr/}
+  \item Report bugs at \url{https://github.com/brshallo/funspotr/issues}
 }
 
 }

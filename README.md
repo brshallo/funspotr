@@ -269,6 +269,8 @@ spot_funs_custom(
 #> 5 days   lubridate FALSE
 ```
 
+Also see `funspotr:::spot_pkgs_from_DESCRIPTION()`.
+
 ## Show all function calls
 
 Passing in `show_each_use = TRUE` to `...` in `get_funs()` or
