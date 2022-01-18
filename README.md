@@ -10,19 +10,19 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- badges: end -->
 
 The goal of funspotr is to make it easy to identify which functions and
-packages are used in files. It was primarily written with a few popular
-github repositories in mind (see
+packages are used in files. It was initially written to map out the
+functions and packages used in a few popular github repositories (see
 [brshallo/funspotr-examples](https://github.com/brshallo/funspotr-examples)).
 
 funspotr is primarily designed for self-contained scripts (see [Package
-dependencies in another file](#package-dependencies-in-another-file))
-and may not identify *every* function and/or package (see [Limitations,
-Problems, Musings](#limitations-problems-musings)) or read the source
-code for details.
+dependencies in another file](#package-dependencies-in-another-file)).
+Also, it may not identify *every* function and/or package (see
+[Limitations, Problems, Musings](#limitations-problems-musings)) or read
+the source code for details.
 
 ## Spot functions in a file
 
-The primary function in `{funspotr}` is `spot_funs()` which returns a
+The primary function in funspotr is `spot_funs()` which returns a
 dataframe showing the functions and associated packages used in a file.
 
 ``` r
@@ -80,6 +80,14 @@ all R or Rmarkdown files in a github repository.
 gh_ex <- github_spot_funs(
   repo = "brshallo/feat-eng-lags-presentation", 
   branch = "main")
+#> Error in file(file, ifelse(append, "a", "w")) : 
+#>   cannot open the connection
+#> Error in file(file, ifelse(append, "a", "w")) : 
+#>   cannot open the connection
+#> Error in file(file, ifelse(append, "a", "w")) : 
+#>   cannot open the connection
+#> Error in file(file, ifelse(append, "a", "w")) : 
+#>   cannot open the connection
 
 gh_ex
 #> # A tibble: 4 x 3
@@ -99,8 +107,9 @@ gh_ex
 These results may then be unnested with the helper
 `funspotr::unnest_github_results()` to provide a table of which
 functions and packages are used. This can be manipulated like any other
-dataframe – say we want to filter to those files where `{here}`,
-`{readr}` or `{rsample}` packages are used.
+dataframe – say we want to filter to those files where
+[here](https://here.r-lib.org/), [readr](https://readr.tidyverse.org/)
+or [rsample](https://rsample.tidymodels.org/) packages are used.
 
 ``` r
 gh_ex %>% 
@@ -148,6 +157,10 @@ preview_files %>%
   filter(stringr::str_detect(contents, "types-of-splits|Rmd-to-R")) %>% 
   github_spot_funs(custom_urls = .) %>% 
   unnest_github_results()
+#> Error in file(file, ifelse(append, "a", "w")) : 
+#>   cannot open the connection
+#> Error in file(file, ifelse(append, "a", "w")) : 
+#>   cannot open the connection
 #> # A tibble: 24 x 5
 #>    funs      pkgs      in_multiple_pkgs contents            urls                
 #>    <chr>     <chr>     <lgl>            <chr>               <chr>               
@@ -198,7 +211,7 @@ spot_funs(file_path = missing_pkgs_ex)
 ```
 
 *To spot which package a function is from you must have the package
-installed locally.* Hence for files on other’ github repos or that you
+installed locally.* Hence for files on others’ github repos or that you
 created on a different machine, it is a good idea to start with
 `funspotr::check_pkgs_availability()` to see which packages you are
 missing.
@@ -212,7 +225,7 @@ check_pkgs_availability(file_path) %>%
 ```
 
 Alternatively, you may want to clone the repository locally and then use
-`renv::dependencies()` and only then start using `{funspotr}`.
+`renv::dependencies()` and only then start using funspotr.
 [renv](https://rstudio.github.io/renv/) is a more robust approach to
 finding and installing dependencies – particularly in cases where you
 are missing many dependencies or don’t want to alter the packages in
@@ -295,7 +308,7 @@ spot_funs(file_path = file_output, show_each_use = TRUE)
 #> 11 made_up_fun  (unknown) FALSE
 ```
 
-## Helper for `{blogdown}` tags
+## Helper for [blogdown](https://pkgs.rstudio.com/blogdown/) tags
 
 Setting `as_yaml_tags = TRUE` in `spot_pkgs()` flattens the dependencies
 and outputs them in a format that can be pasted into the **tags**
@@ -343,9 +356,11 @@ the package a function comes from in the file.)
 # Limitations, Problems, Musings
 
 -   If a file contains R syntax that is not well defined it will not be
-    parsed
--   `knitr::read_chunk()` and `knitr::purl()` will often frequently
-    error in parsing. See
+    parsed and return an error. See
+    [formatR](https://yihui.org/formatr/#6-further-notes) (used by
+    {funspotr} in parsing) for other common reasons for failure.
+-   `knitr::read_chunk()` and `knitr::purl()` in a file passed to
+    {funspotr} will also frequently cause an error in parsing. See
     [knitr\#1753](https://github.com/yihui/knitr/issues/1753) &
     [knitr\#1938](https://github.com/yihui/knitr/issues/1938)
 -   Please open an issue if you find other cases where it breaks :-) .
@@ -365,10 +380,12 @@ the package a function comes from in the file.)
     package is within quotes or being escaped[6].
 -   I am curiuos if there is something to be learned from how
     `R CMD check` does function parsing.
-    -   `{funspotr}`s current approach is slow
+    -   \`funspotr’s current approach is slow
     -   Current approach uses some imperfect heuristics
 -   Does not identify infix operators, e.g. `+` (maybe fine though)
--   `funspotr` has lots of dependencies
+-   `funspotr` has lots of dependencies. It may have make sense to move
+    some of the non-core functionality into a separate package
+    (e.g. everything “R/github-spot.R”)
 -   It may have made more sense to have `github_get_funs()` clone the
     repo locally rather than pointing to URL’s to parse each file.
 -   Currently is possible to have github block you pretty soon due to
@@ -390,10 +407,12 @@ You can install the development version of funspotr from
 devtools::install_github("brshallo/funspotr")
 ```
 
-[1] E.g. `as_tibble()` is attributed to `{tidyr}` by `spot_funs()`
-however `as_tibble()` is also in `{dplyr}`. I don’t worry about getting
-to the root source of the package or the fact that both of those
-packages are just reexporting it from `{tibble}`. Setting
+[1] E.g. `as_tibble()` is attributed to
+[tidyr](https://tidyr.tidyverse.org/) by `spot_funs()` however
+`as_tibble()` is also in [dplyr](https://dplyr.tidyverse.org/). I don’t
+worry about getting to the root source of the package or the fact that
+both of those packages are just reexporting it from
+[tibble](https://tibble.tidyverse.org/). Setting
 `keep_search_list = TRUE` will return rows for each item in the search
 list which may be helpful if getting unexpected results.)
 
@@ -403,7 +422,7 @@ list-column output where each item is a list containing `result` and
 
 [3] This heuristic is imperfect and means that a file with
 “library(dplyr); select(); MASS::select()” would view both `select()`
-calls as coming from `{MASS}` – when what it should do is view the first
+calls as coming from {MASS} – when what it should do is view the first
 was as coming from {dplyr} and the second from {MASS}.
 
 [4] i.e. in interactive R scripts or Rmd documents where you use

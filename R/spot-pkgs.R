@@ -71,12 +71,13 @@ spot_pkgs <- function(file_path, show_explicit_funs = FALSE, copy_local = TRUE, 
     file_temp <- copy_to_local_tempfile(file_path)
   } else file_temp <- file_path
 
+  file <- readr::read_lines(file_temp)
+
   # Remove comments so regexs don't run through
-  file <- formatR::tidy_source(file_temp, comment = FALSE, output = FALSE)$text.tidy
   if(stringr::str_trim(str_flatten(file)) == "") {
     message("No R code in file.")
     return(character())
-  } else file <- readr::read_lines(file)
+  }
 
 
   lib_calls <- "(?<=library\\()[:alnum:]+(?=[:punct:])"
