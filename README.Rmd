@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of funspotr is to make it easy to identify which functions and packages are used in files. It was initially written to map out the functions and packages used in a few popular github repositories (see [brshallo/funspotr-examples](https://github.com/brshallo/funspotr-examples)).
+The goal of funspotr (R function spotter) is to make it easy to identify which functions and packages are used in files. It was initially written to map out the functions and packages used in a few popular github repositories (see [brshallo/funspotr-examples](https://github.com/brshallo/funspotr-examples) and associated [blog post](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/)).
 
 funspotr is primarily designed for self-contained scripts (see [Package dependencies in another file]). Also, it may not identify *every* function and/or package (see [Limitations, Problems, Musings]) or read the source code for details.
 
