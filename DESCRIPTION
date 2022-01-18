@@ -10,7 +10,7 @@ Description: Helpers for identifying R functions in files.
   Created to help with spotting which functions and 
   packages were used in some popular R repositories.
 License: MIT + file LICENSE
-BugReports: https://github.com/tidyverse/dplyr/issues
+BugReports: https://github.com/brshallo/funspotr/issues
 Imports:
   dplyr (>= 0.8.3),
   tidyr,
@@ -32,3 +32,4 @@ Suggests:
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+URL: https://brshallo.github.io/funspotr/
