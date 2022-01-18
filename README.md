@@ -80,14 +80,6 @@ all R or Rmarkdown files in a github repository.
 gh_ex <- github_spot_funs(
   repo = "brshallo/feat-eng-lags-presentation", 
   branch = "main")
-#> Error in file(file, ifelse(append, "a", "w")) : 
-#>   cannot open the connection
-#> Error in file(file, ifelse(append, "a", "w")) : 
-#>   cannot open the connection
-#> Error in file(file, ifelse(append, "a", "w")) : 
-#>   cannot open the connection
-#> Error in file(file, ifelse(append, "a", "w")) : 
-#>   cannot open the connection
 
 gh_ex
 #> # A tibble: 4 x 3
@@ -157,10 +149,6 @@ preview_files %>%
   filter(stringr::str_detect(contents, "types-of-splits|Rmd-to-R")) %>% 
   github_spot_funs(custom_urls = .) %>% 
   unnest_github_results()
-#> Error in file(file, ifelse(append, "a", "w")) : 
-#>   cannot open the connection
-#> Error in file(file, ifelse(append, "a", "w")) : 
-#>   cannot open the connection
 #> # A tibble: 24 x 5
 #>    funs      pkgs      in_multiple_pkgs contents            urls                
 #>    <chr>     <chr>     <lgl>            <chr>               <chr>               
