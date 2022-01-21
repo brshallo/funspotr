@@ -104,6 +104,8 @@ preview_files %>%
   unnest_github_results()
 ```
 
+The `custom_urls` argument works for any situation where you want to map `spot_funs()` across a set of filepaths or URLs. E.g. see example in `github_gists()` for a case where this argument is used to parse functions/packages from a specified github user's gists.
+
 ## Files you didn't write
 
 Functions created in the file as well as functions from unavailable packages (or packages that don't exist) will output as `pkgs = "(unknown)"`. 

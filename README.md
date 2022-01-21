@@ -85,13 +85,14 @@ gh_ex <- github_spot_funs(
   branch = "main")
 
 gh_ex
-#> # A tibble: 4 x 3
-#>   contents                      urls                                  spotted   
-#>   <chr>                         <chr>                                 <list>    
-#> 1 R/Rmd-to-R.R                  https://raw.githubusercontent.com/br~ <named li~
-#> 2 R/feat-engineering-lags.R     https://raw.githubusercontent.com/br~ <named li~
-#> 3 R/load-inspections-save-csv.R https://raw.githubusercontent.com/br~ <named li~
-#> 4 R/types-of-splits.R           https://raw.githubusercontent.com/br~ <named li~
+#> # A tibble: 5 x 3
+#>   contents                         urls                               spotted   
+#>   <chr>                            <chr>                              <list>    
+#> 1 R/Rmd-to-R.R                     https://raw.githubusercontent.com~ <named li~
+#> 2 R/feat-engineering-lags.R        https://raw.githubusercontent.com~ <named li~
+#> 3 R/load-inspections-save-csv.R    https://raw.githubusercontent.com~ <named li~
+#> 4 R/types-of-splits.R              https://raw.githubusercontent.com~ <named li~
+#> 5 feat-eng-lags-presentation.Rproj https://raw.githubusercontent.com~ <named li~
 ```
 
 -   `contents` : filepath in github repo
@@ -133,13 +134,14 @@ preview_files <- github_spot_funs(
   preview = TRUE)
 
 preview_files
-#> # A tibble: 4 x 2
-#>   contents                      urls                                            
-#>   <chr>                         <chr>                                           
-#> 1 R/Rmd-to-R.R                  https://raw.githubusercontent.com/brshallo/feat~
-#> 2 R/feat-engineering-lags.R     https://raw.githubusercontent.com/brshallo/feat~
-#> 3 R/load-inspections-save-csv.R https://raw.githubusercontent.com/brshallo/feat~
-#> 4 R/types-of-splits.R           https://raw.githubusercontent.com/brshallo/feat~
+#> # A tibble: 5 x 2
+#>   contents                         urls                                         
+#>   <chr>                            <chr>                                        
+#> 1 R/Rmd-to-R.R                     https://raw.githubusercontent.com/brshallo/f~
+#> 2 R/feat-engineering-lags.R        https://raw.githubusercontent.com/brshallo/f~
+#> 3 R/load-inspections-save-csv.R    https://raw.githubusercontent.com/brshallo/f~
+#> 4 R/types-of-splits.R              https://raw.githubusercontent.com/brshallo/f~
+#> 5 feat-eng-lags-presentation.Rproj https://raw.githubusercontent.com/brshallo/f~
 ```
 
 You can pass in a custom set of urls by inputting a dataframe to the
@@ -167,6 +169,11 @@ preview_files %>%
 #> 10 days      lubridate FALSE            R/types-of-splits.R https://raw.githubu~
 #> # ... with 14 more rows
 ```
+
+The `custom_urls` argument works for any situation where you want to map
+`spot_funs()` across a set of filepaths or URLs. E.g. see example in
+`github_gists()` for a case where this argument is used to parse
+functions/packages from a specified github user’s gists.
 
 ## Files you didn’t write
 

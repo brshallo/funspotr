@@ -2,12 +2,12 @@
 % Please edit documentation in R/github-spot.R
 \name{str_detect_r_rmd}
 \alias{str_detect_r_rmd}
-\title{Keep only R and Rmarkdown files}
+\title{String Detect R or Rmarkdown File endings}
 \usage{
 str_detect_r_rmd(contents, rmv_index = TRUE)
 }
 \arguments{
-\item{contents}{Vector of folder and file pathways.}
+\item{contents}{Character vector of file path.}
 
 \item{rmv_index}{Logical, most repos containing blogdown sites will have an
 index.R file at the root. Change to \code{TRUE} if you don't want this file
@@ -17,7 +17,7 @@ removed.}
 Logical vector.
 }
 \description{
-Keep only R and Rmarkdown files
+Return \code{TRUE} for only R and Rmarkdown files, else \code{FALSE}.
 }
 \examples{
 library(dplyr)

@@ -56,9 +56,11 @@ github_contents_urls <- function(repo, branch = "main"){
   contents_urls
 }
 
-#' Keep only R and Rmarkdown files
+#' String Detect R or Rmarkdown File endings
 #'
-#' @param contents Vector of folder and file pathways.
+#' Return `TRUE` for only R and Rmarkdown files, else `FALSE`.
+#'
+#' @param contents Character vector of file path.
 #' @param rmv_index Logical, most repos containing blogdown sites will have an
 #'   index.R file at the root. Change to `TRUE` if you don't want this file
 #'   removed.
@@ -70,7 +72,7 @@ github_contents_urls <- function(repo, branch = "main"){
 #'   funspotr:::str_detect_r_rmd()
 str_detect_r_rmd <- function(contents, rmv_index = TRUE){
   contents_lower <- stringr::str_to_lower(contents)
-  contents_subset <- str_detect(contents_lower, "\\.(r|rmd|rmarkdown)$")
+  contents_subset <- str_detect(fs::path_ext(contents_lower), "(r|rmd|rmarkdown)")
 
   if(rmv_index) contents_subset <- contents_subset & !str_detect(contents_lower, "^index")
 
