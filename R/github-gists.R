@@ -24,7 +24,7 @@ get_content <- function(user){
 
   for(i in seq_len(num_pages)){
 
-    req <- httr::GET("https://api.github.com/users/brshallo/gists",
+    req <- httr::GET(glue::glue("https://api.github.com/users/{user}/gists"),
                      query = list(per_page = 100,
                                   page = i))
 
