@@ -140,6 +140,9 @@ call_r_list_functions_explicit <- function(pkgs, pkgs_explicit, file_temp, show_
 #' and `error_if_missing_pkg` arguments to alter how output works in cases when
 #' not all packages are on the machine.
 #'
+#' Explicit calls to unexported functinos i.e. `pkg:::fun()` will have `pkgs =
+#' "(unknown)"` in the returned dataframe.
+#'
 #' @param pkgs Character vector of packages that are added to search space via
 #'   `require()` or `import::from()` so can be found by `utils::find()`.
 #'   Generally will be the returned value from `spot_pkgs(file_path,

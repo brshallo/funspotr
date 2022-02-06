@@ -218,7 +218,7 @@ At a high-level...
 
 # Limitations, Problems, Musings
 
-* If a file contains R syntax that is not well defined it will not be parsed and return an error. See [formatR](https://yihui.org/formatr/#6-further-notes) (used by {funspotr} in parsing) for other common reasons for failure.
+* If a file contains R syntax that is not well defined it will not be parsed and will return an error. See [formatR](https://yihui.org/formatr/#6-further-notes) (used by {funspotr} in parsing) for other common reasons for failure.
 * `knitr::read_chunk()` and `knitr::purl()` in a file passed to {funspotr} will also frequently cause an error in parsing. See [knitr#1753](https://github.com/yihui/knitr/issues/1753) & [knitr#1938](https://github.com/yihui/knitr/issues/1938)
 * Please open an issue if you find other cases where it breaks :-) .
 * As mentioned elsewhere, the default parsing of `spot_funs()` is primarily for cases where package dependencies are loaded in the same file that they are used in^[i.e. in interactive R scripts or Rmd documents where you use `library()` or related calls within the script.]. Scripts that are not self-contained typically should have the `pkgs` argument provided explicitly via `spot_funs_custom()`.

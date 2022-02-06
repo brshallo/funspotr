@@ -355,7 +355,7 @@ the package a function comes from in the file.)
 # Limitations, Problems, Musings
 
 -   If a file contains R syntax that is not well defined it will not be
-    parsed and return an error. See
+    parsed and will return an error. See
     [formatR](https://yihui.org/formatr/#6-further-notes) (used by
     {funspotr} in parsing) for other common reasons for failure.
 -   `knitr::read_chunk()` and `knitr::purl()` in a file passed to
