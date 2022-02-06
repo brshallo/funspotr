@@ -128,6 +128,7 @@ from that package will be assigned to value of "(unknown)" in the <code>pkgs</co
 column of the returned output. You can also use the <code>print_pkgs_load_status</code>
 and <code>error_if_missing_pkg</code> arguments to alter how output works in cases when
 not all packages are on the machine.</p>
+<p>Explicit calls to unexported functinos i.e. <code>pkg:::fun()</code> will have <code>pkgs = "(unknown)"</code> in the returned dataframe.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

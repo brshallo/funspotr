@@ -341,7 +341,7 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <h1 id="limitations-problems-musings">Limitations, Problems, Musings<a class="anchor" aria-label="anchor" href="#limitations-problems-musings"></a>
 </h1>
 <ul>
-<li>If a file contains R syntax that is not well defined it will not be parsed and return an error. See <a href="https://yihui.org/formatr/#6-further-notes" class="external-link">formatR</a> (used by {funspotr} in parsing) for other common reasons for failure.</li>
+<li>If a file contains R syntax that is not well defined it will not be parsed and will return an error. See <a href="https://yihui.org/formatr/#6-further-notes" class="external-link">formatR</a> (used by {funspotr} in parsing) for other common reasons for failure.</li>
 <li>
 <code><a href="https://rdrr.io/pkg/knitr/man/read_chunk.html" class="external-link">knitr::read_chunk()</a></code> and <code><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knitr::purl()</a></code> in a file passed to {funspotr} will also frequently cause an error in parsing. See <a href="https://github.com/yihui/knitr/issues/1753" class="external-link">knitr#1753</a> &amp; <a href="https://github.com/yihui/knitr/issues/1938" class="external-link">knitr#1938</a>
 </li>

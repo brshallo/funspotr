@@ -125,13 +125,13 @@ blocks.</p>
 <span class="r-in"><span class="fu">github_spot_funs</span><span class="op">(</span><span class="st">"brshallo/feat-eng-lags-presentation"</span>, branch <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>File extension does not seem to be an R or Rmarkdown file. File is being processed as though it is a .R file .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   contents                         urls                               spotted   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                              <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> R/Rmd-to-R.R                     https://raw.githubusercontent.com… <span style="color: #949494;">&lt;named li</span>…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> R/feat-engineering-lags.R        https://raw.githubusercontent.com… <span style="color: #949494;">&lt;named li</span>…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> R/load-inspections-save-csv.R    https://raw.githubusercontent.com… <span style="color: #949494;">&lt;named li</span>…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> R/types-of-splits.R              https://raw.githubusercontent.com… <span style="color: #949494;">&lt;named li</span>…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> feat-eng-lags-presentation.Rproj https://raw.githubusercontent.com… <span style="color: #949494;">&lt;named li</span>…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   contents                         urls                             spotted     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> R/Rmd-to-R.R                     https://raw.githubusercontent.c… &lt;named list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> R/feat-engineering-lags.R        https://raw.githubusercontent.c… &lt;named list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> R/load-inspections-save-csv.R    https://raw.githubusercontent.c… &lt;named list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> R/types-of-splits.R              https://raw.githubusercontent.c… &lt;named list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> feat-eng-lags-presentation.Rproj https://raw.githubusercontent.c… &lt;named list&gt;</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Say you only want to parse a subset of the R file discovered, you could do</span></span>
 <span class="r-in"><span class="co"># something like:</span></span>
@@ -141,10 +141,10 @@ blocks.</p>
 <span class="r-in">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">github_spot_funs</span><span class="op">(</span>custom_urls <span class="op">=</span> <span class="va">.</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   contents                  urls                                     spotted    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> R/Rmd-to-R.R              https://raw.githubusercontent.com/brsha… <span style="color: #949494;">&lt;named lis</span>…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> R/feat-engineering-lags.R https://raw.githubusercontent.com/brsha… <span style="color: #949494;">&lt;named lis</span>…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   contents                  urls                                    spotted     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> R/Rmd-to-R.R              https://raw.githubusercontent.com/brsh… &lt;named list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> R/feat-engineering-lags.R https://raw.githubusercontent.com/brsh… &lt;named list&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

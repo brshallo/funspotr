@@ -84,43 +84,43 @@ code chunks from .md files.</p>
 <span class="r-in">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu">funspotr</span><span class="fu">:::</span><span class="fu"><a href="str_detect_r_rmd.html">str_detect_r_rmd</a></span><span class="op">(</span><span class="va">contents</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">gists_urls</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 34 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 35 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    contents                                  urls                               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> custom-ggplot-and-labels.R                https://gist.githubusercontent.com…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> stratified-sampling-parameter-estimates.R https://gist.githubusercontent.com…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> cdf_density.R                             https://gist.githubusercontent.com…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> if_all-if_any-examples.R                  https://gist.githubusercontent.com…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> bootstrap-mean-rsample.R                  https://gist.githubusercontent.com…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> predict-interval-boot-only.R              https://gist.githubusercontent.com…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> source_rmd.R                              https://gist.githubusercontent.com…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> source-rmd-chunks.r                       https://gist.githubusercontent.com…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> predict-interval.R                        https://gist.githubusercontent.com…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> cut-floor-ceiling.R                       https://gist.githubusercontent.com…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 24 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> funspotr-gists-cmparlettpelleriti-ex.R    https://gist.githubusercontent.com…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> custom-ggplot-and-labels.R                https://gist.githubusercontent.com…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> stratified-sampling-parameter-estimates.R https://gist.githubusercontent.com…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> cdf_density.R                             https://gist.githubusercontent.com…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> if_all-if_any-examples.R                  https://gist.githubusercontent.com…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> bootstrap-mean-rsample.R                  https://gist.githubusercontent.com…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> predict-interval-boot-only.R              https://gist.githubusercontent.com…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> source_rmd.R                              https://gist.githubusercontent.com…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> source-rmd-chunks.r                       https://gist.githubusercontent.com…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> predict-interval.R                        https://gist.githubusercontent.com…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 25 more rows</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Will just parse the first 2 files/gists</span></span>
 <span class="r-in"><span class="va">contents</span> <span class="op">&lt;-</span></span>
 <span class="r-in">  <span class="fu"><a href="github_spot_things.html">github_spot_funs</a></span><span class="op">(</span>custom_urls <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="va">gists_urls</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>incomplete final line found on 'https://gist.githubusercontent.com/brshallo/78d0682d16b7eb09ee39caa4eba3fc06/raw/50856a8f1b3c8049b630b71e05b1ebf92a4d5267/custom-ggplot-and-labels.R'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>incomplete final line found on 'https://gist.githubusercontent.com/brshallo/e031e73711afd2fff26636bd6091dd58/raw/e28d8a0d4880b7ac7c3a726bb272571c3a623eb5/stratified-sampling-parameter-estimates.R'</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">contents</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="unnest_github_results.html">unnest_github_results</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 26 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    funs          pkgs      in_multiple_pkgs contents        urls                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> library       base      FALSE            custom-ggplot-… https://gist.github…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ggplot        (unknown) FALSE            custom-ggplot-… https://gist.github…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> aes           (unknown) FALSE            custom-ggplot-… https://gist.github…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> geom_point    (unknown) FALSE            custom-ggplot-… https://gist.github…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> custom_ggplot (unknown) FALSE            custom-ggplot-… https://gist.github…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ggplotly      (unknown) FALSE            custom-ggplot-… https://gist.github…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> library       base      FALSE            stratified-sam… https://gist.github…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> tibble        (unknown) FALSE            stratified-sam… https://gist.github…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> c             base      FALSE            stratified-sam… https://gist.github…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> rep           base      FALSE            stratified-sam… https://gist.github…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 16 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    funs                  pkgs      in_multiple_pkgs contents               urls </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> library               base      FALSE            funspotr-gists-cmparl… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> github_gists          funspotr  FALSE            funspotr-gists-cmparl… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> filter                dplyr     TRUE             funspotr-gists-cmparl… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> str_detect_r_rmd      (unknown) FALSE            funspotr-gists-cmparl… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> github_spot_funs      funspotr  FALSE            funspotr-gists-cmparl… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> unnest_github_results funspotr  FALSE            funspotr-gists-cmparl… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> library               base      FALSE            custom-ggplot-and-lab… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> ggplot                (unknown) FALSE            custom-ggplot-and-lab… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> aes                   (unknown) FALSE            custom-ggplot-and-lab… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> geom_point            (unknown) FALSE            custom-ggplot-and-lab… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> custom_ggplot         (unknown) FALSE            custom-ggplot-and-lab… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> ggplotly              (unknown) FALSE            custom-ggplot-and-lab… http…</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
