@@ -64,7 +64,7 @@
 #' spot_pkgs(file_output, show_explicit_funs = TRUE)
 #'
 #' # To output for blogdown post YAML header tags
-#' spot_pkgs(file_output, as_yaml_tags = TRUE)
+#' cat(spot_pkgs(file_output, as_yaml_tags = TRUE))
 spot_pkgs <- function(file_path, show_explicit_funs = FALSE, copy_local = TRUE, as_yaml_tags = FALSE){
 
   if(copy_local){
@@ -103,7 +103,7 @@ spot_pkgs <- function(file_path, show_explicit_funs = FALSE, copy_local = TRUE, 
       str_flatten("\n  - ") %>%
       stringr::str_c("  - ", .)
 
-    return( cat(output_tags) )
+    return(output_tags)
   }
 
   output

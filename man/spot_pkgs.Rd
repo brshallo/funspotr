@@ -72,7 +72,7 @@ spot_pkgs(file_output)
 spot_pkgs(file_output, show_explicit_funs = TRUE)
 
 # To output for blogdown post YAML header tags
-spot_pkgs(file_output, as_yaml_tags = TRUE)
+cat(spot_pkgs(file_output, as_yaml_tags = TRUE))
 }
 \seealso{
 spot_pkgs_from_description github_spot_pkgs renv::dependencies

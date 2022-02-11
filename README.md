@@ -15,7 +15,9 @@ to map out the functions and packages used in a few popular github
 repositories (see
 [brshallo/funspotr-examples](https://github.com/brshallo/funspotr-examples)
 and associated [blog
-post](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/)).
+post](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/)
+and [post on parsing
+gists](https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/)).
 
 funspotr is primarily designed for self-contained scripts (see [Package
 dependencies in another file](#package-dependencies-in-another-file)).
@@ -319,7 +321,8 @@ section of a blogdown post’s YAML header. See
 # Example from old blogdown post
 spot_pkgs(
   file_path = "https://raw.githubusercontent.com/brshallo/brshallo/master/content/post/2020-02-06-maximizing-magnetic-volume-the-perfect-bowl.Rmd",
-  as_yaml_tags = TRUE)
+  as_yaml_tags = TRUE) %>% 
+  cat()
 #>   - knitr
 #>   - tidyverse
 #>   - ggforce
