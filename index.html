@@ -66,7 +66,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of funspotr (R function spotter) is to make it easy to identify which functions and packages are used in files. It was initially written to map out the functions and packages used in a few popular github repositories (see <a href="https://github.com/brshallo/funspotr-examples" class="external-link">brshallo/funspotr-examples</a> and associated <a href="https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/" class="external-link">blog post</a>).</p>
+<p>The goal of funspotr (R function spotter) is to make it easy to identify which functions and packages are used in files. It was initially written to map out the functions and packages used in a few popular github repositories (see <a href="https://github.com/brshallo/funspotr-examples" class="external-link">brshallo/funspotr-examples</a> and associated <a href="https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/" class="external-link">blog post</a> and <a href="https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/" class="external-link">post on parsing gists</a>).</p>
 <p>funspotr is primarily designed for self-contained scripts (see <a href="#package-dependencies-in-another-file">Package dependencies in another file</a>). Also, it may not identify <em>every</em> function and/or package (see <a href="#limitations-problems-musings">Limitations, Problems, Musings</a>) or read the source code for details.</p>
 <div class="section level2">
 <h2 id="spot-functions-in-a-file">Spot functions in a file<a class="anchor" aria-label="anchor" href="#spot-functions-in-a-file"></a>
@@ -310,7 +310,8 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <code class="sourceCode R"><span class="co"># Example from old blogdown post</span>
 <span class="fu"><a href="reference/spot_pkgs.html">spot_pkgs</a></span><span class="op">(</span>
   file_path <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/brshallo/brshallo/master/content/post/2020-02-06-maximizing-magnetic-volume-the-perfect-bowl.Rmd"</span>,
-  as_yaml_tags <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+  as_yaml_tags <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt;   - knitr</span>
 <span class="co">#&gt;   - tidyverse</span>
 <span class="co">#&gt;   - ggforce</span></code></pre></div>
