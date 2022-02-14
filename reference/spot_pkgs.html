@@ -71,7 +71,7 @@ Inspiration: https://github.com/rstudio/blogdown/issues/647</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>file_path</dt>
-<dd><p>Character of length one of path to file of interest.</p></dd>
+<dd><p>String of path to file of interest.</p></dd>
 <dt>show_explicit_funs</dt>
 <dd><p>In cases where a function is called explicitly,
 show both the package dependency and the function together. For example a
@@ -89,7 +89,7 @@ blogdown post Rmd document.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Character vector of all packages used in file (or in cases where
+    <p>Character vector of all packages loaded in file (or in cases where
 show_explicit_funs = TRUE and there are explicit calls in the package,
 "pkg:fun").</p>
     </div>

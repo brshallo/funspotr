@@ -315,11 +315,12 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <span class="co">#&gt;   - knitr</span>
 <span class="co">#&gt;   - tidyverse</span>
 <span class="co">#&gt;   - ggforce</span></code></pre></div>
+<p><code><a href="reference/spot_pkgs_used.html">spot_pkgs_used()</a></code> will only return those packages that have functions actually used[3]</p>
 </div>
 <div class="section level2">
 <h2 id="unexported-functions">Unexported functions<a class="anchor" aria-label="anchor" href="#unexported-functions"></a>
 </h2>
-<p>Many of the unexported functions (in “R/github-spot.R” in particular) may be helpful in building up other workflows for mapping <code><a href="reference/spot_funs.html">spot_funs()</a></code> across multiple files[3] <em>If you have a suggestion for a function or set of functions for spotting functions, feel free to open an issue.</em></p>
+<p>Many of the unexported functions (in “R/github-spot.R” in particular) may be helpful in building up other workflows for mapping <code><a href="reference/spot_funs.html">spot_funs()</a></code> across multiple files[4] <em>If you have a suggestion for a function or set of functions for spotting functions, feel free to open an issue.</em></p>
 <!-- **If you've used {funspotr} to map the R functions and packages of a public blog or repository, open an issue to add a link in the README.** -->
 </div>
 </div>
@@ -330,7 +331,7 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <ol style="list-style-type: decimal">
 <li>Create a new R instance using <a href="https://github.com/r-lib/callr" class="external-link">callr</a>
 </li>
-<li>Load packages. Explicit calls (e.g. <code>pkg::fun()</code>) are loaded individually via <a href="https://github.com/rticulate/import" class="external-link">import</a> and are loaded last (putting them at the top of the search space)[4].</li>
+<li>Load packages. Explicit calls (e.g. <code>pkg::fun()</code>) are loaded individually via <a href="https://github.com/rticulate/import" class="external-link">import</a> and are loaded last (putting them at the top of the search space)[5].</li>
 </ol>
 <p>(steps 1 and 2 needed so that step 4 has the best chance of identifying the package a function comes from in the file.)</p>
 <ol start="3" style="list-style-type: decimal">
@@ -347,10 +348,10 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <code><a href="https://rdrr.io/pkg/knitr/man/read_chunk.html" class="external-link">knitr::read_chunk()</a></code> and <code><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knitr::purl()</a></code> in a file passed to {funspotr} will also frequently cause an error in parsing. See <a href="https://github.com/yihui/knitr/issues/1753" class="external-link">knitr#1753</a> &amp; <a href="https://github.com/yihui/knitr/issues/1938" class="external-link">knitr#1938</a>
 </li>
 <li>Please open an issue if you find other cases where it breaks :-) .</li>
-<li>As mentioned elsewhere, the default parsing of <code><a href="reference/spot_funs.html">spot_funs()</a></code> is primarily for cases where package dependencies are loaded in the same file that they are used in[5]. Scripts that are not self-contained typically should have the <code>pkgs</code> argument provided explicitly via <code><a href="reference/spot_funs_custom.html">spot_funs_custom()</a></code>.</li>
-<li>funspotr does not pay attention to when functions are reexported from elsewhere. For example, many tibble functions are reexported by dplyr and tidyr – funspotr though will not know the true home of these functions it is simply looking at the top of the search space[6].</li>
-<li>Feel free to open an issue if you’d be interested in a simplifying function or vignette for mapping <code><a href="reference/spot_funs.html">spot_funs()</a></code> through local repos or other folder structures other than github respositories (which is already covered in <code><a href="reference/github_spot_things.html">github_spot_funs()</a></code>)[7]</li>
-<li>All the functions in “R/spot-pkgs.R” would probably be better handled by something like <code>renv::dependencies()</code> or a parsing based approach. The simple regex’s I use have a variety of problems. As just one example <code>funspotr::get_pkgs()</code> will not recognize when a package is within quotes or being escaped[8].</li>
+<li>As mentioned elsewhere, the default parsing of <code><a href="reference/spot_funs.html">spot_funs()</a></code> is primarily for cases where package dependencies are loaded in the same file that they are used in[6]. Scripts that are not self-contained typically should have the <code>pkgs</code> argument provided explicitly via <code><a href="reference/spot_funs_custom.html">spot_funs_custom()</a></code>.</li>
+<li>funspotr does not pay attention to when functions are reexported from elsewhere. For example, many tibble functions are reexported by dplyr and tidyr – funspotr though will not know the true home of these functions it is simply looking at the top of the search space[7].</li>
+<li>Feel free to open an issue if you’d be interested in a simplifying function or vignette for mapping <code><a href="reference/spot_funs.html">spot_funs()</a></code> through local repos or other folder structures other than github respositories (which is already covered in <code><a href="reference/github_spot_things.html">github_spot_funs()</a></code>)[8]</li>
+<li>All the functions in “R/spot-pkgs.R” would probably be better handled by something like <code>renv::dependencies()</code> or a parsing based approach. The simple regex’s I use have a variety of problems. As just one example <code>funspotr::get_pkgs()</code> will not recognize when a package is within quotes or being escaped[9].</li>
 <li>I am curiuos if there is something to be learned from how <code>R CMD check</code> does function parsing.
 <ul>
 <li>`funspotr’s current approach is slow</li>
@@ -373,12 +374,13 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"brshallo/funspotr"</span><span class="op">)</span></code></pre></div>
 <p>[1] E.g. <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble()</a></code> is attributed to <a href="https://tidyr.tidyverse.org/" class="external-link">tidyr</a> by <code><a href="reference/spot_funs.html">spot_funs()</a></code> however <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble()</a></code> is also in <a href="https://dplyr.tidyverse.org/" class="external-link">dplyr</a>. I don’t worry about getting to the root source of the package or the fact that both of those packages are just reexporting it from <a href="https://tibble.tidyverse.org/" class="external-link">tibble</a>. Setting <code>keep_search_list = TRUE</code> will return rows for each item in the search list which may be helpful if getting unexpected results.)</p>
 <p>[2] If any file could not be parsed will be a <code><a href="https://purrr.tidyverse.org/reference/safely.html" class="external-link">purrr::safely()</a></code> list-column output where each item is a list containing <code>result</code> and <code>error</code>.</p>
-<p>[3] Most unexported functions in <code>funspotr</code> still include a man file and at least partial documentation.</p>
-<p>[4] This heuristic is imperfect and means that a file with “library(dplyr); select(); MASS::select()” would view both <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> calls as coming from {MASS} – when what it should do is view the first was as coming from {dplyr} and the second from {MASS}.</p>
-<p>[5] i.e. in interactive R scripts or Rmd documents where you use <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> or related calls within the script.</p>
-<p>[6] For example when reviewing David Robinson’s Tidy Tuesday code I found that the <a href="https://github.com/GuangchuangYu/meme" class="external-link">meme</a> package was used far more than I would have expected. Turns out it was just due to it reexporting the aes() function from ggplot.</p>
-<p>[7] E.g. for mapping across a local repository, across a package, a data workflow, etc.</p>
-<p>[8] e.g. in this case <code>lines &lt;- "library(pkg)"</code> the <code>pkg</code> would show-up as a dependency despite just being part of a quote rather than actually loaded.</p>
+<p>[3] E.g. for cases when there are library calls that aren’t actually used in the file. This may be useful in cases when metapackages like tidyverse or tidymodels are loaded but not all packages are actually used.</p>
+<p>[4] Most unexported functions in <code>funspotr</code> still include a man file and at least partial documentation.</p>
+<p>[5] This heuristic is imperfect and means that a file with “library(dplyr); select(); MASS::select()” would view both <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> calls as coming from {MASS} – when what it should do is view the first was as coming from {dplyr} and the second from {MASS}.</p>
+<p>[6] i.e. in interactive R scripts or Rmd documents where you use <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> or related calls within the script.</p>
+<p>[7] For example when reviewing David Robinson’s Tidy Tuesday code I found that the <a href="https://github.com/GuangchuangYu/meme" class="external-link">meme</a> package was used far more than I would have expected. Turns out it was just due to it reexporting the aes() function from ggplot.</p>
+<p>[8] E.g. for mapping across a local repository, across a package, a data workflow, etc.</p>
+<p>[9] e.g. in this case <code>lines &lt;- "library(pkg)"</code> the <code>pkg</code> would show-up as a dependency despite just being part of a quote rather than actually loaded.</p>
 </div>
 </div>
 
