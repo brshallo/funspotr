@@ -10,8 +10,13 @@
 rmd_chunks_to_r_temp <- function(file){
 
   temp <- tempfile(fileext=".R")
-  knitr::purl(file, output = temp)
 
+  # needed callr so can use when knitting -- else can bump into "duplicate chunk
+  # label" errors when running when knitting
+  callr::r(function(file, temp){
+    knitr::purl(file, output = temp)
+  },
+  args = list(file, temp))
 }
 
 # R to local R temp file
