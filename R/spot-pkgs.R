@@ -15,7 +15,7 @@
 #'   installed on your machine but show-up in the script will be returned in the
 #'   character vector.
 #'
-#' @param file_path Character of length one of path to file of interest.
+#' @param file_path String of path to file of interest.
 #' @param show_explicit_funs In cases where a function is called explicitly,
 #'   show both the package dependency and the function together. For example a
 #'   script containing `dplyr::select()` (as opposed to `library(dplyr);
@@ -29,7 +29,7 @@
 #'   and puts into a format convenient for pasting in "tags" section of a
 #'   blogdown post Rmd document.
 #'
-#' @return Character vector of all packages used in file (or in cases where
+#' @return Character vector of all packages loaded in file (or in cases where
 #'   show_explicit_funs = TRUE and there are explicit calls in the package,
 #'   "pkg:fun").
 #'
@@ -107,6 +107,42 @@ spot_pkgs <- function(file_path, show_explicit_funs = FALSE, copy_local = TRUE, 
   }
 
   output
+}
+
+#' Spot Packages Used
+#'
+#' Primarily used for cases where you load metapackages like `tidyverse` or
+#' `tidymodels` but only want to return those packages that are actually used.
+#' E.g. say you have a `library(tidyverse)` call but only end-up using functions
+#' that are in `dplyr` -- `spot_pkgs()` would return `"tidyverse"` but
+#' `spot_pkgs_used()` woudl return `"dplyr"`.
+#'
+#' Is essentially just calling `spot_funs() %>% with(unique(pkgs))` in the
+#' background. Does not have as many options as `spot_pkgs()` though.
+#'
+#' @param file_path String of path to file of interest.
+#' @param as_yaml_tags Logical, default is `FALSE`. If set to `TRUE` flattens
+#'   and puts into a format convenient for pasting in "tags" section of a
+#'   blogdown post Rmd document.
+#'
+#' @return Character vector of all packages with functions used in the file.
+#' @export
+spot_pkgs_used <- function(file_path, as_yaml_tags = FALSE){
+
+  output <- spot_funs(file_path = file_path) %>%
+    filter(!(pkgs %in% c("(unknown)", "base", "stats", "graphics", "grDevices", "utils", "methods"))) %>%
+    with(unique(pkgs))
+
+  if(as_yaml_tags){
+    output_tags <- output %>%
+      str_flatten("\n  - ") %>%
+      stringr::str_c("  - ", .)
+
+    return(output_tags)
+  }
+
+  output
+
 }
 
 #' Spot package dependencies from DESCRIPTION file

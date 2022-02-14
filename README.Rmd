@@ -199,6 +199,8 @@ spot_pkgs(
   cat()
 ```
 
+`spot_pkgs_used()` will only return those packages that have functions actually used^[E.g. for cases when there are library calls that aren't actually used in the file. This may be useful in cases when metapackages like tidyverse or tidymodels are loaded but not all packages are actually used.]
+
 ## Unexported functions
 
 Many of the unexported functions (in "R/github-spot.R" in particular) may be helpful in building up other workflows for mapping `spot_funs()` across multiple files^[Most unexported functions in `funspotr` still include a man file and at least partial documentation.] *If you have a suggestion for a function or set of functions for spotting functions, feel free to open an issue.* 

@@ -10,6 +10,7 @@ reference:
   - spot_funs
   - spot_funs_custom
   - spot_pkgs
+  - spot_pkgs_used
   - check_pkgs_availability
 - title: "Github repositories"
   desc: >

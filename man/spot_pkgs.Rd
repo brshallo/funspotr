@@ -12,7 +12,7 @@ spot_pkgs(
 )
 }
 \arguments{
-\item{file_path}{Character of length one of path to file of interest.}
+\item{file_path}{String of path to file of interest.}
 
 \item{show_explicit_funs}{In cases where a function is called explicitly,
 show both the package dependency and the function together. For example a
@@ -29,7 +29,7 @@ and puts into a format convenient for pasting in "tags" section of a
 blogdown post Rmd document.}
 }
 \value{
-Character vector of all packages used in file (or in cases where
+Character vector of all packages loaded in file (or in cases where
 show_explicit_funs = TRUE and there are explicit calls in the package,
 "pkg:fun").
 }

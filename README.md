@@ -328,11 +328,14 @@ spot_pkgs(
 #>   - ggforce
 ```
 
+`spot_pkgs_used()` will only return those packages that have functions
+actually used[3]
+
 ## Unexported functions
 
 Many of the unexported functions (in “R/github-spot.R” in particular)
 may be helpful in building up other workflows for mapping `spot_funs()`
-across multiple files[3] *If you have a suggestion for a function or set
+across multiple files[4] *If you have a suggestion for a function or set
 of functions for spotting functions, feel free to open an issue.*
 
 <!-- **If you've used {funspotr} to map the R functions and packages of a public blog or repository, open an issue to add a link in the README.** -->
@@ -345,7 +348,7 @@ At a high-level…
     [callr](https://github.com/r-lib/callr)
 2.  Load packages. Explicit calls (e.g. `pkg::fun()`) are loaded
     individually via [import](https://github.com/rticulate/import) and
-    are loaded last (putting them at the top of the search space)[4].
+    are loaded last (putting them at the top of the search space)[5].
 
 (steps 1 and 2 needed so that step 4 has the best chance of identifying
 the package a function comes from in the file.)
@@ -368,23 +371,23 @@ the package a function comes from in the file.)
 -   Please open an issue if you find other cases where it breaks :-) .
 -   As mentioned elsewhere, the default parsing of `spot_funs()` is
     primarily for cases where package dependencies are loaded in the
-    same file that they are used in[5]. Scripts that are not
+    same file that they are used in[6]. Scripts that are not
     self-contained typically should have the `pkgs` argument provided
     explicitly via `spot_funs_custom()`.
 -   funspotr does not pay attention to when functions are reexported
     from elsewhere. For example, many tibble functions are reexported by
     dplyr and tidyr – funspotr though will not know the true home of
     these functions it is simply looking at the top of the search
-    space[6].
+    space[7].
 -   Feel free to open an issue if you’d be interested in a simplifying
     function or vignette for mapping `spot_funs()` through local repos
     or other folder structures other than github respositories (which is
-    already covered in `github_spot_funs()`)[7]
+    already covered in `github_spot_funs()`)[8]
 -   All the functions in “R/spot-pkgs.R” would probably be better
     handled by something like `renv::dependencies()` or a parsing based
     approach. The simple regex’s I use have a variety of problems. As
     just one example `funspotr::get_pkgs()` will not recognize when a
-    package is within quotes or being escaped[8].
+    package is within quotes or being escaped[9].
 -   I am curiuos if there is something to be learned from how
     `R CMD check` does function parsing.
     -   \`funspotr’s current approach is slow
@@ -427,25 +430,30 @@ list which may be helpful if getting unexpected results.)
 list-column output where each item is a list containing `result` and
 `error`.
 
-[3] Most unexported functions in `funspotr` still include a man file and
+[3] E.g. for cases when there are library calls that aren’t actually
+used in the file. This may be useful in cases when metapackages like
+tidyverse or tidymodels are loaded but not all packages are actually
+used.
+
+[4] Most unexported functions in `funspotr` still include a man file and
 at least partial documentation.
 
-[4] This heuristic is imperfect and means that a file with
+[5] This heuristic is imperfect and means that a file with
 “library(dplyr); select(); MASS::select()” would view both `select()`
 calls as coming from {MASS} – when what it should do is view the first
 was as coming from {dplyr} and the second from {MASS}.
 
-[5] i.e. in interactive R scripts or Rmd documents where you use
+[6] i.e. in interactive R scripts or Rmd documents where you use
 `library()` or related calls within the script.
 
-[6] For example when reviewing David Robinson’s Tidy Tuesday code I
+[7] For example when reviewing David Robinson’s Tidy Tuesday code I
 found that the [meme](https://github.com/GuangchuangYu/meme) package was
 used far more than I would have expected. Turns out it was just due to
 it reexporting the aes() function from ggplot.
 
-[7] E.g. for mapping across a local repository, across a package, a data
+[8] E.g. for mapping across a local repository, across a package, a data
 workflow, etc.
 
-[8] e.g. in this case `lines <- "library(pkg)"` the `pkg` would show-up
+[9] e.g. in this case `lines <- "library(pkg)"` the `pkg` would show-up
 as a dependency despite just being part of a quote rather than actually
 loaded.
