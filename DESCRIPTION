@@ -17,7 +17,6 @@ Imports:
   purrr,
   stringr,
   glue,
-  NCmisc,
   knitr,
   httr,
   callr,
