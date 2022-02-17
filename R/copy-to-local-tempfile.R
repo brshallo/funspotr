@@ -38,7 +38,7 @@ copy_to_local_tempfile <- function(file_path){
     # remove comments
     suppressMessages(formatR::tidy_file(file_temp, comment = FALSE))
 
-    if(stringr::str_to_lower(fs::path_ext(file_path)) != "r"){
+    if(!(stringr::str_to_lower(fs::path_ext(file_path)) %in% c("r", "rmd", "rmarkdown"))){
       warning("File extension does not seem to be an R or Rmarkdown file. File is being processed as though it is a .R file .")
     }
   }
