@@ -310,11 +310,11 @@ spot_funs(file_path = file_output, show_each_use = TRUE)
 #> 11 made_up_fun  (unknown) FALSE
 ```
 
-## Helper for [blogdown](https://pkgs.rstudio.com/blogdown/) tags
+## Helperd for [blogdown](https://pkgs.rstudio.com/blogdown/) tags
 
 Setting `as_yaml_tags = TRUE` in `spot_pkgs()` flattens the dependencies
-and outputs them in a format that can be pasted into the **tags**
-section of a blogdown post’s YAML header. See
+and outputs them in a format that can be copied and pasted into the
+**tags** section of a blogdown post’s YAML header. See
 ([blogdown\#647](https://github.com/rstudio/blogdown/issues/647)).
 
 ``` r
@@ -329,7 +329,19 @@ spot_pkgs(
 ```
 
 `spot_pkgs_used()` will only return those packages that have functions
-actually used[3]
+actually used[3].
+
+To automatically have your packages used as the tags for a post you can
+add the function `funspotr::spot_tags()` to the `tags` argument of your
+YAML header. For example:
+
+    ---
+    title: This is a post
+    author: brshallo
+    date: '2022-02-11'
+    tags: ["funspotr", "dplyr", "tidyr", "purrr", "stringr", "madeuppkg", "lubridate", "glue", "tibble"]
+    slug: this-is-a-post
+    ---
 
 ## Unexported functions
 

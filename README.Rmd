@@ -187,9 +187,9 @@ Compared to the initial example, `mutate()` now shows-up at both rows 4 and 8:
 spot_funs(file_path = file_output, show_each_use = TRUE)
 ```
 
-## Helper for [blogdown](https://pkgs.rstudio.com/blogdown/) tags
+## Helperd for [blogdown](https://pkgs.rstudio.com/blogdown/) tags
 
-Setting `as_yaml_tags = TRUE` in `spot_pkgs()` flattens the dependencies and outputs them in a format that can be pasted into the **tags** section of a blogdown post's YAML header. See ([blogdown#647](https://github.com/rstudio/blogdown/issues/647)).
+Setting `as_yaml_tags = TRUE` in `spot_pkgs()` flattens the dependencies and outputs them in a format that can be copied and pasted into the **tags** section of a blogdown post's YAML header. See ([blogdown#647](https://github.com/rstudio/blogdown/issues/647)).
 
 ```{r}
 # Example from old blogdown post
@@ -199,7 +199,19 @@ spot_pkgs(
   cat()
 ```
 
-`spot_pkgs_used()` will only return those packages that have functions actually used^[E.g. for cases when there are library calls that aren't actually used in the file. This may be useful in cases when metapackages like tidyverse or tidymodels are loaded but not all packages are actually used.]
+`spot_pkgs_used()` will only return those packages that have functions actually used^[E.g. for cases when there are library calls that aren't actually used in the file. This may be useful in cases when metapackages like tidyverse or tidymodels are loaded but not all packages are actually used.].
+
+To automatically have your packages used as the tags for a post you can add the function `funspotr::spot_tags()` to the `tags` argument of your YAML header. For example:
+
+```
+---
+title: This is a post
+author: brshallo
+date: '2022-02-11'
+tags: ["`r funspotr::spot_tags(drop_knitr = TRUE)`"]
+slug: this-is-a-post
+---
+```
 
 ## Unexported functions
 
