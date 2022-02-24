@@ -27,7 +27,7 @@ jobs:
         with:
           extra-packages: pkgdown
           needs: website
-          depedencies: hard
+          depedencies: "hard"
 
       - name: Deploy package
         run: |
