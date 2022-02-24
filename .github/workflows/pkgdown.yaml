@@ -23,10 +23,11 @@ jobs:
         with:
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-r-dependencies@v1
+      - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: pkgdown
           needs: website
+          depedencies: hard
 
       - name: Deploy package
         run: |
