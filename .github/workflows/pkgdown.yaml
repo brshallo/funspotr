@@ -25,7 +25,8 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: 'hard'
+          extra-packages: |
+            any::blogdown
           needs: website
 
       - name: Deploy package
