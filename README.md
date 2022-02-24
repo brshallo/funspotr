@@ -310,12 +310,11 @@ spot_funs(file_path = file_output, show_each_use = TRUE)
 #> 11 made_up_fun  (unknown) FALSE
 ```
 
-## Helperd for [blogdown](https://pkgs.rstudio.com/blogdown/) tags
+## Helper for [blogdown](https://pkgs.rstudio.com/blogdown/) tags
 
 Setting `as_yaml_tags = TRUE` in `spot_pkgs()` flattens the dependencies
 and outputs them in a format that can be copied and pasted into the
-**tags** section of a blogdown post’s YAML header. See
-([blogdown\#647](https://github.com/rstudio/blogdown/issues/647)).
+**tags** section of a blogdown post’s YAML header.
 
 ``` r
 # Example from old blogdown post
@@ -342,6 +341,10 @@ YAML header. For example:
     tags: ["funspotr", "dplyr", "tidyr", "purrr", "stringr", "madeuppkg", "lubridate", "glue", "tibble"]
     slug: this-is-a-post
     ---
+
+See
+([blogdown\#647](https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327))
+for an explanation.
 
 ## Unexported functions
 

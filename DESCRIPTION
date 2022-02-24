@@ -27,7 +27,8 @@ Imports:
   utils,
   import
 Suggests:
-  remotes,
+  remotes
+Enhances:
   blogdown (>= 1.9)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -75,15 +75,15 @@ NULL
 #' @rdname call_r_list_functions_doc
 call_r_list_functions <- function(pkgs, file_temp, show_each_use = FALSE){
 
-  callr::r(function(pkgs, file_temp, show_each_use) {
+  callr::r(function(pkgs, file_temp, show_each_use, fun) {
 
     # load packages, inspiration: https://stackoverflow.com/a/8176099/9059865
     lapply(pkgs, require, character.only = TRUE);
 
     # inspiration: https://stackoverflow.com/a/53009440/9059865
-    funspotr:::list_functions_in_file(file_temp, show_each_use) },
+    fun(file_temp, show_each_use) },
 
-    args = list(pkgs, file_temp, show_each_use))
+    args = list(pkgs, file_temp, show_each_use, list_functions_in_file))
 }
 
 # Add specific functions to search space that will be recognized by
@@ -105,16 +105,16 @@ try_attach_pkg_fun <- function(pkg_fun) try(attach_pkg_fun(pkg_fun))
 #' @rdname call_r_list_functions_doc
 call_r_list_functions_explicit <- function(pkgs, pkgs_explicit, file_temp, show_each_use = FALSE){
 
-  callr::r(function(pkgs, pkgs_explicit, file_temp, show_each_use) {
+  callr::r(function(pkgs, pkgs_explicit, file_temp, show_each_use, fun1, fun2) {
     # load packages, inspiration: https://stackoverflow.com/a/8176099/9059865
     lapply(pkgs, require, character.only = TRUE);
 
-    lapply(pkgs_explicit, funspotr:::try_attach_pkg_fun);
+    lapply(pkgs_explicit, fun1);
 
     # inspiration: https://stackoverflow.com/a/53009440/9059865
-    funspotr:::list_functions_in_file(file_temp, show_each_use) },
+    fun2(file_temp, show_each_use) },
 
-    args = list(pkgs, pkgs_explicit, file_temp, show_each_use))
+    args = list(pkgs, pkgs_explicit, file_temp, show_each_use, try_attach_pkg_fun, list_functions_in_file))
 }
 ####
 
