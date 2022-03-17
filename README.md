@@ -126,6 +126,12 @@ gh_ex %>%
 #> 8 here               here    FALSE            R/load-inspe~ https://raw.githubu~
 ```
 
+The outputs from `funspotr::unnest_github_results()` can also be passed
+into `funspotr::network_plot()` to visualize the connections between
+functions/packages and files.
+
+### Previewing and customizing files to parse
+
 You can set `preview = TRUE` in `github_spot_funs()` to first view the
 files you intend to parse.
 

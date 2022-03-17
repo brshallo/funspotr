@@ -16,12 +16,14 @@ reference:
 - title: "Github repositories"
   desc: >
     Functions for mapping functions across files in
-    a github repository or related.
+    a github repository, collection of files, or
+    related.
   contents:
   - github_spot_funs
   - github_spot_pkgs
   - github_gists
   - unnest_github_results
+  - network_plot
 - title: internal
   desc: >
     Unexported helpers.

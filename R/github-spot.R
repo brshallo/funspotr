@@ -66,13 +66,11 @@ github_contents_urls <- function(repo, branch = "main"){
 #'   removed.
 #' @return Logical vector.
 #' @examples
-#' library(dplyr)
-#'
-#' funspotr:::github_contents("brshallo/feat-eng-lags-presentation", branch = "main") %>%
-#'   funspotr:::str_detect_r_rmd()
+#' files <- c("file1.R", "file2.Rmd", "file3.Rmarkdown", "file4.Rproj")
+#' funspotr:::str_detect_r_rmd(files)
 str_detect_r_rmd <- function(contents, rmv_index = TRUE){
   contents_lower <- stringr::str_to_lower(contents)
-  contents_subset <- str_detect(fs::path_ext(contents_lower), "(r|rmd|rmarkdown)")
+  contents_subset <- str_detect(fs::path_ext(contents_lower), "(r|rmd|rmarkdown)$")
 
   if(rmv_index) contents_subset <- contents_subset & !str_detect(contents_lower, "^index")
 
@@ -220,9 +218,13 @@ NULL
 #' github_spot_funs("brshallo/feat-eng-lags-presentation", branch = "main") %>%
 #'   unnest_github_results()
 unnest_github_results <- function(df){
-  df %>%
+  output <- df %>%
     filter(!did_safely_error(spotted)) %>%
     mutate(spotted = map(spotted, "result")) %>%
     relocate(spotted) %>%
     unnest(spotted)
+
+  if(any(names(output) == "spotted")) output <- rename(output, pkgs = spotted)
+
+  output
 }

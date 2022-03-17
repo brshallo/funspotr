@@ -20,8 +20,6 @@ Logical vector.
 Return \code{TRUE} for only R and Rmarkdown files, else \code{FALSE}.
 }
 \examples{
-library(dplyr)
-
-funspotr:::github_contents("brshallo/feat-eng-lags-presentation", branch = "main") \%>\%
-  funspotr:::str_detect_r_rmd()
+files <- c("file1.R", "file2.Rmd", "file3.Rmarkdown", "file4.Rproj")
+funspotr:::str_detect_r_rmd(files)
 }

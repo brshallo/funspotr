@@ -21,7 +21,9 @@
 #'   and you may not want this tag showing-up. Default is to keep this, but set
 #'   to `FALSE` to drop "knitr" from being tagged.
 #'
-#'   ... a better approach may be to just skip the "setup" chunk during parsing...
+#'   A better approach may be to just skip the "setup" chunk during parsing...
+#'
+#' @param ... Any additional arguments to pass to `spot_pkgs*()`.
 #'
 #' @return String in a format meant to be inserted in tags argument of YAML header.
 #' @export
@@ -34,11 +36,12 @@
 #' # tags: ["`r funspotr::spot_tags()`"]
 spot_tags <- function(file_path = knitr::current_input(),
                       used = FALSE,
-                      drop_knitr = FALSE) {
+                      drop_knitr = FALSE,
+                      ...) {
   if(used){
-    x <- spot_pkgs_used(file_path)
+    x <- spot_pkgs_used(file_path, ...)
   } else{
-    x <- spot_pkgs(file_path)
+    x <- spot_pkgs(file_path, ...)
   }
 
   if(drop_knitr) x <- x[x != "knitr"]

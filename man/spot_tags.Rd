@@ -4,7 +4,12 @@
 \alias{spot_tags}
 \title{Spot Tags}
 \usage{
-spot_tags(file_path = knitr::current_input(), used = FALSE, drop_knitr = FALSE)
+spot_tags(
+  file_path = knitr::current_input(),
+  used = FALSE,
+  drop_knitr = FALSE,
+  ...
+)
 }
 \arguments{
 \item{file_path}{Default is the file being knitted but can change to some
@@ -19,7 +24,9 @@ rather than meta-packages being called like \code{tidyverse} or \code{tidymodels
 and you may not want this tag showing-up. Default is to keep this, but set
 to \code{FALSE} to drop "knitr" from being tagged.
 
-... a better approach may be to just skip the "setup" chunk during parsing...}
+A better approach may be to just skip the "setup" chunk during parsing...}
+
+\item{...}{Any additional arguments to pass to \verb{spot_pkgs*()}.}
 }
 \value{
 String in a format meant to be inserted in tags argument of YAML header.

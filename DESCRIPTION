@@ -27,7 +27,9 @@ Imports:
   utils,
   import
 Suggests:
-  remotes
+  remotes,
+  visNetwork,
+  igraph
 Enhances:
   blogdown (>= 1.9)
 Encoding: UTF-8
