@@ -160,6 +160,10 @@ made_up_fun()
 <span class="co">#&gt; 6 sliding_period     rsample TRUE             R/feat-engin~ https://raw.githubu~</span>
 <span class="co">#&gt; 7 write_csv          readr   FALSE            R/load-inspe~ https://raw.githubu~</span>
 <span class="co">#&gt; 8 here               here    FALSE            R/load-inspe~ https://raw.githubu~</span></code></pre></div>
+<p>The outputs from <code><a href="reference/unnest_github_results.html">funspotr::unnest_github_results()</a></code> can also be passed into <code><a href="reference/network_plot.html">funspotr::network_plot()</a></code> to visualize the connections between functions/packages and files.</p>
+<div class="section level3">
+<h3 id="previewing-and-customizing-files-to-parse">Previewing and customizing files to parse<a class="anchor" aria-label="anchor" href="#previewing-and-customizing-files-to-parse"></a>
+</h3>
 <p>You can set <code>preview = TRUE</code> in <code><a href="reference/github_spot_things.html">github_spot_funs()</a></code> to first view the files you intend to parse.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">preview_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/github_spot_things.html">github_spot_funs</a></span><span class="op">(</span>
@@ -197,6 +201,7 @@ made_up_fun()
 <span class="co">#&gt; 10 days      lubridate FALSE            R/types-of-splits.R https://raw.githubu~</span>
 <span class="co">#&gt; # ... with 14 more rows</span></code></pre></div>
 <p>The <code>custom_urls</code> argument works for any situation where you want to map <code><a href="reference/spot_funs.html">spot_funs()</a></code> across a set of filepaths or URLs. E.g. see example in <code><a href="reference/github_gists.html">github_gists()</a></code> for a case where this argument is used to parse functions/packages from a specified github user’s gists.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="files-you-didnt-write">Files you didn’t write<a class="anchor" aria-label="anchor" href="#files-you-didnt-write"></a>

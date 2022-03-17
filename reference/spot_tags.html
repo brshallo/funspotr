@@ -51,7 +51,12 @@ packages used in your post (wrapper around <code><a href="spot_pkgs.html">funspo
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">spot_tags</span><span class="op">(</span>file_path <span class="op">=</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/current_input.html" class="external-link">current_input</a></span><span class="op">(</span><span class="op">)</span>, used <span class="op">=</span> <span class="cn">FALSE</span>, drop_knitr <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">spot_tags</span><span class="op">(</span>
+  file_path <span class="op">=</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/current_input.html" class="external-link">current_input</a></span><span class="op">(</span><span class="op">)</span>,
+  used <span class="op">=</span> <span class="cn">FALSE</span>,
+  drop_knitr <span class="op">=</span> <span class="cn">FALSE</span>,
+  <span class="va">...</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -68,7 +73,9 @@ rather than meta-packages being called like <code>tidyverse</code> or <code>tidy
 <dd><p>Many blogdown posts have <code>knitr::opts_chunk$set()</code> in them
 and you may not want this tag showing-up. Default is to keep this, but set
 to <code>FALSE</code> to drop "knitr" from being tagged.</p>
-<p>... a better approach may be to just skip the "setup" chunk during parsing...</p></dd>
+<p>A better approach may be to just skip the "setup" chunk during parsing...</p></dd>
+<dt>...</dt>
+<dd><p>Any additional arguments to pass to <code>spot_pkgs*()</code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
