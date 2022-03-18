@@ -66,9 +66,6 @@
 </h1></div>
 <p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></p>
 <ul>
-<li>
-<a href="#funspotr">funspotr</a>
-<ul>
 <li><a href="#spot-functions-in-a-file">Spot functions in a file</a></li>
 <li>
 <a href="#spot-functions-in-a-github-repo">Spot functions in a github repo</a>
@@ -76,12 +73,10 @@
 <li><a href="#previewing-and-customizing-files-to-parse">Previewing and customizing files to parse</a></li>
 </ul>
 </li>
-<li><a href="#files-you-didnt-write">Files you didn’t write</a></li>
-</ul>
-</li>
 <li>
 <a href="#other-things">Other Things</a>
 <ul>
+<li><a href="#files-you-didnt-write">Files you didn’t write</a></li>
 <li><a href="#package-dependencies-in-another-file">Package dependencies in another file</a></li>
 <li><a href="#show-all-function-calls">Show all function calls</a></li>
 <li><a href="#helper-for-blogdown-tags">Helper for blogdown tags</a></li>
@@ -89,21 +84,10 @@
 </ul>
 </li>
 <li><a href="#how-funspotrspot_funs-works">How <code>funspotr::spot_funs()</code> works</a></li>
-<li>
-<a href="#limitations-problems-musings">Limitations, Problems, Musings</a>
-<ul>
+<li><a href="#limitations-problems-musings">Limitations, Problems, Musings</a></li>
 <li><a href="#installation">Installation</a></li>
 </ul>
-</li>
-</ul>
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-</div>
-<div class="section level1">
-<h1 id="funspotr-1">funspotr<a class="anchor" aria-label="anchor" href="#funspotr-1"></a>
-</h1>
-<!-- badges: start -->
-
-<p>The goal of funspotr (R function spotter) is to make it easy to identify which functions and packages are used in files. It was initially written to map out the functions and packages used in a few popular github repositories. See blog posts:</p>
+<!-- README.md is generated from README.Rmd. Please edit that file --><!-- badges: start --><!-- badges: end --><p>The goal of funspotr (R function spotter) is to make it easy to identify which functions and packages are used in files. It was initially written to map out the functions and packages used in a few popular github repositories. See blog posts:</p>
 <ul>
 <li><a href="https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/" class="external-link">Identifying R Functions &amp; Packages Used in GitHub Repos (funspotr part 1)</a></li>
 <li><a href="https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/" class="external-link">Identifying R Functions &amp; Packages in Github Gists (funspotr part 2)</a></li>
@@ -244,8 +228,11 @@ made_up_fun()
 </div>
 </div>
 <div class="section level2">
-<h2 id="files-you-didnt-write">Files you didn’t write<a class="anchor" aria-label="anchor" href="#files-you-didnt-write"></a>
+<h2 id="other-things">Other Things<a class="anchor" aria-label="anchor" href="#other-things"></a>
 </h2>
+<div class="section level3">
+<h3 id="files-you-didnt-write">Files you didn’t write<a class="anchor" aria-label="anchor" href="#files-you-didnt-write"></a>
+</h3>
 <p>Functions created in the file as well as functions from unavailable packages (or packages that don’t exist) will output as <code>pkgs = "(unknown)"</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">file_lines_missing_pkgs</span> <span class="op">&lt;-</span> <span class="st">"
@@ -279,13 +266,9 @@ hello_world()
   <span class="fu">funspotr</span><span class="fu">:::</span><span class="fu"><a href="reference/install_missing_pkgs.html">install_missing_pkgs</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Alternatively, you may want to clone the repository locally and then use <code>renv::dependencies()</code> and only then start using funspotr. <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> is a more robust approach to finding and installing dependencies – particularly in cases where you are missing many dependencies or don’t want to alter the packages in your global library.</p>
 </div>
-</div>
-<div class="section level1">
-<h1 id="other-things">Other Things<a class="anchor" aria-label="anchor" href="#other-things"></a>
-</h1>
-<div class="section level2">
-<h2 id="package-dependencies-in-another-file">Package dependencies in another file<a class="anchor" aria-label="anchor" href="#package-dependencies-in-another-file"></a>
-</h2>
+<div class="section level3">
+<h3 id="package-dependencies-in-another-file">Package dependencies in another file<a class="anchor" aria-label="anchor" href="#package-dependencies-in-another-file"></a>
+</h3>
 <p><code><a href="reference/spot_funs.html">spot_funs()</a></code> is currently set-up for self-contained files. But <code><a href="reference/spot_funs_custom.html">spot_funs_custom()</a></code> allows the user to explicitly specify <code>pkgs</code> where functions may come from. This is useful in cases where the packages loaded are not in the same location as the <code>file_path</code> (e.g. they are loaded via <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> or a DESCRIPTION file, or some other workflow). For example, below is a made-up example where the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> calls are made in a separate file and <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code>d in.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># file where packages are loaded</span>
@@ -325,9 +308,9 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <span class="co">#&gt; 5 days   lubridate FALSE</span></code></pre></div>
 <p>Also see <code>funspotr:::spot_pkgs_from_DESCRIPTION()</code>.</p>
 </div>
-<div class="section level2">
-<h2 id="show-all-function-calls">Show all function calls<a class="anchor" aria-label="anchor" href="#show-all-function-calls"></a>
-</h2>
+<div class="section level3">
+<h3 id="show-all-function-calls">Show all function calls<a class="anchor" aria-label="anchor" href="#show-all-function-calls"></a>
+</h3>
 <p>Passing in <code>show_each_use = TRUE</code> to <code>...</code> in <code>get_funs()</code> or <code><a href="reference/github_spot_things.html">github_spot_funs()</a></code> will return <em>all</em> instances of a function call rather than just once for each file.</p>
 <p>Compared to the initial example, <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> now shows-up at both rows 4 and 8:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -347,9 +330,9 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <span class="co">#&gt; 10 lm           stats     FALSE           </span>
 <span class="co">#&gt; 11 made_up_fun  (unknown) FALSE</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="helper-for-blogdown-tags">Helper for <a href="https://pkgs.rstudio.com/blogdown/" class="external-link">blogdown</a> tags<a class="anchor" aria-label="anchor" href="#helper-for-blogdown-tags"></a>
-</h2>
+<div class="section level3">
+<h3 id="helper-for-blogdown-tags">Helper for <a href="https://pkgs.rstudio.com/blogdown/" class="external-link">blogdown</a> tags<a class="anchor" aria-label="anchor" href="#helper-for-blogdown-tags"></a>
+</h3>
 <p>Setting <code>as_yaml_tags = TRUE</code> in <code><a href="reference/spot_pkgs.html">spot_pkgs()</a></code> flattens the dependencies and outputs them in a format that can be copied and pasted into the <strong>tags</strong> section of a blogdown post’s YAML header.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Example from old blogdown post</span>
@@ -371,16 +354,16 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <span id="cb11-7"><a href="#cb11-7"></a><span class="op">---</span></span></code></pre></div>
 <p>See (<a href="https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327" class="external-link">blogdown#647</a>) for an explanation.</p>
 </div>
-<div class="section level2">
-<h2 id="unexported-functions">Unexported functions<a class="anchor" aria-label="anchor" href="#unexported-functions"></a>
-</h2>
+<div class="section level3">
+<h3 id="unexported-functions">Unexported functions<a class="anchor" aria-label="anchor" href="#unexported-functions"></a>
+</h3>
 <p>Many of the unexported functions (in “R/github-spot.R” in particular) may be helpful in building up other workflows for mapping <code><a href="reference/spot_funs.html">spot_funs()</a></code> across multiple files[4] <em>If you have a suggestion for a function or set of functions for spotting functions, feel free to open an issue.</em></p>
 <!-- **If you've used {funspotr} to map the R functions and packages of a public blog or repository, open an issue to add a link in the README.** -->
 </div>
 </div>
-<div class="section level1">
-<h1 id="how-funspotrspot_funs-works">How <code>funspotr::spot_funs()</code> works<a class="anchor" aria-label="anchor" href="#how-funspotrspot_funs-works"></a>
-</h1>
+<div class="section level2">
+<h2 id="how-funspotrspot_funs-works">How <code>funspotr::spot_funs()</code> works<a class="anchor" aria-label="anchor" href="#how-funspotrspot_funs-works"></a>
+</h2>
 <p>At a high-level…</p>
 <ol style="list-style-type: decimal">
 <li>Create a new R instance using <a href="https://github.com/r-lib/callr" class="external-link">callr</a>
@@ -393,9 +376,9 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <li>Pass functions through <code><a href="https://rdrr.io/r/utils/apropos.html" class="external-link">utils::find()</a></code> to identify associated package</li>
 </ol>
 </div>
-<div class="section level1">
-<h1 id="limitations-problems-musings">Limitations, Problems, Musings<a class="anchor" aria-label="anchor" href="#limitations-problems-musings"></a>
-</h1>
+<div class="section level2">
+<h2 id="limitations-problems-musings">Limitations, Problems, Musings<a class="anchor" aria-label="anchor" href="#limitations-problems-musings"></a>
+</h2>
 <ul>
 <li>If a file contains R syntax that is not well defined it will not be parsed and will return an error. See <a href="https://yihui.org/formatr/#6-further-notes" class="external-link">formatR</a> (used by {funspotr} in parsing) for other common reasons for failure.</li>
 <li>
@@ -419,9 +402,10 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <li>Currently is possible to have github block you pretty soon due to hitting too many files (in which case you’ll likely get a 403 or connection error). There are some things that could probably be done to reduce number of github API hits (e.g. above bullet, <code><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep()</a></code>, …).</li>
 <li>Throughout the code and package documentation I have “inspiration” bullets followed by a link pointing to places where I took stuff from stack overflow, github, or other packages</li>
 </ul>
-<div class="section level3">
-<h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>You can install the development version of funspotr from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
@@ -437,7 +421,6 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <p>[9] e.g. in this case <code>lines &lt;- "library(pkg)"</code> the <code>pkg</code> would show-up as a dependency despite just being part of a quote rather than actually loaded.</p>
 </div>
 </div>
-
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
@@ -470,12 +453,7 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-</ul>
-</div>
+
 
   </aside>
 </div>
