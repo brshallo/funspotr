@@ -87,6 +87,7 @@ to <code>FALSE</code> to drop "knitr" from being tagged.</p>
 <div class="sourceCode"><pre><code>tags: ["`r funspotr::spot_tags()`"]
 </code></pre></div>
 
+<p>Note that you must wrap in double quotes.</p>
 <p>Thanks Yihui for getting this working and for suggesting the function! Note
 requires blogdown &gt;= 1.9 to work
 (https://github.com/rstudio/blogdown/issues/647).</p>
@@ -99,8 +100,11 @@ requires blogdown &gt;= 1.9 to work
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co"># Put this in your blogdown posts YAML header to autogenerate tags based on pkgs</span></span>
+<span class="r-in"><span class="co">## Put this in your blogdown posts YAML header to autogenerate tags based on pkgs</span></span>
 <span class="r-in"><span class="co"># tags: ["`r funspotr::spot_tags()`"]</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## To reviw input interactively from within rstudio you might also try:</span></span>
+<span class="r-in"><span class="co"># funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path, drop_knitr = TRUE)</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

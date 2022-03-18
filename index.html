@@ -64,9 +64,51 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="funspotr">funspotr<a class="anchor" aria-label="anchor" href="#funspotr"></a>
 </h1></div>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></p>
+<ul>
+<li>
+<a href="#funspotr">funspotr</a>
+<ul>
+<li><a href="#spot-functions-in-a-file">Spot functions in a file</a></li>
+<li>
+<a href="#spot-functions-in-a-github-repo">Spot functions in a github repo</a>
+<ul>
+<li><a href="#previewing-and-customizing-files-to-parse">Previewing and customizing files to parse</a></li>
+</ul>
+</li>
+<li><a href="#files-you-didnt-write">Files you didn’t write</a></li>
+</ul>
+</li>
+<li>
+<a href="#other-things">Other Things</a>
+<ul>
+<li><a href="#package-dependencies-in-another-file">Package dependencies in another file</a></li>
+<li><a href="#show-all-function-calls">Show all function calls</a></li>
+<li><a href="#helper-for-blogdown-tags">Helper for blogdown tags</a></li>
+<li><a href="#unexported-functions">Unexported functions</a></li>
+</ul>
+</li>
+<li><a href="#how-funspotrspot_funs-works">How <code>funspotr::spot_funs()</code> works</a></li>
+<li>
+<a href="#limitations-problems-musings">Limitations, Problems, Musings</a>
+<ul>
+<li><a href="#installation">Installation</a></li>
+</ul>
+</li>
+</ul>
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+</div>
+<div class="section level1">
+<h1 id="funspotr-1">funspotr<a class="anchor" aria-label="anchor" href="#funspotr-1"></a>
+</h1>
 <!-- badges: start -->
 
-<p>The goal of funspotr (R function spotter) is to make it easy to identify which functions and packages are used in files. It was initially written to map out the functions and packages used in a few popular github repositories (see <a href="https://github.com/brshallo/funspotr-examples" class="external-link">brshallo/funspotr-examples</a> and associated <a href="https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/" class="external-link">blog post</a> and <a href="https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/" class="external-link">post on parsing gists</a>).</p>
+<p>The goal of funspotr (R function spotter) is to make it easy to identify which functions and packages are used in files. It was initially written to map out the functions and packages used in a few popular github repositories. See blog posts:</p>
+<ul>
+<li><a href="https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/" class="external-link">Identifying R Functions &amp; Packages Used in GitHub Repos (funspotr part 1)</a></li>
+<li><a href="https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/" class="external-link">Identifying R Functions &amp; Packages in Github Gists (funspotr part 2)</a></li>
+<li><a href="https://www.bryanshalloway.com/2022/03/17/network-plots-of-code-collections-funspotr-part-3/" class="external-link">Network Plots of Code Collections (funspotr part 3)</a></li>
+</ul>
 <p>funspotr is primarily designed for self-contained scripts (see <a href="#package-dependencies-in-another-file">Package dependencies in another file</a>). Also, it may not identify <em>every</em> function and/or package (see <a href="#limitations-problems-musings">Limitations, Problems, Musings</a>) or read the source code for details.</p>
 <div class="section level2">
 <h2 id="spot-functions-in-a-file">Spot functions in a file<a class="anchor" aria-label="anchor" href="#spot-functions-in-a-file"></a>
@@ -128,14 +170,13 @@ made_up_fun()
   branch <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span>
 
 <span class="va">gh_ex</span>
-<span class="co">#&gt; # A tibble: 5 x 3</span>
-<span class="co">#&gt;   contents                         urls                               spotted   </span>
-<span class="co">#&gt;   &lt;chr&gt;                            &lt;chr&gt;                              &lt;list&gt;    </span>
-<span class="co">#&gt; 1 R/Rmd-to-R.R                     https://raw.githubusercontent.com~ &lt;named li~</span>
-<span class="co">#&gt; 2 R/feat-engineering-lags.R        https://raw.githubusercontent.com~ &lt;named li~</span>
-<span class="co">#&gt; 3 R/load-inspections-save-csv.R    https://raw.githubusercontent.com~ &lt;named li~</span>
-<span class="co">#&gt; 4 R/types-of-splits.R              https://raw.githubusercontent.com~ &lt;named li~</span>
-<span class="co">#&gt; 5 feat-eng-lags-presentation.Rproj https://raw.githubusercontent.com~ &lt;named li~</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 4 x 3</span>
+<span class="co">#&gt;   contents                      urls                                  spotted   </span>
+<span class="co">#&gt;   &lt;chr&gt;                         &lt;chr&gt;                                 &lt;list&gt;    </span>
+<span class="co">#&gt; 1 R/Rmd-to-R.R                  https://raw.githubusercontent.com/br~ &lt;named li~</span>
+<span class="co">#&gt; 2 R/feat-engineering-lags.R     https://raw.githubusercontent.com/br~ &lt;named li~</span>
+<span class="co">#&gt; 3 R/load-inspections-save-csv.R https://raw.githubusercontent.com/br~ &lt;named li~</span>
+<span class="co">#&gt; 4 R/types-of-splits.R           https://raw.githubusercontent.com/br~ &lt;named li~</span></code></pre></div>
 <ul>
 <li>
 <code>contents</code> : filepath in github repo</li>
@@ -172,14 +213,13 @@ made_up_fun()
   preview <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="va">preview_files</span>
-<span class="co">#&gt; # A tibble: 5 x 2</span>
-<span class="co">#&gt;   contents                         urls                                         </span>
-<span class="co">#&gt;   &lt;chr&gt;                            &lt;chr&gt;                                        </span>
-<span class="co">#&gt; 1 R/Rmd-to-R.R                     https://raw.githubusercontent.com/brshallo/f~</span>
-<span class="co">#&gt; 2 R/feat-engineering-lags.R        https://raw.githubusercontent.com/brshallo/f~</span>
-<span class="co">#&gt; 3 R/load-inspections-save-csv.R    https://raw.githubusercontent.com/brshallo/f~</span>
-<span class="co">#&gt; 4 R/types-of-splits.R              https://raw.githubusercontent.com/brshallo/f~</span>
-<span class="co">#&gt; 5 feat-eng-lags-presentation.Rproj https://raw.githubusercontent.com/brshallo/f~</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 4 x 2</span>
+<span class="co">#&gt;   contents                      urls                                            </span>
+<span class="co">#&gt;   &lt;chr&gt;                         &lt;chr&gt;                                           </span>
+<span class="co">#&gt; 1 R/Rmd-to-R.R                  https://raw.githubusercontent.com/brshallo/feat~</span>
+<span class="co">#&gt; 2 R/feat-engineering-lags.R     https://raw.githubusercontent.com/brshallo/feat~</span>
+<span class="co">#&gt; 3 R/load-inspections-save-csv.R https://raw.githubusercontent.com/brshallo/feat~</span>
+<span class="co">#&gt; 4 R/types-of-splits.R           https://raw.githubusercontent.com/brshallo/feat~</span></code></pre></div>
 <p>You can pass in a custom set of urls by inputting a dataframe to the argument <code>custom_urls</code> – this may be the output of a previous call where <code>preview = TRUE</code>. For examle, say we only want to parse the “types-of-splits.R” and “Rmd-to-R.R” files.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">preview_files</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
@@ -379,9 +419,9 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <li>Currently is possible to have github block you pretty soon due to hitting too many files (in which case you’ll likely get a 403 or connection error). There are some things that could probably be done to reduce number of github API hits (e.g. above bullet, <code><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep()</a></code>, …).</li>
 <li>Throughout the code and package documentation I have “inspiration” bullets followed by a link pointing to places where I took stuff from stack overflow, github, or other packages</li>
 </ul>
-<div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h2>
+<div class="section level3">
+<h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h3>
 <p>You can install the development version of funspotr from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
