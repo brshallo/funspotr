@@ -3,14 +3,12 @@ funspotr
 
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 
--   [funspotr](#funspotr)
-    -   [Spot functions in a file](#spot-functions-in-a-file)
-    -   [Spot functions in a github
-        repo](#spot-functions-in-a-github-repo)
-        -   [Previewing and customizing files to
-            parse](#previewing-and-customizing-files-to-parse)
-    -   [Files you didn’t write](#files-you-didnt-write)
+-   [Spot functions in a file](#spot-functions-in-a-file)
+-   [Spot functions in a github repo](#spot-functions-in-a-github-repo)
+    -   [Previewing and customizing files to
+        parse](#previewing-and-customizing-files-to-parse)
 -   [Other Things](#other-things)
+    -   [Files you didn’t write](#files-you-didnt-write)
     -   [Package dependencies in another
         file](#package-dependencies-in-another-file)
     -   [Show all function calls](#show-all-function-calls)
@@ -18,16 +16,10 @@ funspotr
     -   [Unexported functions](#unexported-functions)
 -   [How `funspotr::spot_funs()` works](#how-funspotrspot_funs-works)
 -   [Limitations, Problems, Musings](#limitations-problems-musings)
-    -   [Installation](#installation)
+-   [Installation](#installation)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# funspotr
-
 <!-- badges: start -->
-
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 The goal of funspotr (R function spotter) is to make it easy to identify
@@ -204,7 +196,9 @@ The `custom_urls` argument works for any situation where you want to map
 `github_gists()` for a case where this argument is used to parse
 functions/packages from a specified github user’s gists.
 
-## Files you didn’t write
+## Other Things
+
+### Files you didn’t write
 
 Functions created in the file as well as functions from unavailable
 packages (or packages that don’t exist) will output as
@@ -258,9 +252,7 @@ finding and installing dependencies – particularly in cases where you
 are missing many dependencies or don’t want to alter the packages in
 your global library.
 
-# Other Things
-
-## Package dependencies in another file
+### Package dependencies in another file
 
 `spot_funs()` is currently set-up for self-contained files. But
 `spot_funs_custom()` allows the user to explicitly specify `pkgs` where
@@ -310,7 +302,7 @@ spot_funs_custom(
 
 Also see `funspotr:::spot_pkgs_from_DESCRIPTION()`.
 
-## Show all function calls
+### Show all function calls
 
 Passing in `show_each_use = TRUE` to `...` in `get_funs()` or
 `github_spot_funs()` will return *all* instances of a function call
@@ -337,7 +329,7 @@ spot_funs(file_path = file_output, show_each_use = TRUE)
 #> 11 made_up_fun  (unknown) FALSE
 ```
 
-## Helper for [blogdown](https://pkgs.rstudio.com/blogdown/) tags
+### Helper for [blogdown](https://pkgs.rstudio.com/blogdown/) tags
 
 Setting `as_yaml_tags = TRUE` in `spot_pkgs()` flattens the dependencies
 and outputs them in a format that can be copied and pasted into the
@@ -373,7 +365,7 @@ See
 ([blogdown\#647](https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327))
 for an explanation.
 
-## Unexported functions
+### Unexported functions
 
 Many of the unexported functions (in “R/github-spot.R” in particular)
 may be helpful in building up other workflows for mapping `spot_funs()`
@@ -382,7 +374,7 @@ of functions for spotting functions, feel free to open an issue.*
 
 <!-- **If you've used {funspotr} to map the R functions and packages of a public blog or repository, open an issue to add a link in the README.** -->
 
-# How `funspotr::spot_funs()` works
+## How `funspotr::spot_funs()` works
 
 At a high-level…
 
@@ -400,7 +392,7 @@ the package a function comes from in the file.)
 4.  Pass functions through `utils::find()` to identify associated
     package
 
-# Limitations, Problems, Musings
+## Limitations, Problems, Musings
 
 -   If a file contains R syntax that is not well defined it will not be
     parsed and will return an error. See
@@ -449,7 +441,7 @@ the package a function comes from in the file.)
     bullets followed by a link pointing to places where I took stuff
     from stack overflow, github, or other packages
 
-### Installation
+## Installation
 
 You can install the development version of funspotr from
 [GitHub](https://github.com/) with:
