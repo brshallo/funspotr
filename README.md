@@ -1,3 +1,24 @@
+funspotr
+================
+
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
+-   [funspotr](#funspotr)
+    -   [Spot functions in a file](#spot-functions-in-a-file)
+    -   [Spot functions in a github
+        repo](#spot-functions-in-a-github-repo)
+        -   [Previewing and customizing files to
+            parse](#previewing-and-customizing-files-to-parse)
+    -   [Files you didn’t write](#files-you-didnt-write)
+-   [Other Things](#other-things)
+    -   [Package dependencies in another
+        file](#package-dependencies-in-another-file)
+    -   [Show all function calls](#show-all-function-calls)
+    -   [Helper for blogdown tags](#helper-for-blogdown-tags)
+    -   [Unexported functions](#unexported-functions)
+-   [How `funspotr::spot_funs()` works](#how-funspotrspot_funs-works)
+-   [Limitations, Problems, Musings](#limitations-problems-musings)
+    -   [Installation](#installation)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -12,12 +33,14 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 The goal of funspotr (R function spotter) is to make it easy to identify
 which functions and packages are used in files. It was initially written
 to map out the functions and packages used in a few popular github
-repositories (see
-[brshallo/funspotr-examples](https://github.com/brshallo/funspotr-examples)
-and associated [blog
-post](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/)
-and [post on parsing
-gists](https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/)).
+repositories. See blog posts:
+
+-   [Identifying R Functions & Packages Used in GitHub Repos (funspotr
+    part 1)](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/)
+-   [Identifying R Functions & Packages in Github Gists (funspotr
+    part 2)](https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/)
+-   [Network Plots of Code Collections (funspotr
+    part 3)](https://www.bryanshalloway.com/2022/03/17/network-plots-of-code-collections-funspotr-part-3/)
 
 funspotr is primarily designed for self-contained scripts (see [Package
 dependencies in another file](#package-dependencies-in-another-file)).
@@ -87,14 +110,13 @@ gh_ex <- github_spot_funs(
   branch = "main")
 
 gh_ex
-#> # A tibble: 5 x 3
-#>   contents                         urls                               spotted   
-#>   <chr>                            <chr>                              <list>    
-#> 1 R/Rmd-to-R.R                     https://raw.githubusercontent.com~ <named li~
-#> 2 R/feat-engineering-lags.R        https://raw.githubusercontent.com~ <named li~
-#> 3 R/load-inspections-save-csv.R    https://raw.githubusercontent.com~ <named li~
-#> 4 R/types-of-splits.R              https://raw.githubusercontent.com~ <named li~
-#> 5 feat-eng-lags-presentation.Rproj https://raw.githubusercontent.com~ <named li~
+#> # A tibble: 4 x 3
+#>   contents                      urls                                  spotted   
+#>   <chr>                         <chr>                                 <list>    
+#> 1 R/Rmd-to-R.R                  https://raw.githubusercontent.com/br~ <named li~
+#> 2 R/feat-engineering-lags.R     https://raw.githubusercontent.com/br~ <named li~
+#> 3 R/load-inspections-save-csv.R https://raw.githubusercontent.com/br~ <named li~
+#> 4 R/types-of-splits.R           https://raw.githubusercontent.com/br~ <named li~
 ```
 
 -   `contents` : filepath in github repo
@@ -142,14 +164,13 @@ preview_files <- github_spot_funs(
   preview = TRUE)
 
 preview_files
-#> # A tibble: 5 x 2
-#>   contents                         urls                                         
-#>   <chr>                            <chr>                                        
-#> 1 R/Rmd-to-R.R                     https://raw.githubusercontent.com/brshallo/f~
-#> 2 R/feat-engineering-lags.R        https://raw.githubusercontent.com/brshallo/f~
-#> 3 R/load-inspections-save-csv.R    https://raw.githubusercontent.com/brshallo/f~
-#> 4 R/types-of-splits.R              https://raw.githubusercontent.com/brshallo/f~
-#> 5 feat-eng-lags-presentation.Rproj https://raw.githubusercontent.com/brshallo/f~
+#> # A tibble: 4 x 2
+#>   contents                      urls                                            
+#>   <chr>                         <chr>                                           
+#> 1 R/Rmd-to-R.R                  https://raw.githubusercontent.com/brshallo/feat~
+#> 2 R/feat-engineering-lags.R     https://raw.githubusercontent.com/brshallo/feat~
+#> 3 R/load-inspections-save-csv.R https://raw.githubusercontent.com/brshallo/feat~
+#> 4 R/types-of-splits.R           https://raw.githubusercontent.com/brshallo/feat~
 ```
 
 You can pass in a custom set of urls by inputting a dataframe to the
@@ -428,7 +449,7 @@ the package a function comes from in the file.)
     bullets followed by a link pointing to places where I took stuff
     from stack overflow, github, or other packages
 
-## Installation
+### Installation
 
 You can install the development version of funspotr from
 [GitHub](https://github.com/) with:

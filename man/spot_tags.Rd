@@ -39,14 +39,19 @@ packages used in your post (wrapper around \code{funspotr::spot_pkgs()}).
 \preformatted{tags: ["`r funspotr::spot_tags()`"]
 }
 
+Note that you must wrap in double quotes.
+
 Thanks Yihui for getting this working and for suggesting the function! Note
 requires blogdown >= 1.9 to work
 (https://github.com/rstudio/blogdown/issues/647).
 }
 \examples{
 
-# Put this in your blogdown posts YAML header to autogenerate tags based on pkgs
+## Put this in your blogdown posts YAML header to autogenerate tags based on pkgs
 # tags: ["`r funspotr::spot_tags()`"]
+
+## To reviw input interactively from within rstudio you might also try:
+# funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path, drop_knitr = TRUE)
 }
 \seealso{
 show_pkgs show_pkgs_used

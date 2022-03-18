@@ -95,6 +95,6 @@ network_plot <- function(df, to = pkgs, show_each_use = FALSE){
                           useGroups = FALSE) %>%
     visNetwork::visExport(name = export_name,
                           label = "PNG snapshot",
-                          style = "")
-
+                          style = "") %>%
+    visNetwork::visOptions(nodesIdSelection = list())
 }

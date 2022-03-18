@@ -6,6 +6,7 @@
 #' ```
 #' tags: ["`r funspotr::spot_tags()`"]
 #' ```
+#' Note that you must wrap in double quotes.
 #'
 #' Thanks Yihui for getting this working and for suggesting the function! Note
 #' requires blogdown >= 1.9 to work
@@ -32,8 +33,11 @@
 #'
 #' @examples
 #'
-#' # Put this in your blogdown posts YAML header to autogenerate tags based on pkgs
+#' ## Put this in your blogdown posts YAML header to autogenerate tags based on pkgs
 #' # tags: ["`r funspotr::spot_tags()`"]
+#'
+#' ## To reviw input interactively from within rstudio you might also try:
+#' # funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path, drop_knitr = TRUE)
 spot_tags <- function(file_path = knitr::current_input(),
                       used = FALSE,
                       drop_knitr = FALSE,
