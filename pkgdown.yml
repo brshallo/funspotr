@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 2.0.2
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-03-20T21:51Z
+last_built: 2022-03-20T23:09Z
 urls:
   reference: https://brshallo.github.io/funspotr/reference
   article: https://brshallo.github.io/funspotr/articles
