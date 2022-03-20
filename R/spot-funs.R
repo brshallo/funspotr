@@ -5,6 +5,7 @@
 #' NCmisc::list.functions.in.file(). Rewrote because function made order of
 #' output dependent on packages. Also wanted to add `show_each_use` arg.
 #'
+#' @param file_path character vector of path to file.
 #' @param show_each_use If changed to `TRUE` will return each instance a function
 #'   is used rather than once for everything
 list_functions_in_file <- function(file_path, show_each_use = FALSE){
@@ -42,16 +43,16 @@ list_functions_in_file <- function(file_path, show_each_use = FALSE){
 list_functions_in_file_to_df <- function(funs, keep_search_list = FALSE){
 
   output <- tibble::enframe(funs) %>%
-    rename(funs = name, pkgs = value) %>%
-    mutate(pkgs_len = map_int(pkgs, length),
-           in_multiple_pkgs = ifelse(pkgs_len > 1, TRUE, FALSE),
-           pkgs = map(pkgs, ~str_extract(.x, "(?<=package:)[:alpha:]+") %>% unique()),
-           pkgs = ifelse(pkgs_len == 0, list("(unknown)"), pkgs)) %>%
-    select(-pkgs_len)
+    rename(funs = .data$name, pkgs = .data$value) %>%
+    mutate(pkgs_len = map_int(.data$pkgs, length),
+           in_multiple_pkgs = ifelse(.data$pkgs_len > 1, TRUE, FALSE),
+           pkgs = map(.data$pkgs, ~str_extract(.x, "(?<=package:)[:alpha:]+") %>% unique()),
+           pkgs = ifelse(.data$pkgs_len == 0, list("(unknown)"), .data$pkgs)) %>%
+    select(-.data$pkgs_len)
 
   if(keep_search_list) return(output) # previously unnested... but if also `show_each_use = TRUE` is confusing
 
-  mutate(output, pkgs = map_chr(pkgs, 1))
+  mutate(output, pkgs = map_chr(.data$pkgs, 1))
 }
 
 #' Call R List Functions
@@ -69,6 +70,14 @@ list_functions_in_file_to_df <- function(funs, keep_search_list = FALSE){
 #' {import} package to manage this process and takes the approach described
 #' here: https://github.com/rticulate/import/issues/57
 #' @name call_r_list_functions_doc
+#'
+#' @param pkgs Character vector of packages loaded via library, require, etc,
+#' @param file_temp character vector of path to file. In most cases will be a
+#'   temporary file.
+#' @param show_each_use Logical, default is `FALSE`. If changed to `TRUE` will
+#'   return individual rows for each time a function is used (rather than just
+#'   once for the entire file).
+#' @param pkgs_explicit Packages used explicity, e.g. `pkg::fun()`.
 NULL
 
 #'

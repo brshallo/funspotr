@@ -15,6 +15,18 @@ call_r_list_functions_explicit(
   show_each_use = FALSE
 )
 }
+\arguments{
+\item{pkgs}{Character vector of packages loaded via library, require, etc,}
+
+\item{file_temp}{character vector of path to file. In most cases will be a
+temporary file.}
+
+\item{show_each_use}{Logical, default is \code{FALSE}. If changed to \code{TRUE} will
+return individual rows for each time a function is used (rather than just
+once for the entire file).}
+
+\item{pkgs_explicit}{Packages used explicity, e.g. \code{pkg::fun()}.}
+}
 \description{
 The next several function are all created to make namespaces \emph{slightly}
 better -- honestly not sure is worth the added complexity this created. But

@@ -7,6 +7,8 @@
 list_functions_in_file(file_path, show_each_use = FALSE)
 }
 \arguments{
+\item{file_path}{character vector of path to file.}
+
 \item{show_each_use}{If changed to \code{TRUE} will return each instance a function
 is used rather than once for everything}
 }

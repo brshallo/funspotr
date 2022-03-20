@@ -4,7 +4,7 @@
 \name{funspotr-package}
 \alias{funspotr}
 \alias{funspotr-package}
-\title{funspotr: Identify Functions & Packages in Files}
+\title{funspotr: Spot R Functions & Packages}
 \description{
 To learn more about funspotr see https://github.com/brshallo/funspotr
 }

@@ -421,7 +421,9 @@ the package a function comes from in the file.)
     handled by something like `renv::dependencies()` or a parsing based
     approach. The simple regex’s I use have a variety of problems. As
     just one example `funspotr::get_pkgs()` will not recognize when a
-    package is within quotes or being escaped[9].
+    package is within quotes or being escaped[9]. Another useful package
+    for installing missing dependencies may be
+    [attachment](https://thinkr-open.github.io/attachment/index.html).
 -   I am curiuos if there is something to be learned from how
     `R CMD check` does function parsing.
     -   \`funspotr’s current approach is slow

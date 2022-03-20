@@ -1,11 +1,15 @@
 #' Did Safely Error
 #'
+#' @param safely_named_list Named list as outputted by `purrr::safely()` where
+#'   each index contains an "error" and a "result" element.
+#'
 #' @return logical vector
 did_safely_error <- function(safely_named_list){
 
-  map(safely_named_list, "error") %>%
-    map_lgl(is.null) %>%
-    {!.}
+  output <- map(safely_named_list, "error") %>%
+    map_lgl(is.null)
+
+  !output
 }
 
 #' Github Contents
@@ -91,7 +95,7 @@ github_spot <-
     contents_urls <- github_contents_urls(repo, branch)
 
     contents_urls <- contents_urls %>%
-      filter(str_detect_r_rmd(contents, rmv_index))
+      filter(str_detect_r_rmd(.data$contents, rmv_index))
 
   } else contents_urls <- custom_urls
 
@@ -100,9 +104,9 @@ github_spot <-
   safe_spot_type <- purrr::safely(spot_type)
 
   output <- contents_urls %>%
-    mutate(spotted = map(urls, safe_spot_type, ...))
+    mutate(spotted = map(.data$urls, safe_spot_type, ...))
 
-  output_errors <- filter(output, did_safely_error(spotted))
+  output_errors <- filter(output, did_safely_error(.data$spotted))
 
   if(nrow(output_errors) > 0){
     warning("Did not evaluate properly for the following URL's: ", output_errors$urls)
@@ -219,12 +223,12 @@ NULL
 #'   unnest_github_results()
 unnest_github_results <- function(df){
   output <- df %>%
-    filter(!did_safely_error(spotted)) %>%
-    mutate(spotted = map(spotted, "result")) %>%
-    relocate(spotted) %>%
-    unnest(spotted)
+    filter(!did_safely_error(.data$spotted)) %>%
+    mutate(spotted = map(.data$spotted, "result")) %>%
+    relocate(.data$spotted) %>%
+    unnest(.data$spotted)
 
-  if(any(names(output) == "spotted")) output <- rename(output, pkgs = spotted)
+  if(any(names(output) == "spotted")) output <- rename(output, pkgs = .data$spotted)
 
   output
 }

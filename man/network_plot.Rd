@@ -4,7 +4,7 @@
 \alias{network_plot}
 \title{Funspotr Network Plot}
 \usage{
-network_plot(df, to = pkgs, show_each_use = FALSE)
+network_plot(df, to = .data$pkgs, show_each_use = FALSE)
 }
 \arguments{
 \item{df}{Dataframe containing columns \code{contents}, \code{urls} and either \code{funs}

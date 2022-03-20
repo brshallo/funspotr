@@ -6,6 +6,10 @@
 \usage{
 did_safely_error(safely_named_list)
 }
+\arguments{
+\item{safely_named_list}{Named list as outputted by \code{purrr::safely()} where
+each index contains an "error" and a "result" element.}
+}
 \value{
 logical vector
 }

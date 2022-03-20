@@ -27,14 +27,14 @@
 #'   unnest_github_results() %>%
 #'   network_plot(to = pkgs)
 #'
-network_plot <- function(df, to = pkgs, show_each_use = FALSE){
+network_plot <- function(df, to = .data$pkgs, show_each_use = FALSE){
 
   if (!requireNamespace("visNetwork", quietly = TRUE) | !requireNamespace("igraph", quietly = TRUE)) {
     stop("funspotr::network_plot() requires 'visNetwork' and 'igraph' be installed.
          At least one of these seems to be missing.")
   }
 
-  if(!show_each_use) df <- distinct(df, {{to}}, contents, urls)
+  if(!show_each_use) df <- distinct(df, {{to}}, .data$contents, .data$urls)
 
   ## used colors 1,5,10 from  -- inspired by cranly: https://github.com/ikosmidis/cranly
   # colors <- colorspace::diverge_hcl(10, c = 100, l = c(50, 100), power = 1)
@@ -48,24 +48,24 @@ network_plot <- function(df, to = pkgs, show_each_use = FALSE){
     mutate(title = paste0("<p><b>", id,"</b><br>"))
 
   nodes_contents <- df %>%
-    count(contents, urls) %>%
-    select(id = contents, value = n, urls) %>%
+    count(.data$contents, .data$urls) %>%
+    select(id = .data$contents, value = .data$n, .data$urls) %>%
     mutate(color = "#4A6FE3",
            shape = "square") %>%
-    mutate(title = paste0("<p><b>", id,"</b><br> ", urls, "</p>"))
+    mutate(title = paste0("<p><b>", id,"</b><br> ", .data$urls, "</p>"))
 
   nodes <- bind_rows(nodes_pkgs,
                      nodes_contents) %>%
     mutate(label = id)
 
   edges <- df %>%
-    select(from = contents, to = {{to}}) %>%
-    count(from, to) %>%
+    select(from = .data$contents, to = {{to}}) %>%
+    count(.data$from, to) %>%
     rename(value = n) %>%
     # mutate(color = colors[10]) %>% # this messes-up highlighting for some reason
     mutate(title = "in file")
 
-  if(max(edges$value <= 1)) edges <- select(edges, -value)
+  if(max(edges$value <= 1)) edges <- select(edges, -.data$value)
 
   ## Set-up legend
   lnodes <- data.frame(label = c("contents / urls", "Packages Used"),

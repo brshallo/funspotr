@@ -20,3 +20,32 @@ Attempt to install missing packages from CRAN.
 \details{
 In most cases, is probably safer to clone and use \code{renv::dependencies()} -- README.
 }
+\examples{
+# should verify pkgs are available on CRAN -- example below wouldn't work #
+# because madeUpPkg doesn't exist on CRAN
+\dontrun{
+library(funspotr)
+library(dplyr)
+
+file_lines <- "
+library(dplyr)
+require(tidyr)
+library(madeUpPkg)
+
+as_tibble(mpg) \%>\%
+  group_by(class) \%>\%
+  nest() \%>\%
+  mutate(stats = purrr::map(data,
+                            ~lm(cty ~ hwy, data = .x)))
+
+made_up_fun()
+"
+
+file_output <- tempfile(fileext = '.R')
+writeLines(file_lines, file_output)
+
+spot_pkgs(file_output) \%>\%
+  check_pkgs_availability() \%>\%
+  funspotr:::install_missing_pkgs()
+}
+}

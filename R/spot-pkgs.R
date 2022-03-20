@@ -100,8 +100,9 @@ spot_pkgs <- function(file_path, show_explicit_funs = FALSE, copy_local = TRUE, 
 
   if(as_yaml_tags){
     output_tags <- output %>%
-      str_flatten("\n  - ") %>%
-      stringr::str_c("  - ", .)
+      str_flatten("\n  - ")
+
+    output_tags <- stringr::str_c("  - ", output_tags)
 
     return(output_tags)
   }
@@ -130,13 +131,15 @@ spot_pkgs <- function(file_path, show_explicit_funs = FALSE, copy_local = TRUE, 
 spot_pkgs_used <- function(file_path, as_yaml_tags = FALSE){
 
   output <- spot_funs(file_path = file_path) %>%
-    filter(!(pkgs %in% c("(unknown)", "base", "stats", "graphics", "grDevices", "utils", "methods"))) %>%
-    with(unique(pkgs))
+    filter(!(.data$pkgs %in% c("(unknown)", "base", "stats", "graphics", "grDevices", "utils", "methods")))
+
+  output <- with(unique(output$pkgs))
 
   if(as_yaml_tags){
     output_tags <- output %>%
-      str_flatten("\n  - ") %>%
-      stringr::str_c("  - ", .)
+      str_flatten("\n  - ")
+
+    output_tags <- stringr::str_c("  - ", output_tags)
 
     return(output_tags)
   }
@@ -230,7 +233,9 @@ check_pkgs_availability <- function(pkgs, quietly = TRUE){
 #'   available else `install.packages()`
 #'
 #' @examples
-#' \dontrun{
+#' # should verify pkgs are available on CRAN -- example below wouldn't work #
+#' # because madeUpPkg doesn't exist on CRAN
+#'\dontrun{
 #' library(funspotr)
 #' library(dplyr)
 #'
@@ -248,15 +253,13 @@ check_pkgs_availability <- function(pkgs, quietly = TRUE){
 #' made_up_fun()
 #' "
 #'
-#' file_output <- tempfile(fileext = ".R")
+#' file_output <- tempfile(fileext = '.R')
 #' writeLines(file_lines, file_output)
 #'
-#' # should verify pkgs are available on CRAN -- this wouldn't work in this case
-#' # because # {madeUpPkg} doesn't exist on CRAN
 #' spot_pkgs(file_output) %>%
 #'   check_pkgs_availability() %>%
 #'   funspotr:::install_missing_pkgs()
-#' }
+#'}
 install_missing_pkgs <- function(pkgs_availability){
 
   unavailable_pkgs <- names(pkgs_availability[pkgs_availability])

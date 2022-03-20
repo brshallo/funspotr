@@ -1,14 +1,13 @@
 Package: funspotr
-Title: Identify Functions & Packages in Files
+Title: Spot R Functions & Packages
 Version: 0.0.0.9000
 Authors@R: 
   person(given = "Bryan",
          family = "Shalloway",
          role = c("aut", "cre"),
          email = "brshallodev@gmail.com")
-Description: Helpers for identifying R functions in files.
-  Created to help with spotting which functions and 
-  packages were used in some popular R repositories.
+Description: Helpers for parsing out the R functions 
+  and/or packages used in files and code collections.
 License: MIT + file LICENSE
 BugReports: https://github.com/brshallo/funspotr/issues
 Imports:
