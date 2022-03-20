@@ -91,8 +91,23 @@ here: https://github.com/rticulate/import/issues/57</p>
 <span class="op">)</span></code></pre></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+    <dl><dt>pkgs</dt>
+<dd><p>Character vector of packages loaded via library, require, etc,</p></dd>
+<dt>file_temp</dt>
+<dd><p>character vector of path to file. In most cases will be a
+temporary file.</p></dd>
+<dt>show_each_use</dt>
+<dd><p>Logical, default is <code>FALSE</code>. If changed to <code>TRUE</code> will
+return individual rows for each time a function is used (rather than just
+once for the entire file).</p></dd>
+<dt>pkgs_explicit</dt>
+<dd><p>Packages used explicity, e.g. <code>pkg::fun()</code>.</p></dd>
+</dl></div>
 
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
