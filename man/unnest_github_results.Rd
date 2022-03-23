@@ -16,9 +16,11 @@ An unnested dataframe
 After running \code{github_spot()}
 }
 \examples{
+\dontrun{
 library(funspotr)
 library(dplyr)
 
 github_spot_funs("brshallo/feat-eng-lags-presentation", branch = "main") \%>\%
   unnest_github_results()
+}
 }

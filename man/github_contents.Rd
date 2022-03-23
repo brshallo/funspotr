@@ -19,6 +19,7 @@ List files and folders in a github repo.
 inspiration: https://stackoverflow.com/a/25485782/9059865
 }
 \examples{
-
+\dontrun{
 funspotr:::github_contents("brshallo/feat-eng-lags-presentation", branch = "main")
+}
 }

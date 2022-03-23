@@ -235,7 +235,7 @@ check_pkgs_availability <- function(pkgs, quietly = TRUE){
 #' @examples
 #' # should verify pkgs are available on CRAN -- example below wouldn't work #
 #' # because madeUpPkg doesn't exist on CRAN
-#'\dontrun{
+#' \dontrun{
 #' library(funspotr)
 #' library(dplyr)
 #'
@@ -259,7 +259,7 @@ check_pkgs_availability <- function(pkgs, quietly = TRUE){
 #' spot_pkgs(file_output) %>%
 #'   check_pkgs_availability() %>%
 #'   funspotr:::install_missing_pkgs()
-#'}
+#' }
 install_missing_pkgs <- function(pkgs_availability){
 
   unavailable_pkgs <- names(pkgs_availability[pkgs_availability])

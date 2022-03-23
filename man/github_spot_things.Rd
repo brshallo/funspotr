@@ -66,6 +66,7 @@ unexported functions in R/github-spot.R for some potentially helpful building
 blocks.
 }
 \examples{
+\dontrun{
 library(funspotr)
 
 github_spot_funs("brshallo/feat-eng-lags-presentation", branch = "main")
@@ -77,6 +78,7 @@ library(dplyr)
 github_spot_funs("brshallo/feat-eng-lags-presentation", branch = "main", preview = TRUE) \%>\%
   slice(1:2) \%>\%
   github_spot_funs(custom_urls = .)
+}
 }
 \seealso{
 spot_pkgs spot_funs spot_funs_custom unnest_github_results

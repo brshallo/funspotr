@@ -25,6 +25,7 @@ Output simple network plot using
 \code{funs} or \code{pkgs} to \code{contents}/\code{urls}.
 }
 \examples{
+\dontrun{
 library(dplyr)
 library(funspotr)
 
@@ -35,5 +36,5 @@ gh_ex_pkgs <- github_spot_pkgs(
 gh_ex_pkgs \%>\%
   unnest_github_results() \%>\%
   network_plot(to = pkgs)
-
+}
 }

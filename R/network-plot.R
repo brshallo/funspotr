@@ -16,6 +16,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' library(dplyr)
 #' library(funspotr)
 #'
@@ -26,7 +27,7 @@
 #' gh_ex_pkgs %>%
 #'   unnest_github_results() %>%
 #'   network_plot(to = pkgs)
-#'
+#' }
 network_plot <- function(df, to = .data$pkgs, show_each_use = FALSE){
 
   if (!requireNamespace("visNetwork", quietly = TRUE) | !requireNamespace("igraph", quietly = TRUE)) {

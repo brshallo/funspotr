@@ -23,8 +23,9 @@ did_safely_error <- function(safely_named_list){
 #' @return Character vector of contents from github repo.
 #'
 #' @examples
-#'
+#' \dontrun{
 #' funspotr:::github_contents("brshallo/feat-eng-lags-presentation", branch = "main")
+#' }
 github_contents <- function(repo, branch = "main"){
 
   req <- httr::GET(glue::glue("https://api.github.com/repos/{repo}/git/trees/{branch}?recursive=1"))
@@ -45,8 +46,9 @@ github_rbf_to_url <- function(repo, branch, file) glue::glue("https://raw.github
 #'
 #' @return Dataframe with columns `contents` and `urls`.
 #' @examples
-#'
+#' \dontrun{
 #' funspotr:::github_contents_urls("brshallo/feat-eng-lags-presentation", branch = "main")
+#' }
 github_contents_urls <- function(repo, branch = "main"){
   # This step should probably be taken out of the function and instead it should
   # be to pass in a list of files and then select only the r versions... maybe
@@ -191,6 +193,7 @@ github_spot_funs <-
 #' @seealso spot_pkgs spot_funs
 #'
 #' @examples
+#' \dontrun{
 #' library(funspotr)
 #'
 #' github_spot_funs("brshallo/feat-eng-lags-presentation", branch = "main")
@@ -202,6 +205,7 @@ github_spot_funs <-
 #' github_spot_funs("brshallo/feat-eng-lags-presentation", branch = "main", preview = TRUE) %>%
 #'   slice(1:2) %>%
 #'   github_spot_funs(custom_urls = .)
+#' }
 #' @name github_spot_things
 NULL
 
@@ -216,11 +220,13 @@ NULL
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' library(funspotr)
 #' library(dplyr)
 #'
 #' github_spot_funs("brshallo/feat-eng-lags-presentation", branch = "main") %>%
 #'   unnest_github_results()
+#' }
 unnest_github_results <- function(df){
   output <- df %>%
     filter(!did_safely_error(.data$spotted)) %>%

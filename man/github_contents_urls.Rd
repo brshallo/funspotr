@@ -19,6 +19,7 @@ Runs \code{funspotr:::github_contents()} and then maps this through
 \code{github_rbf_to_url()} returning URL's to the "raw" location.
 }
 \examples{
-
+\dontrun{
 funspotr:::github_contents_urls("brshallo/feat-eng-lags-presentation", branch = "main")
+}
 }
