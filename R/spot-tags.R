@@ -42,7 +42,7 @@ spot_tags <- function(file_path = knitr::current_input(),
                       used = FALSE,
                       drop_knitr = FALSE,
                       ...) {
-  if(packageVersion("blogdown") < "1.9"){
+  if(utils::packageVersion("blogdown") < "1.9"){
     warning("blogdown >= 1.9 needed for this function if `file_path = knitr::current_input()`.", call. = FALSE)
   }
 

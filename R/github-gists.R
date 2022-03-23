@@ -52,6 +52,7 @@ get_content <- function(user){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' library(dplyr)
 #' library(funspotr)
 #'
@@ -67,6 +68,7 @@ get_content <- function(user){
 #'
 #' contents %>%
 #'   unnest_github_results()
+#' }
 github_gists <- function(user){
 
   content <- get_content(user)
