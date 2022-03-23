@@ -142,8 +142,9 @@ gh_ex %>%
 ```
 
 The outputs from `funspotr::unnest_github_results()` can also be passed
-into `funspotr::network_plot()` to visualize the connections between
-functions/packages and files.
+into `funspotr::network_plot()` to build a network visualization of the
+connections between functions/packages and files. (Took some inspiration
+from `plot()` method in [cranly](https://github.com/ikosmidis/cranly).)
 
 ### Previewing and customizing files to parse
 
