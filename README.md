@@ -394,6 +394,10 @@ the package a function comes from in the file.)
 4.  Pass functions through `utils::find()` to identify associated
     package
 
+In a language like python, where calls are explicit (e.g. `np.*`), all
+of this stuff with recreating the search space would be unnecessary and
+could just spot functions/packages with simple parsing.
+
 ## Limitations, Problems, Musings
 
 -   If a file contains R syntax that is not well defined it will not be

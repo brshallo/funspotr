@@ -244,6 +244,8 @@ At a high-level...
 3. Pass file through `utils::getParseData()` and filter to just functions (inspired by `NCmisc::list.functions.in.file()`)
 4. Pass functions through `utils::find()` to identify associated package
 
+In a language like python, where calls are explicit (e.g. `np.*`), all of this stuff with recreating the search space would be unnecessary and could just spot functions/packages with simple parsing.
+
 ## Limitations, Problems, Musings
 
 * If a file contains R syntax that is not well defined it will not be parsed and will return an error. See [formatR](https://yihui.org/formatr/#6-further-notes) (used by {funspotr} in parsing) for other common reasons for failure.

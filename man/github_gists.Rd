@@ -24,6 +24,7 @@ of .md files for gists so should probably write something to parse out the R
 code chunks from .md files.
 }
 \examples{
+\dontrun{
 library(dplyr)
 library(funspotr)
 
@@ -39,4 +40,5 @@ contents <-
 
 contents \%>\%
   unnest_github_results()
+}
 }
