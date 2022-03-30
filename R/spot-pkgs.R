@@ -116,7 +116,7 @@ spot_pkgs <- function(file_path, show_explicit_funs = FALSE, copy_local = TRUE, 
 #' `tidymodels` but only want to return those packages that are actually used.
 #' E.g. say you have a `library(tidyverse)` call but only end-up using functions
 #' that are in `dplyr` -- `spot_pkgs()` would return `"tidyverse"` but
-#' `spot_pkgs_used()` woudl return `"dplyr"`.
+#' `spot_pkgs_used()` would return `"dplyr"`.
 #'
 #' Is essentially just calling `spot_funs() %>% with(unique(pkgs))` in the
 #' background. Does not have as many options as `spot_pkgs()` though.

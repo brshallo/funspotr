@@ -81,7 +81,7 @@ column of the returned output. You can also use the \code{print_pkgs_load_status
 and \code{error_if_missing_pkg} arguments to alter how output works in cases when
 not all packages are on the machine.
 
-Explicit calls to unexported functinos i.e. \code{pkg:::fun()} will have \code{pkgs = "(unknown)"} in the returned dataframe.
+Explicit calls to unexported functions i.e. \code{pkg:::fun()} will have \code{pkgs = "(unknown)"} in the returned dataframe.
 }
 \examples{
 library(funspotr)

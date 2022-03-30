@@ -169,7 +169,7 @@ preview_files
 
 You can pass in a custom set of urls by inputting a dataframe to the
 argument `custom_urls` – this may be the output of a previous call where
-`preview = TRUE`. For examle, say we only want to parse the
+`preview = TRUE`. For example, say we only want to parse the
 “types-of-splits.R” and “Rmd-to-R.R” files.
 
 ``` r
@@ -421,7 +421,7 @@ could just spot functions/packages with simple parsing.
     space[7].
 -   Feel free to open an issue if you’d be interested in a simplifying
     function or vignette for mapping `spot_funs()` through local repos
-    or other folder structures other than github respositories (which is
+    or other folder structures other than github repositories (which is
     already covered in `github_spot_funs()`)[8]
 -   All the functions in “R/spot-pkgs.R” would probably be better
     handled by something like `renv::dependencies()` or a parsing based
@@ -430,7 +430,7 @@ could just spot functions/packages with simple parsing.
     package is within quotes or being escaped[9]. Another useful package
     for installing missing dependencies may be
     [attachment](https://thinkr-open.github.io/attachment/index.html).
--   I am curiuos if there is something to be learned from how
+-   I am curious if there is something to be learned from how
     `R CMD check` does function parsing.
     -   \`funspotr’s current approach is slow
     -   Current approach uses some imperfect heuristics

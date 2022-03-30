@@ -41,7 +41,7 @@ index.R file at the root. Change to \code{TRUE} if you don't want this file
 removed.}
 
 \item{custom_urls}{Option to pass in a dataframe with columns \code{contents} and
-\code{urls} to overrride the default urls in the repo to parse. Default is
+\code{urls} to override the default urls in the repo to parse. Default is
 \code{NULL}. See README for example.}
 }
 \value{

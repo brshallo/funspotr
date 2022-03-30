@@ -21,7 +21,7 @@ Primarily used for cases where you load metapackages like \code{tidyverse} or
 \code{tidymodels} but only want to return those packages that are actually used.
 E.g. say you have a \code{library(tidyverse)} call but only end-up using functions
 that are in \code{dplyr} -- \code{spot_pkgs()} would return \code{"tidyverse"} but
-\code{spot_pkgs_used()} woudl return \code{"dplyr"}.
+\code{spot_pkgs_used()} would return \code{"dplyr"}.
 }
 \details{
 Is essentially just calling \code{spot_funs() \%>\% with(unique(pkgs))} in the

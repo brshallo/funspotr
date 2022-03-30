@@ -3,7 +3,7 @@
 #'
 #' Simply a wrapper on `utils::getParseData()` . Is mostly copied from:
 #' NCmisc::list.functions.in.file(). Rewrote because function made order of
-#' output dependent on packages. Also wanted to add `show_each_use` arg.
+#' output dependent on packages. Also wanted to add `show_each_use` argugment.
 #'
 #' @param file_path character vector of path to file.
 #' @param show_each_use If changed to `TRUE` will return each instance a function
@@ -57,18 +57,20 @@ list_functions_in_file_to_df <- function(funs, keep_search_list = FALSE){
 
 #' Call R List Functions
 #'
-#'  The next several function are all created to make namespaces *slightly*
+#' The next several function are all created to make namespaces *slightly*
 #' better -- honestly not sure is worth the added complexity this created. But
 #' what I do is essentially: if there are no explicit function calls (i.e.
-#' pkg::fun() ) `spot_funs()` / `spot_funs_custom()` will run `call_r_list_functions()` to identify
-#' functions and packages, but if there are explicit functions it will run
-#' `call_r_list_functions_explicit()` which does the same thing as `call_r_list_functions()` except it
-#' first loads any regular packages AND THEN attaches any explicit function
-#' calls -- this has the impact of giving explicit function calls precedence
-#' in terms of being identified while not attaching the entire pacakge (the way prior approaches did). This still has problems in
-#' some cases but on the whole I think is better... These functions use the
-#' {import} package to manage this process and takes the approach described
-#' here: https://github.com/rticulate/import/issues/57
+#' pkg::fun() ) `spot_funs()` / `spot_funs_custom()` will run
+#' `call_r_list_functions()` to identify functions and packages, but if there
+#' are explicit functions it will run `call_r_list_functions_explicit()` which
+#' does the same thing as `call_r_list_functions()` except it first loads any
+#' regular packages AND THEN attaches any explicit function calls -- this has
+#' the impact of giving explicit function calls precedence in terms of being
+#' identified while not attaching the entire package (the way prior approaches
+#' did). This still has problems in some cases but on the whole I think is
+#' better... These functions use the {import} package to manage this process and
+#' takes the approach described here:
+#' https://github.com/rticulate/import/issues/57
 #' @name call_r_list_functions_doc
 #'
 #' @param pkgs Character vector of packages loaded via library, require, etc,
@@ -77,7 +79,7 @@ list_functions_in_file_to_df <- function(funs, keep_search_list = FALSE){
 #' @param show_each_use Logical, default is `FALSE`. If changed to `TRUE` will
 #'   return individual rows for each time a function is used (rather than just
 #'   once for the entire file).
-#' @param pkgs_explicit Packages used explicity, e.g. `pkg::fun()`.
+#' @param pkgs_explicit Packages used explicitly, e.g. `pkg::fun()`.
 NULL
 
 #'
@@ -149,7 +151,7 @@ call_r_list_functions_explicit <- function(pkgs, pkgs_explicit, file_temp, show_
 #' and `error_if_missing_pkg` arguments to alter how output works in cases when
 #' not all packages are on the machine.
 #'
-#' Explicit calls to unexported functinos i.e. `pkg:::fun()` will have `pkgs =
+#' Explicit calls to unexported functions i.e. `pkg:::fun()` will have `pkgs =
 #' "(unknown)"` in the returned dataframe.
 #'
 #' @param pkgs Character vector of packages that are added to search space via

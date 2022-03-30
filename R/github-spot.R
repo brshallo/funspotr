@@ -179,7 +179,7 @@ github_spot_funs <-
 #'   index.R file at the root. Change to `TRUE` if you don't want this file
 #'   removed.
 #' @param custom_urls Option to pass in a dataframe with columns `contents` and
-#'   `urls` to overrride the default urls in the repo to parse. Default is
+#'   `urls` to override the default urls in the repo to parse. Default is
 #'   `NULL`. See README for example.
 #'
 #'
