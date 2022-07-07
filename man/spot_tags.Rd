@@ -19,7 +19,9 @@ different file).}
 
 \item{used}{Default is \code{FALSE}. If \code{TRUE} will pass to \code{show_pkgs_used()}
 rather than \code{show_pkgs()}. (Mainly useful for showing actual packages used
-rather than meta-packages being called like \code{tidyverse} or \code{tidymodels}).}
+rather than meta-packages being called like \code{tidyverse} or \code{tidymodels}.
+Also uses a more strict parsing method, so commented-out packages for
+example wouldn't show-up.).}
 
 \item{drop_knitr}{Many blogdown posts have \code{knitr::opts_chunk$set()} in them
 and you may not want this tag showing-up. Default is to keep this, but set

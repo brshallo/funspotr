@@ -17,7 +17,9 @@
 #'   different file).
 #' @param used Default is `FALSE`. If `TRUE` will pass to `show_pkgs_used()`
 #'   rather than `show_pkgs()`. (Mainly useful for showing actual packages used
-#'   rather than meta-packages being called like `tidyverse` or `tidymodels`).
+#'   rather than meta-packages being called like `tidyverse` or `tidymodels`.
+#'   Also uses a more strict parsing method, so commented-out packages for
+#'   example wouldn't show-up.).
 #' @param drop_knitr Many blogdown posts have `knitr::opts_chunk$set()` in them
 #'   and you may not want this tag showing-up. Default is to keep this, but set
 #'   to `FALSE` to drop "knitr" from being tagged.
@@ -76,19 +78,19 @@ spot_tags <- function(file_path = knitr::current_input(),
     lines_spot_tags <- lines_file[lines_spot_tags]
     if(length(lines_spot_tags) == 0){
       yaml_bullet <- FALSE
-      message("`spot_tags` not in file, yaml_bullet defaulting to ", yaml_bullet)
+      message("`spot_tags` not in file, yaml_bullet argument in funspotr::spot_tags() defaulting to ", yaml_bullet)
     } else{
       yaml_bullet <- str_detect(lines_spot_tags[[1]], "\\-")
       yaml_bracket <- str_detect(lines_spot_tags[[1]], "\\[")
       if(!yaml_bullet & !yaml_bracket){
-        message("`spot_tags` not in line with either a bracket or bullet, yaml_bullet defaulting to ", yaml_bullet)
-      } else message("yaml_bullet set to ", yaml_bullet)
+        message("`spot_tags` not in line with either a bracket or bullet, yaml_bullet  argument in funspotr::spot_tags() defaulting to ", yaml_bullet)
+      } else message("yaml_bullet argument in funspotr::spot_tags() set to ", yaml_bullet)
 
     }
   }
 
   if(yaml_bullet){
-    output <- paste(x, collapse = '"\n "')
+    output <- paste(x, collapse = '"\n  - "')
   } else{
     output <- paste(x, collapse = '", "')
   }
