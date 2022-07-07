@@ -68,7 +68,7 @@ requires blogdown >= 1.9 to work
 # tags: ["`r funspotr::spot_tags()`"]
 
 ## To review input interactively from within rstudio you might also try:
-# funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path, drop_knitr = TRUE)
+# funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path)
 }
 \seealso{
 show_pkgs show_pkgs_used

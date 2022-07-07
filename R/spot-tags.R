@@ -52,7 +52,7 @@
 #' # tags: ["`r funspotr::spot_tags()`"]
 #'
 #' ## To review input interactively from within rstudio you might also try:
-#' # funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path, drop_knitr = TRUE)
+#' # funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path)
 spot_tags <- function(file_path = knitr::current_input(),
                       used = FALSE,
                       drop_knitr = FALSE,
