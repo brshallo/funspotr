@@ -99,15 +99,14 @@ call_r_list_functions <- function(pkgs, file_temp, show_each_use = FALSE){
 
 # Add specific functions to search space that will be recognized by
 # utils::find()
+# used to take the approach described here:
+# https://github.com/rticulate/import/issues/57
 attach_pkg_fun <- function(pkg_fun){
   pkg <- pkg_fun$pkg
   fun <- pkg_fun$fun
-  env <- new.env()
-  env_nm <- paste0("explicitpackage:", pkg)
+  pkg_nm <- paste0("explicitpackage:", pkg)
 
-  import::from(pkg, fun, .into = {env}, .character_only = TRUE)
-
-  attach(env, name = env_nm)
+  import::from(pkg, fun, .into = pkg_nm, .character_only = TRUE)
 }
 
 try_attach_pkg_fun <- function(pkg_fun) try(attach_pkg_fun(pkg_fun))
