@@ -69,14 +69,10 @@
 <ul>
 <li><a href="#spot-functions-in-a-file">Spot functions in a file</a></li>
 <li>
-<a href="#spot-functions-in-a-github-repo">Spot functions in a github repo</a>
-<ul>
-<li><a href="#previewing-and-customizing-files-to-parse">Previewing and customizing files to parse</a></li>
-</ul>
+<a href="#spot-functions-in-a-github-repo">Spot functions in a github repo</a><ul><li><a href="#previewing-and-customizing-files-to-parse">Previewing and customizing files to parse</a></li></ul>
 </li>
 <li>
-<a href="#other-things">Other Things</a>
-<ul>
+<a href="#other-things">Other Things</a><ul>
 <li><a href="#files-you-didnt-write">Files you didn’t write</a></li>
 <li><a href="#package-dependencies-in-another-file">Package dependencies in another file</a></li>
 <li><a href="#show-all-function-calls">Show all function calls</a></li>
@@ -100,40 +96,40 @@
 </h2>
 <p>The primary function in funspotr is <code><a href="reference/spot_funs.html">spot_funs()</a></code> which returns a dataframe showing the functions and associated packages used in a file.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://brshallo.github.io/funspotr/">funspotr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-
-<span class="va">file_lines</span> <span class="op">&lt;-</span> <span class="st">"
-library(dplyr)
-require(tidyr)
-
-as_tibble(mpg) %&gt;% 
-  mutate(class = as.character(class)) %&gt;%
-  group_by(class) %&gt;%
-  nest() %&gt;%
-  mutate(stats = purrr::map(data,
-                            ~lm(cty ~ hwy, data = .x)))
- 
-made_up_fun()
-"</span>
-
-<span class="va">file_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".R"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">file_lines</span>, <span class="va">file_output</span><span class="op">)</span>
-
-<span class="fu"><a href="reference/spot_funs.html">spot_funs</a></span><span class="op">(</span>file_path <span class="op">=</span> <span class="va">file_output</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 10 x 3</span>
-<span class="co">#&gt;    funs         pkgs      in_multiple_pkgs</span>
-<span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;     &lt;lgl&gt;           </span>
-<span class="co">#&gt;  1 library      base      FALSE           </span>
-<span class="co">#&gt;  2 require      base      FALSE           </span>
-<span class="co">#&gt;  3 as_tibble    tidyr     TRUE            </span>
-<span class="co">#&gt;  4 mutate       dplyr     FALSE           </span>
-<span class="co">#&gt;  5 as.character base      FALSE           </span>
-<span class="co">#&gt;  6 group_by     dplyr     FALSE           </span>
-<span class="co">#&gt;  7 nest         tidyr     FALSE           </span>
-<span class="co">#&gt;  8 map          purrr     FALSE           </span>
-<span class="co">#&gt;  9 lm           stats     FALSE           </span>
-<span class="co">#&gt; 10 made_up_fun  (unknown) FALSE</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://brshallo.github.io/funspotr/">funspotr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">file_lines</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
+<span><span class="st">library(dplyr)</span></span>
+<span><span class="st">require(tidyr)</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">as_tibble(mpg) %&gt;% </span></span>
+<span><span class="st">  mutate(class = as.character(class)) %&gt;%</span></span>
+<span><span class="st">  group_by(class) %&gt;%</span></span>
+<span><span class="st">  nest() %&gt;%</span></span>
+<span><span class="st">  mutate(stats = purrr::map(data,</span></span>
+<span><span class="st">                            ~lm(cty ~ hwy, data = .x)))</span></span>
+<span><span class="st"> </span></span>
+<span><span class="st">made_up_fun()</span></span>
+<span><span class="st">"</span></span>
+<span></span>
+<span><span class="va">file_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".R"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">file_lines</span>, <span class="va">file_output</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/spot_funs.html">spot_funs</a></span><span class="op">(</span>file_path <span class="op">=</span> <span class="va">file_output</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 10 x 3</span></span>
+<span><span class="co">#&gt;    funs         pkgs      in_multiple_pkgs</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;     &lt;lgl&gt;           </span></span>
+<span><span class="co">#&gt;  1 library      base      FALSE           </span></span>
+<span><span class="co">#&gt;  2 require      base      FALSE           </span></span>
+<span><span class="co">#&gt;  3 as_tibble    tidyr     TRUE            </span></span>
+<span><span class="co">#&gt;  4 mutate       dplyr     FALSE           </span></span>
+<span><span class="co">#&gt;  5 as.character base      FALSE           </span></span>
+<span><span class="co">#&gt;  6 group_by     dplyr     FALSE           </span></span>
+<span><span class="co">#&gt;  7 nest         tidyr     FALSE           </span></span>
+<span><span class="co">#&gt;  8 map          purrr     FALSE           </span></span>
+<span><span class="co">#&gt;  9 lm           stats     FALSE           </span></span>
+<span><span class="co">#&gt; 10 made_up_fun  (unknown) FALSE</span></span></code></pre></div>
 <ul>
 <li>
 <code>funs</code>: function used in script</li>
@@ -149,19 +145,19 @@ made_up_fun()
 </h2>
 <p><code><a href="reference/github_spot_things.html">github_spot_funs()</a></code> is a wrapper on <code><a href="reference/spot_funs.html">spot_funs()</a></code> that maps it across all R or Rmarkdown files in a github repository.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># repo for an old presentation I gave</span>
-<span class="va">gh_ex</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/github_spot_things.html">github_spot_funs</a></span><span class="op">(</span>
-  repo <span class="op">=</span> <span class="st">"brshallo/feat-eng-lags-presentation"</span>, 
-  branch <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span>
-
-<span class="va">gh_ex</span>
-<span class="co">#&gt; # A tibble: 4 x 3</span>
-<span class="co">#&gt;   contents                      urls                                  spotted   </span>
-<span class="co">#&gt;   &lt;chr&gt;                         &lt;chr&gt;                                 &lt;list&gt;    </span>
-<span class="co">#&gt; 1 R/Rmd-to-R.R                  https://raw.githubusercontent.com/br~ &lt;named li~</span>
-<span class="co">#&gt; 2 R/feat-engineering-lags.R     https://raw.githubusercontent.com/br~ &lt;named li~</span>
-<span class="co">#&gt; 3 R/load-inspections-save-csv.R https://raw.githubusercontent.com/br~ &lt;named li~</span>
-<span class="co">#&gt; 4 R/types-of-splits.R           https://raw.githubusercontent.com/br~ &lt;named li~</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># repo for an old presentation I gave</span></span>
+<span><span class="va">gh_ex</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/github_spot_things.html">github_spot_funs</a></span><span class="op">(</span></span>
+<span>  repo <span class="op">=</span> <span class="st">"brshallo/feat-eng-lags-presentation"</span>, </span>
+<span>  branch <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">gh_ex</span></span>
+<span><span class="co">#&gt; # A tibble: 4 x 3</span></span>
+<span><span class="co">#&gt;   contents                      urls                                spotted     </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                         &lt;chr&gt;                               &lt;list&gt;      </span></span>
+<span><span class="co">#&gt; 1 R/Rmd-to-R.R                  https://raw.githubusercontent.com/~ &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; 2 R/feat-engineering-lags.R     https://raw.githubusercontent.com/~ &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; 3 R/load-inspections-save-csv.R https://raw.githubusercontent.com/~ &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; 4 R/types-of-splits.R           https://raw.githubusercontent.com/~ &lt;named list&gt;</span></span></code></pre></div>
 <ul>
 <li>
 <code>contents</code> : filepath in github repo</li>
@@ -172,59 +168,59 @@ made_up_fun()
 </ul>
 <p>These results may then be unnested with the helper <code><a href="reference/unnest_github_results.html">funspotr::unnest_github_results()</a></code> to provide a table of which functions and packages are used. This can be manipulated like any other dataframe – say we want to filter to those files where <a href="https://here.r-lib.org/" class="external-link">here</a>, <a href="https://readr.tidyverse.org/" class="external-link">readr</a> or <a href="https://rsample.tidymodels.org/" class="external-link">rsample</a> packages are used.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gh_ex</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="reference/unnest_github_results.html">unnest_github_results</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">pkgs</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"here"</span>, <span class="st">"readr"</span>, <span class="st">"rsample"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 8 x 5</span>
-<span class="co">#&gt;   funs               pkgs    in_multiple_pkgs contents      urls                </span>
-<span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;   &lt;lgl&gt;            &lt;chr&gt;         &lt;chr&gt;               </span>
-<span class="co">#&gt; 1 here               here    FALSE            R/Rmd-to-R.R  https://raw.githubu~</span>
-<span class="co">#&gt; 2 read_csv           readr   FALSE            R/feat-engin~ https://raw.githubu~</span>
-<span class="co">#&gt; 3 initial_time_split rsample TRUE             R/feat-engin~ https://raw.githubu~</span>
-<span class="co">#&gt; 4 training           rsample TRUE             R/feat-engin~ https://raw.githubu~</span>
-<span class="co">#&gt; 5 testing            rsample TRUE             R/feat-engin~ https://raw.githubu~</span>
-<span class="co">#&gt; 6 sliding_period     rsample TRUE             R/feat-engin~ https://raw.githubu~</span>
-<span class="co">#&gt; 7 write_csv          readr   FALSE            R/load-inspe~ https://raw.githubu~</span>
-<span class="co">#&gt; 8 here               here    FALSE            R/load-inspe~ https://raw.githubu~</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gh_ex</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="reference/unnest_github_results.html">unnest_github_results</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">pkgs</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"here"</span>, <span class="st">"readr"</span>, <span class="st">"rsample"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 8 x 5</span></span>
+<span><span class="co">#&gt;   funs               pkgs    in_multiple_pkgs contents                     urls </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;   &lt;lgl&gt;            &lt;chr&gt;                        &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 here               here    FALSE            R/Rmd-to-R.R                 http~</span></span>
+<span><span class="co">#&gt; 2 read_csv           readr   FALSE            R/feat-engineering-lags.R    http~</span></span>
+<span><span class="co">#&gt; 3 initial_time_split rsample TRUE             R/feat-engineering-lags.R    http~</span></span>
+<span><span class="co">#&gt; 4 training           rsample TRUE             R/feat-engineering-lags.R    http~</span></span>
+<span><span class="co">#&gt; 5 testing            rsample TRUE             R/feat-engineering-lags.R    http~</span></span>
+<span><span class="co">#&gt; 6 sliding_period     rsample TRUE             R/feat-engineering-lags.R    http~</span></span>
+<span><span class="co">#&gt; 7 write_csv          readr   FALSE            R/load-inspections-save-csv~ http~</span></span>
+<span><span class="co">#&gt; 8 here               here    FALSE            R/load-inspections-save-csv~ http~</span></span></code></pre></div>
 <p>The outputs from <code><a href="reference/unnest_github_results.html">funspotr::unnest_github_results()</a></code> can also be passed into <code><a href="reference/network_plot.html">funspotr::network_plot()</a></code> to build a network visualization of the connections between functions/packages and files. (Took some inspiration from <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method in <a href="https://github.com/ikosmidis/cranly" class="external-link">cranly</a>.)</p>
 <div class="section level3">
 <h3 id="previewing-and-customizing-files-to-parse">Previewing and customizing files to parse<a class="anchor" aria-label="anchor" href="#previewing-and-customizing-files-to-parse"></a>
 </h3>
 <p>You can set <code>preview = TRUE</code> in <code><a href="reference/github_spot_things.html">github_spot_funs()</a></code> to first view the files you intend to parse.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">preview_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/github_spot_things.html">github_spot_funs</a></span><span class="op">(</span>
-  repo <span class="op">=</span> <span class="st">"brshallo/feat-eng-lags-presentation"</span>, 
-  branch <span class="op">=</span> <span class="st">"main"</span>,
-  preview <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="va">preview_files</span>
-<span class="co">#&gt; # A tibble: 4 x 2</span>
-<span class="co">#&gt;   contents                      urls                                            </span>
-<span class="co">#&gt;   &lt;chr&gt;                         &lt;chr&gt;                                           </span>
-<span class="co">#&gt; 1 R/Rmd-to-R.R                  https://raw.githubusercontent.com/brshallo/feat~</span>
-<span class="co">#&gt; 2 R/feat-engineering-lags.R     https://raw.githubusercontent.com/brshallo/feat~</span>
-<span class="co">#&gt; 3 R/load-inspections-save-csv.R https://raw.githubusercontent.com/brshallo/feat~</span>
-<span class="co">#&gt; 4 R/types-of-splits.R           https://raw.githubusercontent.com/brshallo/feat~</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">preview_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/github_spot_things.html">github_spot_funs</a></span><span class="op">(</span></span>
+<span>  repo <span class="op">=</span> <span class="st">"brshallo/feat-eng-lags-presentation"</span>, </span>
+<span>  branch <span class="op">=</span> <span class="st">"main"</span>,</span>
+<span>  preview <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">preview_files</span></span>
+<span><span class="co">#&gt; # A tibble: 4 x 2</span></span>
+<span><span class="co">#&gt;   contents                      urls                                            </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                         &lt;chr&gt;                                           </span></span>
+<span><span class="co">#&gt; 1 R/Rmd-to-R.R                  https://raw.githubusercontent.com/brshallo/feat~</span></span>
+<span><span class="co">#&gt; 2 R/feat-engineering-lags.R     https://raw.githubusercontent.com/brshallo/feat~</span></span>
+<span><span class="co">#&gt; 3 R/load-inspections-save-csv.R https://raw.githubusercontent.com/brshallo/feat~</span></span>
+<span><span class="co">#&gt; 4 R/types-of-splits.R           https://raw.githubusercontent.com/brshallo/feat~</span></span></code></pre></div>
 <p>You can pass in a custom set of urls by inputting a dataframe to the argument <code>custom_urls</code> – this may be the output of a previous call where <code>preview = TRUE</code>. For example, say we only want to parse the “types-of-splits.R” and “Rmd-to-R.R” files.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">preview_files</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">contents</span>, <span class="st">"types-of-splits|Rmd-to-R"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="reference/github_spot_things.html">github_spot_funs</a></span><span class="op">(</span>custom_urls <span class="op">=</span> <span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="reference/unnest_github_results.html">unnest_github_results</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 24 x 5</span>
-<span class="co">#&gt;    funs      pkgs      in_multiple_pkgs contents            urls                </span>
-<span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;     &lt;lgl&gt;            &lt;chr&gt;               &lt;chr&gt;               </span>
-<span class="co">#&gt;  1 purl      knitr     FALSE            R/Rmd-to-R.R        https://raw.githubu~</span>
-<span class="co">#&gt;  2 here      here      FALSE            R/Rmd-to-R.R        https://raw.githubu~</span>
-<span class="co">#&gt;  3 library   base      FALSE            R/types-of-splits.R https://raw.githubu~</span>
-<span class="co">#&gt;  4 theme_set ggplot    FALSE            R/types-of-splits.R https://raw.githubu~</span>
-<span class="co">#&gt;  5 theme_bw  ggplot    FALSE            R/types-of-splits.R https://raw.githubu~</span>
-<span class="co">#&gt;  6 set.seed  base      FALSE            R/types-of-splits.R https://raw.githubu~</span>
-<span class="co">#&gt;  7 tibble    dplyr     TRUE             R/types-of-splits.R https://raw.githubu~</span>
-<span class="co">#&gt;  8 rep       base      FALSE            R/types-of-splits.R https://raw.githubu~</span>
-<span class="co">#&gt;  9 today     lubridate FALSE            R/types-of-splits.R https://raw.githubu~</span>
-<span class="co">#&gt; 10 days      lubridate FALSE            R/types-of-splits.R https://raw.githubu~</span>
-<span class="co">#&gt; # ... with 14 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">preview_files</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">contents</span>, <span class="st">"types-of-splits|Rmd-to-R"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="reference/github_spot_things.html">github_spot_funs</a></span><span class="op">(</span>custom_urls <span class="op">=</span> <span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="reference/unnest_github_results.html">unnest_github_results</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 24 x 5</span></span>
+<span><span class="co">#&gt;    funs      pkgs      in_multiple_pkgs contents            urls                </span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;     &lt;lgl&gt;            &lt;chr&gt;               &lt;chr&gt;               </span></span>
+<span><span class="co">#&gt;  1 purl      knitr     FALSE            R/Rmd-to-R.R        https://raw.githubu~</span></span>
+<span><span class="co">#&gt;  2 here      here      FALSE            R/Rmd-to-R.R        https://raw.githubu~</span></span>
+<span><span class="co">#&gt;  3 library   base      FALSE            R/types-of-splits.R https://raw.githubu~</span></span>
+<span><span class="co">#&gt;  4 theme_set ggplot    FALSE            R/types-of-splits.R https://raw.githubu~</span></span>
+<span><span class="co">#&gt;  5 theme_bw  ggplot    FALSE            R/types-of-splits.R https://raw.githubu~</span></span>
+<span><span class="co">#&gt;  6 set.seed  base      FALSE            R/types-of-splits.R https://raw.githubu~</span></span>
+<span><span class="co">#&gt;  7 tibble    dplyr     TRUE             R/types-of-splits.R https://raw.githubu~</span></span>
+<span><span class="co">#&gt;  8 rep       base      FALSE            R/types-of-splits.R https://raw.githubu~</span></span>
+<span><span class="co">#&gt;  9 today     lubridate FALSE            R/types-of-splits.R https://raw.githubu~</span></span>
+<span><span class="co">#&gt; 10 days      lubridate FALSE            R/types-of-splits.R https://raw.githubu~</span></span>
+<span><span class="co">#&gt; # ... with 14 more rows</span></span></code></pre></div>
 <p>The <code>custom_urls</code> argument works for any situation where you want to map <code><a href="reference/spot_funs.html">spot_funs()</a></code> across a set of filepaths or URLs. E.g. see example in <code><a href="reference/github_gists.html">github_gists()</a></code> for a case where this argument is used to parse functions/packages from a specified github user’s gists.</p>
 </div>
 </div>
@@ -236,35 +232,35 @@ made_up_fun()
 </h3>
 <p>Functions created in the file as well as functions from unavailable packages (or packages that don’t exist) will output as <code>pkgs = "(unknown)"</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">file_lines_missing_pkgs</span> <span class="op">&lt;-</span> <span class="st">"
-library(dplyr)
-
-as_tibble(mpg)
-
-hello_world &lt;- function() print('hello world')
-
-madeuppkg::made_up_fun()
-
-hello_world()
-"</span>
-
-<span class="va">missing_pkgs_ex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".R"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">file_lines_missing_pkgs</span>, <span class="va">missing_pkgs_ex</span><span class="op">)</span>
-
-<span class="fu"><a href="reference/spot_funs.html">spot_funs</a></span><span class="op">(</span>file_path <span class="op">=</span> <span class="va">missing_pkgs_ex</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 x 3</span>
-<span class="co">#&gt;   funs        pkgs      in_multiple_pkgs</span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;     &lt;lgl&gt;           </span>
-<span class="co">#&gt; 1 library     base      FALSE           </span>
-<span class="co">#&gt; 2 as_tibble   dplyr     FALSE           </span>
-<span class="co">#&gt; 3 print       base      FALSE           </span>
-<span class="co">#&gt; 4 made_up_fun (unknown) FALSE           </span>
-<span class="co">#&gt; 5 hello_world (unknown) FALSE</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">file_lines_missing_pkgs</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
+<span><span class="st">library(dplyr)</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">as_tibble(mpg)</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">hello_world &lt;- function() print('hello world')</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">madeuppkg::made_up_fun()</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">hello_world()</span></span>
+<span><span class="st">"</span></span>
+<span></span>
+<span><span class="va">missing_pkgs_ex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".R"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">file_lines_missing_pkgs</span>, <span class="va">missing_pkgs_ex</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/spot_funs.html">spot_funs</a></span><span class="op">(</span>file_path <span class="op">=</span> <span class="va">missing_pkgs_ex</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 5 x 3</span></span>
+<span><span class="co">#&gt;   funs        pkgs      in_multiple_pkgs</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;     &lt;lgl&gt;           </span></span>
+<span><span class="co">#&gt; 1 library     base      FALSE           </span></span>
+<span><span class="co">#&gt; 2 as_tibble   dplyr     FALSE           </span></span>
+<span><span class="co">#&gt; 3 print       base      FALSE           </span></span>
+<span><span class="co">#&gt; 4 made_up_fun (unknown) FALSE           </span></span>
+<span><span class="co">#&gt; 5 hello_world (unknown) FALSE</span></span></code></pre></div>
 <p><em>To spot which package a function is from you must have the package installed locally.</em> Hence for files on others’ github repos or that you created on a different machine, it is a good idea to start with <code><a href="reference/check_pkgs_availability.html">funspotr::check_pkgs_availability()</a></code> to see which packages you are missing.</p>
 <p>A quick helper for installing missing packages (see “R/spot-pkgs.R” for documentation):</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/check_pkgs_availability.html">check_pkgs_availability</a></span><span class="op">(</span><span class="va">file_path</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu">funspotr</span><span class="fu">:::</span><span class="fu"><a href="reference/install_missing_pkgs.html">install_missing_pkgs</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/check_pkgs_availability.html">check_pkgs_availability</a></span><span class="op">(</span><span class="va">file_path</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu">funspotr</span><span class="fu">:::</span><span class="fu"><a href="reference/install_missing_pkgs.html">install_missing_pkgs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Alternatively, you may want to clone the repository locally and then use <code>renv::dependencies()</code> and only then start using funspotr. <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> is a more robust approach to finding and installing dependencies – particularly in cases where you are missing many dependencies or don’t want to alter the packages in your global library.</p>
 </div>
 <div class="section level3">
@@ -272,41 +268,41 @@ hello_world()
 </h3>
 <p><code><a href="reference/spot_funs.html">spot_funs()</a></code> is currently set-up for self-contained files. But <code><a href="reference/spot_funs_custom.html">spot_funs_custom()</a></code> allows the user to explicitly specify <code>pkgs</code> where functions may come from. This is useful in cases where the packages loaded are not in the same location as the <code>file_path</code> (e.g. they are loaded via <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> or a DESCRIPTION file, or some other workflow). For example, below is a made-up example where the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> calls are made in a separate file and <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code>d in.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># file where packages are loaded</span>
-<span class="va">file_libs</span> <span class="op">&lt;-</span> <span class="st">"library(dplyr)
-library(lubridate)"</span>
-
-<span class="va">file_libs_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".R"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">file_libs</span>, <span class="va">file_libs_output</span><span class="op">)</span>
-
-<span class="co"># File of interest where things happen</span>
-<span class="va">file_run</span> <span class="op">&lt;-</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span>
-<span class="st">"source('{ file_libs_output }')
-  
-tibble::tibble(days_from_today = 0:10) %&gt;% 
-    mutate(date = today() + days(days_from_today))
-"</span>, 
-file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html" class="external-link">str_replace_all</a></span><span class="op">(</span><span class="va">file_libs_output</span>, <span class="st">"\\\\"</span>, <span class="st">"/"</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">file_run_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".R"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">file_run</span>, <span class="va">file_run_output</span><span class="op">)</span>
-
-<span class="co"># Identify packages using both files and then pass in explicitly to `spot_funs_custom()`</span>
-<span class="va">pkgs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="reference/spot_pkgs.html">spot_pkgs</a></span><span class="op">(</span><span class="va">file_libs_output</span><span class="op">)</span>, 
-          <span class="fu"><a href="reference/spot_pkgs.html">spot_pkgs</a></span><span class="op">(</span><span class="va">file_run_output</span>, show_explicit_funs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="reference/spot_funs_custom.html">spot_funs_custom</a></span><span class="op">(</span>
-  pkgs <span class="op">=</span> <span class="va">pkgs</span>,
-  file_path <span class="op">=</span> <span class="va">file_run_output</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 x 3</span>
-<span class="co">#&gt;   funs   pkgs      in_multiple_pkgs</span>
-<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;lgl&gt;           </span>
-<span class="co">#&gt; 1 source base      FALSE           </span>
-<span class="co">#&gt; 2 tibble tibble    TRUE            </span>
-<span class="co">#&gt; 3 mutate dplyr     FALSE           </span>
-<span class="co">#&gt; 4 today  lubridate FALSE           </span>
-<span class="co">#&gt; 5 days   lubridate FALSE</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># file where packages are loaded</span></span>
+<span><span class="va">file_libs</span> <span class="op">&lt;-</span> <span class="st">"library(dplyr)</span></span>
+<span><span class="st">library(lubridate)"</span></span>
+<span></span>
+<span><span class="va">file_libs_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".R"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">file_libs</span>, <span class="va">file_libs_output</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># File of interest where things happen</span></span>
+<span><span class="va">file_run</span> <span class="op">&lt;-</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span></span>
+<span><span class="st">"source('{ file_libs_output }')</span></span>
+<span><span class="st">  </span></span>
+<span><span class="st">tibble::tibble(days_from_today = 0:10) %&gt;% </span></span>
+<span><span class="st">    mutate(date = today() + days(days_from_today))</span></span>
+<span><span class="st">"</span>, </span>
+<span>file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html" class="external-link">str_replace_all</a></span><span class="op">(</span><span class="va">file_libs_output</span>, <span class="st">"\\\\"</span>, <span class="st">"/"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">file_run_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".R"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">file_run</span>, <span class="va">file_run_output</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Identify packages using both files and then pass in explicitly to `spot_funs_custom()`</span></span>
+<span><span class="va">pkgs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="reference/spot_pkgs.html">spot_pkgs</a></span><span class="op">(</span><span class="va">file_libs_output</span><span class="op">)</span>, </span>
+<span>          <span class="fu"><a href="reference/spot_pkgs.html">spot_pkgs</a></span><span class="op">(</span><span class="va">file_run_output</span>, show_explicit_funs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/spot_funs_custom.html">spot_funs_custom</a></span><span class="op">(</span></span>
+<span>  pkgs <span class="op">=</span> <span class="va">pkgs</span>,</span>
+<span>  file_path <span class="op">=</span> <span class="va">file_run_output</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 5 x 3</span></span>
+<span><span class="co">#&gt;   funs   pkgs      in_multiple_pkgs</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;lgl&gt;           </span></span>
+<span><span class="co">#&gt; 1 source base      FALSE           </span></span>
+<span><span class="co">#&gt; 2 tibble tibble    TRUE            </span></span>
+<span><span class="co">#&gt; 3 mutate dplyr     FALSE           </span></span>
+<span><span class="co">#&gt; 4 today  lubridate FALSE           </span></span>
+<span><span class="co">#&gt; 5 days   lubridate FALSE</span></span></code></pre></div>
 <p>Also see <code>funspotr:::spot_pkgs_from_DESCRIPTION()</code>.</p>
 </div>
 <div class="section level3">
@@ -315,45 +311,46 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <p>Passing in <code>show_each_use = TRUE</code> to <code>...</code> in <code>get_funs()</code> or <code><a href="reference/github_spot_things.html">github_spot_funs()</a></code> will return <em>all</em> instances of a function call rather than just once for each file.</p>
 <p>Compared to the initial example, <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> now shows-up at both rows 4 and 8:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/spot_funs.html">spot_funs</a></span><span class="op">(</span>file_path <span class="op">=</span> <span class="va">file_output</span>, show_each_use <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 11 x 3</span>
-<span class="co">#&gt;    funs         pkgs      in_multiple_pkgs</span>
-<span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;     &lt;lgl&gt;           </span>
-<span class="co">#&gt;  1 library      base      FALSE           </span>
-<span class="co">#&gt;  2 require      base      FALSE           </span>
-<span class="co">#&gt;  3 as_tibble    tidyr     TRUE            </span>
-<span class="co">#&gt;  4 mutate       dplyr     FALSE           </span>
-<span class="co">#&gt;  5 as.character base      FALSE           </span>
-<span class="co">#&gt;  6 group_by     dplyr     FALSE           </span>
-<span class="co">#&gt;  7 nest         tidyr     FALSE           </span>
-<span class="co">#&gt;  8 mutate       dplyr     FALSE           </span>
-<span class="co">#&gt;  9 map          purrr     FALSE           </span>
-<span class="co">#&gt; 10 lm           stats     FALSE           </span>
-<span class="co">#&gt; 11 made_up_fun  (unknown) FALSE</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/spot_funs.html">spot_funs</a></span><span class="op">(</span>file_path <span class="op">=</span> <span class="va">file_output</span>, show_each_use <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 11 x 3</span></span>
+<span><span class="co">#&gt;    funs         pkgs      in_multiple_pkgs</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;     &lt;lgl&gt;           </span></span>
+<span><span class="co">#&gt;  1 library      base      FALSE           </span></span>
+<span><span class="co">#&gt;  2 require      base      FALSE           </span></span>
+<span><span class="co">#&gt;  3 as_tibble    tidyr     TRUE            </span></span>
+<span><span class="co">#&gt;  4 mutate       dplyr     FALSE           </span></span>
+<span><span class="co">#&gt;  5 as.character base      FALSE           </span></span>
+<span><span class="co">#&gt;  6 group_by     dplyr     FALSE           </span></span>
+<span><span class="co">#&gt;  7 nest         tidyr     FALSE           </span></span>
+<span><span class="co">#&gt;  8 mutate       dplyr     FALSE           </span></span>
+<span><span class="co">#&gt;  9 map          purrr     FALSE           </span></span>
+<span><span class="co">#&gt; 10 lm           stats     FALSE           </span></span>
+<span><span class="co">#&gt; 11 made_up_fun  (unknown) FALSE</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="helper-for-blogdown-tags">Helper for <a href="https://pkgs.rstudio.com/blogdown/" class="external-link">blogdown</a> tags<a class="anchor" aria-label="anchor" href="#helper-for-blogdown-tags"></a>
 </h3>
 <p>Setting <code>as_yaml_tags = TRUE</code> in <code><a href="reference/spot_pkgs.html">spot_pkgs()</a></code> flattens the dependencies and outputs them in a format that can be copied and pasted into the <strong>tags</strong> section of a blogdown post’s YAML header.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Example from old blogdown post</span>
-<span class="fu"><a href="reference/spot_pkgs.html">spot_pkgs</a></span><span class="op">(</span>
-  file_path <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/brshallo/brshallo/master/content/post/2020-02-06-maximizing-magnetic-volume-the-perfect-bowl.Rmd"</span>,
-  as_yaml_tags <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt;   - knitr</span>
-<span class="co">#&gt;   - tidyverse</span>
-<span class="co">#&gt;   - ggforce</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Example from old blogdown post</span></span>
+<span><span class="fu"><a href="reference/spot_pkgs.html">spot_pkgs</a></span><span class="op">(</span></span>
+<span>  file_path <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/brshallo/brshallo/master/content/post/2020-02-06-maximizing-magnetic-volume-the-perfect-bowl.Rmd"</span>,</span>
+<span>  as_yaml_tags <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   - knitr</span></span>
+<span><span class="co">#&gt;   - tidyverse</span></span>
+<span><span class="co">#&gt;   - ggforce</span></span></code></pre></div>
 <p><code><a href="reference/spot_pkgs_used.html">spot_pkgs_used()</a></code> will only return those packages that have functions actually used[3].</p>
-<p>To automatically have your packages used as the tags for a post you can add the function <code><a href="reference/spot_tags.html">funspotr::spot_tags()</a></code> to the <code>tags</code> argument of your YAML header. For example:</p>
+<p>To automatically have your packages used as the tags for a post you can add the function <code><a href="reference/spot_tags.html">funspotr::spot_tags()</a></code> to a bullet in the <code>tags</code> argument of your YAML header. For example:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="op">---</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a>title<span class="op">:</span><span class="st"> </span>This is a post</span>
 <span id="cb11-3"><a href="#cb11-3"></a>author<span class="op">:</span><span class="st"> </span>brshallo</span>
 <span id="cb11-4"><a href="#cb11-4"></a>date<span class="op">:</span><span class="st"> '2022-02-11'</span></span>
-<span id="cb11-5"><a href="#cb11-5"></a>tags<span class="op">:</span><span class="st"> </span>[<span class="st">"funspotr"</span>, <span class="st">"dplyr"</span>, <span class="st">"tidyr"</span>, <span class="st">"purrr"</span>, <span class="st">"stringr"</span>, <span class="st">"madeuppkg"</span>, <span class="st">"lubridate"</span>, <span class="st">"glue"</span>, <span class="st">"tibble"</span>]</span>
-<span id="cb11-6"><a href="#cb11-6"></a>slug<span class="op">:</span><span class="st"> </span>this<span class="op">-</span>is<span class="op">-</span>a<span class="op">-</span>post</span>
-<span id="cb11-7"><a href="#cb11-7"></a><span class="op">---</span></span></code></pre></div>
-<p>See (<a href="https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327" class="external-link">blogdown#647</a>) for an explanation.</p>
+<span id="cb11-5"><a href="#cb11-5"></a>tags<span class="op">:</span><span class="st"> </span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="st">  </span><span class="op">-</span><span class="st"> "knitr"</span>, <span class="st">"funspotr"</span>, <span class="st">"dplyr"</span>, <span class="st">"tidyr"</span>, <span class="st">"purrr"</span>, <span class="st">"stringr"</span>, <span class="st">"madeuppkg"</span>, <span class="st">"lubridate"</span>, <span class="st">"glue"</span>, <span class="st">"tibble"</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>slug<span class="op">:</span><span class="st"> </span>this<span class="op">-</span>is<span class="op">-</span>a<span class="op">-</span>post</span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="op">---</span></span></code></pre></div>
+<p>See (<a href="https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327" class="external-link">blogdown#647</a>, <a href="https://github.com/rstudio/blogdown/issues/693" class="external-link">blogdown#693</a>) for an explanation.</p>
 </div>
 <div class="section level3">
 <h3 id="unexported-functions">Unexported functions<a class="anchor" aria-label="anchor" href="#unexported-functions"></a>
@@ -391,8 +388,7 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <li>funspotr does not pay attention to when functions are reexported from elsewhere. For example, many tibble functions are reexported by dplyr and tidyr – funspotr though will not know the true home of these functions it is simply looking at the top of the search space[7].</li>
 <li>Feel free to open an issue if you’d be interested in a simplifying function or vignette for mapping <code><a href="reference/spot_funs.html">spot_funs()</a></code> through local repos or other folder structures other than github repositories (which is already covered in <code><a href="reference/github_spot_things.html">github_spot_funs()</a></code>)[8]</li>
 <li>All the functions in “R/spot-pkgs.R” would probably be better handled by something like <code>renv::dependencies()</code> or a parsing based approach. The simple regex’s I use have a variety of problems. As just one example <code>funspotr::get_pkgs()</code> will not recognize when a package is within quotes or being escaped[9]. Another useful package for installing missing dependencies may be <a href="https://thinkr-open.github.io/attachment/index.html" class="external-link">attachment</a>.</li>
-<li>I am curious if there is something to be learned from how <code>R CMD check</code> does function parsing.
-<ul>
+<li>I am curious if there is something to be learned from how <code>R CMD check</code> does function parsing.<ul>
 <li>`funspotr’s current approach is slow</li>
 <li>Current approach uses some imperfect heuristics</li>
 </ul>
@@ -410,8 +406,8 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 </h2>
 <p>You can install the development version of funspotr from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"brshallo/funspotr"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"brshallo/funspotr"</span><span class="op">)</span></span></code></pre></div>
 <p>[1] E.g. <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble()</a></code> is attributed to <a href="https://tidyr.tidyverse.org/" class="external-link">tidyr</a> by <code><a href="reference/spot_funs.html">spot_funs()</a></code> however <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble()</a></code> is also in <a href="https://dplyr.tidyverse.org/" class="external-link">dplyr</a>. I don’t worry about getting to the root source of the package or the fact that both of those packages are just reexporting it from <a href="https://tibble.tidyverse.org/" class="external-link">tibble</a>. Setting <code>keep_search_list = TRUE</code> will return rows for each item in the search list which may be helpful if getting unexpected results.)</p>
 <p>[2] If any file could not be parsed will be a <code><a href="https://purrr.tidyverse.org/reference/safely.html" class="external-link">purrr::safely()</a></code> list-column output where each item is a list containing <code>result</code> and <code>error</code>.</p>
 <p>[3] E.g. for cases when there are library calls that aren’t actually used in the file. This may be useful in cases when metapackages like tidyverse or tidymodels are loaded but not all packages are actually used.</p>
@@ -434,9 +430,8 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 
@@ -468,7 +463,7 @@ file_libs_output <span class="op">=</span> <span class="fu">stringr</span><span 
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer>

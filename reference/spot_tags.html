@@ -54,12 +54,13 @@ packages used in your post (wrapper around <code><a href="spot_pkgs.html">funspo
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">spot_tags</span><span class="op">(</span>
-  file_path <span class="op">=</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/current_input.html" class="external-link">current_input</a></span><span class="op">(</span><span class="op">)</span>,
-  used <span class="op">=</span> <span class="cn">FALSE</span>,
-  drop_knitr <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">spot_tags</span><span class="op">(</span></span>
+<span>  file_path <span class="op">=</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/current_input.html" class="external-link">current_input</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  used <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  drop_knitr <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  yaml_bullet <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -68,21 +69,43 @@ packages used in your post (wrapper around <code><a href="spot_pkgs.html">funspo
 <dd><p>Default is the file being knitted but can change to some
 other file (e.g. in cases where the code for the post may reside in a
 different file).</p></dd>
+
+
 <dt>used</dt>
 <dd><p>Default is <code>FALSE</code>. If <code>TRUE</code> will pass to <code>show_pkgs_used()</code>
 rather than <code>show_pkgs()</code>. (Mainly useful for showing actual packages used
 rather than meta-packages being called like <code>tidyverse</code> or <code>tidymodels</code>).</p></dd>
+
+
 <dt>drop_knitr</dt>
 <dd><p>Many blogdown posts have <code>knitr::opts_chunk$set()</code> in them
 and you may not want this tag showing-up. Default is to keep this, but set
 to <code>FALSE</code> to drop "knitr" from being tagged.</p>
 <p>A better approach may be to just skip the "setup" chunk during parsing...</p></dd>
+
+
+<dt>yaml_bullet</dt>
+<dd><p>Default is <code>NULL</code> meaning that <code>file_path</code> is read-in and
+correct format is guessed based on "spot_tags" appearance with either a
+hyphen or bracket (corresponding with bulleted or array format in the YAML
+header). See examples for how to hard-code.</p>
+<p>If it's first occurrence happens on a line that contains a bracket
+the value becomes <code>FALSE</code> else it becomes <code>TRUE</code>. If set to <code>NULL</code> and
+"spot_tags" is not detected at all in <code>file_path</code> it will default to
+<code>FALSE</code>. <code>yaml_bullet</code> can also be specified directly with either <code>TRUE</code> or
+<code>FALSE</code>. <code>TRUE</code> entails that <code>spot_tags()</code> is set in a YAML bullet, <code>FALSE</code>
+indicates the user is inputting it in an array (see examples below).</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Any additional arguments to pass to <code>spot_pkgs*()</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>String in a format meant to be inserted in tags argument of YAML header.</p>
+    
+
+<p>String in a format meant to be inserted in tags argument of YAML header.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -102,12 +125,16 @@ requires blogdown &gt;= 1.9 to work
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## Put this in your blogdown posts YAML header to autogenerate tags based on pkgs</span></span>
-<span class="r-in"><span class="co"># tags: ["`r funspotr::spot_tags()`"]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## To reviw input interactively from within rstudio you might also try:</span></span>
-<span class="r-in"><span class="co"># funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path, drop_knitr = TRUE)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Put this in your blogdown posts YAML header to autogenerate tags based on pkgs</span></span></span>
+<span class="r-in"><span><span class="co"># tags:</span></span></span>
+<span class="r-in"><span><span class="co">#   - "`r funspotr::spot_tags()`"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Can also put this in an array format in your YAML header</span></span></span>
+<span class="r-in"><span><span class="co"># tags: ["`r funspotr::spot_tags()`"]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## To review input interactively from within rstudio you might also try:</span></span></span>
+<span class="r-in"><span><span class="co"># funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path, drop_knitr = TRUE)</span></span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -120,7 +147,7 @@ requires blogdown &gt;= 1.9 to work
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
