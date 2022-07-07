@@ -212,19 +212,20 @@ spot_pkgs(
 
 `spot_pkgs_used()` will only return those packages that have functions actually used^[E.g. for cases when there are library calls that aren't actually used in the file. This may be useful in cases when metapackages like tidyverse or tidymodels are loaded but not all packages are actually used.].
 
-To automatically have your packages used as the tags for a post you can add the function `funspotr::spot_tags()` to the `tags` argument of your YAML header. For example:
+To automatically have your packages used as the tags for a post you can add the function `funspotr::spot_tags()` to a bullet in the `tags` argument of your YAML header. For example:
 
 ```
 ---
 title: This is a post
 author: brshallo
 date: '2022-02-11'
-tags: ["`r funspotr::spot_tags(drop_knitr = TRUE)`"]
+tags: 
+  - "`r funspotr::spot_tags()`"
 slug: this-is-a-post
 ---
 ```
 
-See ([blogdown#647](https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327)) for an explanation.
+See ([blogdown#647](https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327), [blogdown#693](https://github.com/rstudio/blogdown/issues/693)) for an explanation.
 
 ### Unexported functions
 

@@ -23,6 +23,17 @@
 #'   to `FALSE` to drop "knitr" from being tagged.
 #'
 #'   A better approach may be to just skip the "setup" chunk during parsing...
+#' @param yaml_bullet Default is `NULL` meaning that `file_path` is read-in and
+#'   correct format is guessed based on "spot_tags" appearance with either a
+#'   hyphen or bracket (corresponding with bulleted or array format in the YAML
+#'   header). See examples for how to hard-code.
+#'
+#'   If it's first occurrence happens on a line that contains a bracket
+#'   the value becomes `FALSE` else it becomes `TRUE`. If set to `NULL` and
+#'   "spot_tags" is not detected at all in `file_path` it will default to
+#'   `FALSE`. `yaml_bullet` can also be specified directly with either `TRUE` or
+#'   `FALSE`. `TRUE` entails that `spot_tags()` is set in a YAML bullet, `FALSE`
+#'   indicates the user is inputting it in an array (see examples below).
 #'
 #' @param ... Any additional arguments to pass to `spot_pkgs*()`.
 #'
@@ -34,13 +45,18 @@
 #' @examples
 #'
 #' ## Put this in your blogdown posts YAML header to autogenerate tags based on pkgs
+#' # tags:
+#' #   - "`r funspotr::spot_tags()`"
+#'
+#' ## Can also put this in an array format in your YAML header
 #' # tags: ["`r funspotr::spot_tags()`"]
 #'
-#' ## To reviw input interactively from within rstudio you might also try:
+#' ## To review input interactively from within rstudio you might also try:
 #' # funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path, drop_knitr = TRUE)
 spot_tags <- function(file_path = knitr::current_input(),
                       used = FALSE,
                       drop_knitr = FALSE,
+                      yaml_bullet = NULL,
                       ...) {
   if(utils::packageVersion("blogdown") < "1.9"){
     warning("blogdown >= 1.9 needed for this function if `file_path = knitr::current_input()`.", call. = FALSE)
@@ -54,5 +70,28 @@ spot_tags <- function(file_path = knitr::current_input(),
 
   if(drop_knitr) x <- x[x != "knitr"]
 
-  paste(x, collapse = '", "')
+  if(is.null(yaml_bullet)){
+    lines_file <- readLines(file_path)
+    lines_spot_tags <- stringr::str_detect(lines_file, "spot_tags\\(")
+    lines_spot_tags <- lines_file[lines_spot_tags]
+    if(length(lines_spot_tags) == 0){
+      yaml_bullet <- FALSE
+      message("`spot_tags` not in file, yaml_bullet defaulting to ", yaml_bullet)
+    } else{
+      yaml_bullet <- str_detect(lines_spot_tags[[1]], "\\-")
+      yaml_bracket <- str_detect(lines_spot_tags[[1]], "\\[")
+      if(!yaml_bullet & !yaml_bracket){
+        message("`spot_tags` not in line with either a bracket or bullet, yaml_bullet defaulting to ", yaml_bullet)
+      } else message("yaml_bullet set to ", yaml_bullet)
+
+    }
+  }
+
+  if(yaml_bullet){
+    output <- paste(x, collapse = '"\n "')
+  } else{
+    output <- paste(x, collapse = '", "')
+  }
+
+  output
 }

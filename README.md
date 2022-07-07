@@ -104,12 +104,12 @@ gh_ex <- github_spot_funs(
 
 gh_ex
 #> # A tibble: 4 x 3
-#>   contents                      urls                                  spotted   
-#>   <chr>                         <chr>                                 <list>    
-#> 1 R/Rmd-to-R.R                  https://raw.githubusercontent.com/br~ <named li~
-#> 2 R/feat-engineering-lags.R     https://raw.githubusercontent.com/br~ <named li~
-#> 3 R/load-inspections-save-csv.R https://raw.githubusercontent.com/br~ <named li~
-#> 4 R/types-of-splits.R           https://raw.githubusercontent.com/br~ <named li~
+#>   contents                      urls                                spotted     
+#>   <chr>                         <chr>                               <list>      
+#> 1 R/Rmd-to-R.R                  https://raw.githubusercontent.com/~ <named list>
+#> 2 R/feat-engineering-lags.R     https://raw.githubusercontent.com/~ <named list>
+#> 3 R/load-inspections-save-csv.R https://raw.githubusercontent.com/~ <named list>
+#> 4 R/types-of-splits.R           https://raw.githubusercontent.com/~ <named list>
 ```
 
 -   `contents` : filepath in github repo
@@ -129,16 +129,16 @@ gh_ex %>%
   unnest_github_results() %>% 
   filter(pkgs %in% c("here", "readr", "rsample"))
 #> # A tibble: 8 x 5
-#>   funs               pkgs    in_multiple_pkgs contents      urls                
-#>   <chr>              <chr>   <lgl>            <chr>         <chr>               
-#> 1 here               here    FALSE            R/Rmd-to-R.R  https://raw.githubu~
-#> 2 read_csv           readr   FALSE            R/feat-engin~ https://raw.githubu~
-#> 3 initial_time_split rsample TRUE             R/feat-engin~ https://raw.githubu~
-#> 4 training           rsample TRUE             R/feat-engin~ https://raw.githubu~
-#> 5 testing            rsample TRUE             R/feat-engin~ https://raw.githubu~
-#> 6 sliding_period     rsample TRUE             R/feat-engin~ https://raw.githubu~
-#> 7 write_csv          readr   FALSE            R/load-inspe~ https://raw.githubu~
-#> 8 here               here    FALSE            R/load-inspe~ https://raw.githubu~
+#>   funs               pkgs    in_multiple_pkgs contents                     urls 
+#>   <chr>              <chr>   <lgl>            <chr>                        <chr>
+#> 1 here               here    FALSE            R/Rmd-to-R.R                 http~
+#> 2 read_csv           readr   FALSE            R/feat-engineering-lags.R    http~
+#> 3 initial_time_split rsample TRUE             R/feat-engineering-lags.R    http~
+#> 4 training           rsample TRUE             R/feat-engineering-lags.R    http~
+#> 5 testing            rsample TRUE             R/feat-engineering-lags.R    http~
+#> 6 sliding_period     rsample TRUE             R/feat-engineering-lags.R    http~
+#> 7 write_csv          readr   FALSE            R/load-inspections-save-csv~ http~
+#> 8 here               here    FALSE            R/load-inspections-save-csv~ http~
 ```
 
 The outputs from `funspotr::unnest_github_results()` can also be passed
@@ -352,20 +352,22 @@ spot_pkgs(
 actually used[3].
 
 To automatically have your packages used as the tags for a post you can
-add the function `funspotr::spot_tags()` to the `tags` argument of your
-YAML header. For example:
+add the function `funspotr::spot_tags()` to a bullet in the `tags`
+argument of your YAML header. For example:
 
     ---
     title: This is a post
     author: brshallo
     date: '2022-02-11'
-    tags: ["funspotr", "dplyr", "tidyr", "purrr", "stringr", "madeuppkg", "lubridate", "glue", "tibble"]
+    tags: 
+      - "knitr", "funspotr", "dplyr", "tidyr", "purrr", "stringr", "madeuppkg", "lubridate", "glue", "tibble"
     slug: this-is-a-post
     ---
 
 See
-([blogdown\#647](https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327))
-for an explanation.
+([blogdown\#647](https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327),
+[blogdown\#693](https://github.com/rstudio/blogdown/issues/693)) for an
+explanation.
 
 ### Unexported functions
 

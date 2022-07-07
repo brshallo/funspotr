@@ -8,6 +8,7 @@ spot_tags(
   file_path = knitr::current_input(),
   used = FALSE,
   drop_knitr = FALSE,
+  yaml_bullet = NULL,
   ...
 )
 }
@@ -25,6 +26,18 @@ and you may not want this tag showing-up. Default is to keep this, but set
 to \code{FALSE} to drop "knitr" from being tagged.
 
 A better approach may be to just skip the "setup" chunk during parsing...}
+
+\item{yaml_bullet}{Default is \code{NULL} meaning that \code{file_path} is read-in and
+correct format is guessed based on "spot_tags" appearance with either a
+hyphen or bracket (corresponding with bulleted or array format in the YAML
+header). See examples for how to hard-code.
+
+If it's first occurrence happens on a line that contains a bracket
+the value becomes \code{FALSE} else it becomes \code{TRUE}. If set to \code{NULL} and
+"spot_tags" is not detected at all in \code{file_path} it will default to
+\code{FALSE}. \code{yaml_bullet} can also be specified directly with either \code{TRUE} or
+\code{FALSE}. \code{TRUE} entails that \code{spot_tags()} is set in a YAML bullet, \code{FALSE}
+indicates the user is inputting it in an array (see examples below).}
 
 \item{...}{Any additional arguments to pass to \verb{spot_pkgs*()}.}
 }
@@ -48,9 +61,13 @@ requires blogdown >= 1.9 to work
 \examples{
 
 ## Put this in your blogdown posts YAML header to autogenerate tags based on pkgs
+# tags:
+#   - "`r funspotr::spot_tags()`"
+
+## Can also put this in an array format in your YAML header
 # tags: ["`r funspotr::spot_tags()`"]
 
-## To reviw input interactively from within rstudio you might also try:
+## To review input interactively from within rstudio you might also try:
 # funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path, drop_knitr = TRUE)
 }
 \seealso{
