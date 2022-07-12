@@ -127,7 +127,7 @@
 <span><span class="co">#&gt;  5 as.character base      FALSE           </span></span>
 <span><span class="co">#&gt;  6 group_by     dplyr     FALSE           </span></span>
 <span><span class="co">#&gt;  7 nest         tidyr     FALSE           </span></span>
-<span><span class="co">#&gt;  8 map          purrr     FALSE           </span></span>
+<span><span class="co">#&gt;  8 map          (unknown) FALSE           </span></span>
 <span><span class="co">#&gt;  9 lm           stats     FALSE           </span></span>
 <span><span class="co">#&gt; 10 made_up_fun  (unknown) FALSE</span></span></code></pre></div>
 <ul>
@@ -171,17 +171,15 @@
 <code class="sourceCode R"><span><span class="va">gh_ex</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="reference/unnest_github_results.html">unnest_github_results</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">pkgs</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"here"</span>, <span class="st">"readr"</span>, <span class="st">"rsample"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 8 x 5</span></span>
+<span><span class="co">#&gt; # A tibble: 6 x 5</span></span>
 <span><span class="co">#&gt;   funs               pkgs    in_multiple_pkgs contents                     urls </span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;   &lt;lgl&gt;            &lt;chr&gt;                        &lt;chr&gt;</span></span>
-<span><span class="co">#&gt; 1 here               here    FALSE            R/Rmd-to-R.R                 http~</span></span>
-<span><span class="co">#&gt; 2 read_csv           readr   FALSE            R/feat-engineering-lags.R    http~</span></span>
-<span><span class="co">#&gt; 3 initial_time_split rsample TRUE             R/feat-engineering-lags.R    http~</span></span>
-<span><span class="co">#&gt; 4 training           rsample TRUE             R/feat-engineering-lags.R    http~</span></span>
-<span><span class="co">#&gt; 5 testing            rsample TRUE             R/feat-engineering-lags.R    http~</span></span>
-<span><span class="co">#&gt; 6 sliding_period     rsample TRUE             R/feat-engineering-lags.R    http~</span></span>
-<span><span class="co">#&gt; 7 write_csv          readr   FALSE            R/load-inspections-save-csv~ http~</span></span>
-<span><span class="co">#&gt; 8 here               here    FALSE            R/load-inspections-save-csv~ http~</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 read_csv           readr   FALSE            R/feat-engineering-lags.R    http~</span></span>
+<span><span class="co">#&gt; 2 initial_time_split rsample FALSE            R/feat-engineering-lags.R    http~</span></span>
+<span><span class="co">#&gt; 3 training           rsample FALSE            R/feat-engineering-lags.R    http~</span></span>
+<span><span class="co">#&gt; 4 testing            rsample FALSE            R/feat-engineering-lags.R    http~</span></span>
+<span><span class="co">#&gt; 5 sliding_period     rsample FALSE            R/feat-engineering-lags.R    http~</span></span>
+<span><span class="co">#&gt; 6 write_csv          readr   FALSE            R/load-inspections-save-csv~ http~</span></span></code></pre></div>
 <p>The outputs from <code><a href="reference/unnest_github_results.html">funspotr::unnest_github_results()</a></code> can also be passed into <code><a href="reference/network_plot.html">funspotr::network_plot()</a></code> to build a network visualization of the connections between functions/packages and files. (Took some inspiration from <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method in <a href="https://github.com/ikosmidis/cranly" class="external-link">cranly</a>.)</p>
 <div class="section level3">
 <h3 id="previewing-and-customizing-files-to-parse">Previewing and customizing files to parse<a class="anchor" aria-label="anchor" href="#previewing-and-customizing-files-to-parse"></a>
@@ -210,8 +208,8 @@
 <span><span class="co">#&gt; # A tibble: 24 x 5</span></span>
 <span><span class="co">#&gt;    funs      pkgs      in_multiple_pkgs contents            urls                </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;     &lt;lgl&gt;            &lt;chr&gt;               &lt;chr&gt;               </span></span>
-<span><span class="co">#&gt;  1 purl      knitr     FALSE            R/Rmd-to-R.R        https://raw.githubu~</span></span>
-<span><span class="co">#&gt;  2 here      here      FALSE            R/Rmd-to-R.R        https://raw.githubu~</span></span>
+<span><span class="co">#&gt;  1 purl      (unknown) FALSE            R/Rmd-to-R.R        https://raw.githubu~</span></span>
+<span><span class="co">#&gt;  2 here      (unknown) FALSE            R/Rmd-to-R.R        https://raw.githubu~</span></span>
 <span><span class="co">#&gt;  3 library   base      FALSE            R/types-of-splits.R https://raw.githubu~</span></span>
 <span><span class="co">#&gt;  4 theme_set ggplot    FALSE            R/types-of-splits.R https://raw.githubu~</span></span>
 <span><span class="co">#&gt;  5 theme_bw  ggplot    FALSE            R/types-of-splits.R https://raw.githubu~</span></span>
@@ -299,7 +297,7 @@
 <span><span class="co">#&gt;   funs   pkgs      in_multiple_pkgs</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;lgl&gt;           </span></span>
 <span><span class="co">#&gt; 1 source base      FALSE           </span></span>
-<span><span class="co">#&gt; 2 tibble tibble    TRUE            </span></span>
+<span><span class="co">#&gt; 2 tibble dplyr     FALSE           </span></span>
 <span><span class="co">#&gt; 3 mutate dplyr     FALSE           </span></span>
 <span><span class="co">#&gt; 4 today  lubridate FALSE           </span></span>
 <span><span class="co">#&gt; 5 days   lubridate FALSE</span></span></code></pre></div>
@@ -323,7 +321,7 @@
 <span><span class="co">#&gt;  6 group_by     dplyr     FALSE           </span></span>
 <span><span class="co">#&gt;  7 nest         tidyr     FALSE           </span></span>
 <span><span class="co">#&gt;  8 mutate       dplyr     FALSE           </span></span>
-<span><span class="co">#&gt;  9 map          purrr     FALSE           </span></span>
+<span><span class="co">#&gt;  9 map          (unknown) FALSE           </span></span>
 <span><span class="co">#&gt; 10 lm           stats     FALSE           </span></span>
 <span><span class="co">#&gt; 11 made_up_fun  (unknown) FALSE</span></span></code></pre></div>
 </div>
@@ -347,7 +345,7 @@
 <span id="cb11-3"><a href="#cb11-3"></a>author<span class="op">:</span><span class="st"> </span>brshallo</span>
 <span id="cb11-4"><a href="#cb11-4"></a>date<span class="op">:</span><span class="st"> '2022-02-11'</span></span>
 <span id="cb11-5"><a href="#cb11-5"></a>tags<span class="op">:</span><span class="st"> </span></span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="st">  </span><span class="op">-</span><span class="st"> "knitr"</span>, <span class="st">"funspotr"</span>, <span class="st">"dplyr"</span>, <span class="st">"tidyr"</span>, <span class="st">"purrr"</span>, <span class="st">"stringr"</span>, <span class="st">"madeuppkg"</span>, <span class="st">"lubridate"</span>, <span class="st">"glue"</span>, <span class="st">"tibble"</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="st">  </span><span class="op">-</span><span class="st"> "`r funspotr::spot_tags()`"</span></span>
 <span id="cb11-7"><a href="#cb11-7"></a>slug<span class="op">:</span><span class="st"> </span>this<span class="op">-</span>is<span class="op">-</span>a<span class="op">-</span>post</span>
 <span id="cb11-8"><a href="#cb11-8"></a><span class="op">---</span></span></code></pre></div>
 <p>See (<a href="https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327" class="external-link">blogdown#647</a>, <a href="https://github.com/rstudio/blogdown/issues/693" class="external-link">blogdown#693</a>) for an explanation.</p>
