@@ -75,5 +75,6 @@ spot_pkgs(file_output, show_explicit_funs = TRUE)
 cat(spot_pkgs(file_output, as_yaml_tags = TRUE))
 }
 \seealso{
-spot_pkgs_from_description github_spot_pkgs renv::dependencies
+\code{spot_pkgs_used()}, \code{spot_pkgs_from_description()},
+\code{github_spot_pkgs()}, \code{renv::dependencies()}
 }

@@ -1,0 +1,8 @@
+---
+title: This is a post
+author: brshallo
+date: '2022-02-11'
+tags: 
+  - "`r funspotr::spot_tags()`"
+slug: this-is-a-post
+---

@@ -78,7 +78,7 @@ spot_funs(file_path = file_output)
 #>  5 as.character base      FALSE           
 #>  6 group_by     dplyr     FALSE           
 #>  7 nest         tidyr     FALSE           
-#>  8 map          purrr     FALSE           
+#>  8 map          (unknown) FALSE           
 #>  9 lm           stats     FALSE           
 #> 10 made_up_fun  (unknown) FALSE
 ```
@@ -128,17 +128,15 @@ or [rsample](https://rsample.tidymodels.org/) packages are used.
 gh_ex %>% 
   unnest_github_results() %>% 
   filter(pkgs %in% c("here", "readr", "rsample"))
-#> # A tibble: 8 x 5
+#> # A tibble: 6 x 5
 #>   funs               pkgs    in_multiple_pkgs contents                     urls 
 #>   <chr>              <chr>   <lgl>            <chr>                        <chr>
-#> 1 here               here    FALSE            R/Rmd-to-R.R                 http~
-#> 2 read_csv           readr   FALSE            R/feat-engineering-lags.R    http~
-#> 3 initial_time_split rsample TRUE             R/feat-engineering-lags.R    http~
-#> 4 training           rsample TRUE             R/feat-engineering-lags.R    http~
-#> 5 testing            rsample TRUE             R/feat-engineering-lags.R    http~
-#> 6 sliding_period     rsample TRUE             R/feat-engineering-lags.R    http~
-#> 7 write_csv          readr   FALSE            R/load-inspections-save-csv~ http~
-#> 8 here               here    FALSE            R/load-inspections-save-csv~ http~
+#> 1 read_csv           readr   FALSE            R/feat-engineering-lags.R    http~
+#> 2 initial_time_split rsample FALSE            R/feat-engineering-lags.R    http~
+#> 3 training           rsample FALSE            R/feat-engineering-lags.R    http~
+#> 4 testing            rsample FALSE            R/feat-engineering-lags.R    http~
+#> 5 sliding_period     rsample FALSE            R/feat-engineering-lags.R    http~
+#> 6 write_csv          readr   FALSE            R/load-inspections-save-csv~ http~
 ```
 
 The outputs from `funspotr::unnest_github_results()` can also be passed
@@ -180,8 +178,8 @@ preview_files %>%
 #> # A tibble: 24 x 5
 #>    funs      pkgs      in_multiple_pkgs contents            urls                
 #>    <chr>     <chr>     <lgl>            <chr>               <chr>               
-#>  1 purl      knitr     FALSE            R/Rmd-to-R.R        https://raw.githubu~
-#>  2 here      here      FALSE            R/Rmd-to-R.R        https://raw.githubu~
+#>  1 purl      (unknown) FALSE            R/Rmd-to-R.R        https://raw.githubu~
+#>  2 here      (unknown) FALSE            R/Rmd-to-R.R        https://raw.githubu~
 #>  3 library   base      FALSE            R/types-of-splits.R https://raw.githubu~
 #>  4 theme_set ggplot    FALSE            R/types-of-splits.R https://raw.githubu~
 #>  5 theme_bw  ggplot    FALSE            R/types-of-splits.R https://raw.githubu~
@@ -296,7 +294,7 @@ spot_funs_custom(
 #>   funs   pkgs      in_multiple_pkgs
 #>   <chr>  <chr>     <lgl>           
 #> 1 source base      FALSE           
-#> 2 tibble tibble    TRUE            
+#> 2 tibble dplyr     FALSE           
 #> 3 mutate dplyr     FALSE           
 #> 4 today  lubridate FALSE           
 #> 5 days   lubridate FALSE
@@ -326,7 +324,7 @@ spot_funs(file_path = file_output, show_each_use = TRUE)
 #>  6 group_by     dplyr     FALSE           
 #>  7 nest         tidyr     FALSE           
 #>  8 mutate       dplyr     FALSE           
-#>  9 map          purrr     FALSE           
+#>  9 map          (unknown) FALSE           
 #> 10 lm           stats     FALSE           
 #> 11 made_up_fun  (unknown) FALSE
 ```
@@ -360,7 +358,7 @@ argument of your YAML header. For example:
     author: brshallo
     date: '2022-02-11'
     tags: 
-      - "knitr", "funspotr", "dplyr", "tidyr", "purrr", "stringr", "madeuppkg", "lubridate", "glue", "tibble"
+      - "`r funspotr::spot_tags()`"
     slug: this-is-a-post
     ---
 

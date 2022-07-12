@@ -34,7 +34,8 @@
 #'   "pkg:fun").
 #'
 #'
-#' @seealso spot_pkgs_from_description github_spot_pkgs renv::dependencies
+#' @seealso `spot_pkgs_used()`, `spot_pkgs_from_description()`,
+#'   `github_spot_pkgs()`, `renv::dependencies()`
 #'
 #' @export
 #'

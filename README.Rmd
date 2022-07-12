@@ -214,15 +214,8 @@ spot_pkgs(
 
 To automatically have your packages used as the tags for a post you can add the function `funspotr::spot_tags()` to a bullet in the `tags` argument of your YAML header. For example:
 
-```
----
-title: This is a post
-author: brshallo
-date: '2022-02-11'
-tags: 
-  - "`r funspotr::spot_tags()`"
-slug: this-is-a-post
----
+```{r echo = FALSE, comment = ""}
+cat(htmltools::includeText("inst/ex-rmd-tags.Rmd"))
 ```
 
 See ([blogdown#647](https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327), [blogdown#693](https://github.com/rstudio/blogdown/issues/693)) for an explanation.

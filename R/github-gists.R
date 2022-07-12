@@ -15,7 +15,7 @@ get_gist_pages <- function(user){
   num_pages
 }
 
-get_content <- function(user){
+get_gist_content <- function(user){
 
   num_pages <- get_gist_pages(user)
 
@@ -71,7 +71,7 @@ get_content <- function(user){
 #' }
 github_gists <- function(user){
 
-  content <- get_content(user)
+  content <- get_gist_content(user)
 
   raw_urls <- content %>%
     map("files") %>%
