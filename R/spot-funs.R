@@ -38,7 +38,7 @@ list_functions_in_file <- function(file_path, show_each_use = FALSE){
 #'
 #' @param funs List output returned from running
 #'   `funspotr:::list_functions_in_file()`
-#' @param keep_search_list Logical, default is `TRUE` if change to `FALSE` will
+#' @param keep_search_list Logical, default is `FALSE` if change to `TRUE` will
 #'   include entire search list as a list-column.
 list_functions_in_file_to_df <- function(funs, keep_search_list = FALSE){
 
@@ -101,12 +101,24 @@ call_r_list_functions <- function(pkgs, file_temp, show_each_use = FALSE){
 # utils::find()
 # used to take the approach described here:
 # https://github.com/rticulate/import/issues/57
+# attach_pkg_fun <- function(pkg_fun){
+#   pkg <- pkg_fun$pkg
+#   fun <- pkg_fun$fun
+#   pkg_nm <- paste0("explicitpackage:", pkg)
+#
+#   import::from(pkg, fun, .into = pkg_nm, .character_only = TRUE)
+# }
+
+# old approach
 attach_pkg_fun <- function(pkg_fun){
   pkg <- pkg_fun$pkg
   fun <- pkg_fun$fun
-  pkg_nm <- paste0("explicitpackage:", pkg)
+  env <- new.env()
+  env_nm <- paste0("explicitpackage:", pkg)
 
-  import::from(pkg, fun, .into = pkg_nm, .character_only = TRUE)
+  import::from(pkg, fun, .into = {env}, .character_only = TRUE)
+
+  attach(env, name = env_nm)
 }
 
 try_attach_pkg_fun <- function(pkg_fun) try(attach_pkg_fun(pkg_fun))
@@ -161,7 +173,7 @@ call_r_list_functions_explicit <- function(pkgs, pkgs_explicit, file_temp, show_
 #' @param show_each_use Logical, default is `FALSE`. If changed to `TRUE` will
 #'   return individual rows for each time a function is used (rather than just
 #'   once for the entire file).
-#' @param keep_search_list Logical, default is `TRUE`. If changed to `FALSE`
+#' @param keep_search_list Logical, default is `FALSE`. If changed to `TRUE`
 #'   will include entire search list for function. May be helpful for debugging
 #'   in cases where {funspotr} may not be doing a good job of recreating the
 #'   search list for identifying which packages function(s) came from. This will
@@ -178,6 +190,10 @@ call_r_list_functions_explicit <- function(pkgs, pkgs_explicit, file_temp, show_
 #'   `print_pkgs_load_status = TRUE` automatically. If a package is not
 #'   installed on the machine then will print load status of individual pkgs and
 #'   result in an error.
+#' @param keep_in_multiple_pkgs Logical, default is `FALSE`. If set to `TRUE`
+#'   will include in the outputted dataframe a column `in_multiple_pkgs`:
+#'   logical, whether a function exists in multiple packages loaded (i.e. on the
+#'   search space of `utils::find()`.
 #'
 #' @return Given default arguments and no missing packages, a dataframe with the
 #'   following columns is returned:
@@ -185,16 +201,14 @@ call_r_list_functions_explicit <- function(pkgs, pkgs_explicit, file_temp, show_
 #'   `pkgs`: the package a function came from. If `funs` is a custom function or
 #'   if it came from a package not installed on your machine, `pkgs` will return
 #'   "(unknown)".
-#'   `in_multiple_pkgs`: logical, whether a function exists in multiple packages
-#'   loaded (i.e. on the search space of `utils::find()`.
 #'
-#'   Note that any unused loaded packages/ `pkgs` are dropped from output.
+#'   Note that any unused loaded packages / `pkgs` are dropped from output.
 #'   Any functions without an available package are returned with the value
 #'   "(unknown)".
 #'
 #'   See README for further documentation.
 #'
-#' @seealso spot_funs
+#' @seealso [spot_funs()]
 #' @export
 #'
 #' @examples
@@ -230,7 +244,8 @@ spot_funs_custom <- function(pkgs,
                              keep_search_list = FALSE,
                              copy_local = TRUE,
                              print_pkgs_load_status = FALSE,
-                             error_if_missing_pkg = FALSE) {
+                             error_if_missing_pkg = FALSE,
+                             keep_in_multiple_pkgs = FALSE) {
 
 
   if(print_pkgs_load_status || error_if_missing_pkg){
@@ -251,11 +266,9 @@ spot_funs_custom <- function(pkgs,
   pkgs_explicit <- str_subset(pkgs, "::", negate = FALSE)
 
   if(length(pkgs_explicit) == 0){
-    return(
 
-      call_r_list_functions(pkgs, file_temp, show_each_use) %>%
+      output <- call_r_list_functions(pkgs, file_temp, show_each_use) %>%
         list_functions_in_file_to_df(keep_search_list)
-    )
   } else {
 
     pkgs_full <- str_subset(pkgs, "::", negate = TRUE)
@@ -264,10 +277,14 @@ spot_funs_custom <- function(pkgs,
                                fun = str_extract(.x, "(?<=::).+"))
                          )
 
-    call_r_list_functions_explicit(pkgs_full, pkgs_explicit, file_temp, show_each_use) %>%
+    output <- call_r_list_functions_explicit(pkgs_full, pkgs_explicit, file_temp, show_each_use) %>%
       list_functions_in_file_to_df(keep_search_list)
 
   }
+
+  if(keep_in_multiple_pkgs) {
+    return(output)
+  } else select(output, -.data$in_multiple_pkgs)
 }
 
 #' Spot Functions
@@ -287,7 +304,7 @@ spot_funs_custom <- function(pkgs,
 #'   `spot_funs_custom()`.
 #'
 #' @inherit spot_funs_custom return
-#' @seealso spot_funs_custom github_spot_funs
+#' @seealso [spot_funs_custom()], [spot_funs_files()]
 #' @export
 #'
 #' @examples

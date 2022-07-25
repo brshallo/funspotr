@@ -10,7 +10,7 @@ list_functions_in_file_to_df(funs, keep_search_list = FALSE)
 \item{funs}{List output returned from running
 \code{funspotr:::list_functions_in_file()}}
 
-\item{keep_search_list}{Logical, default is \code{TRUE} if change to \code{FALSE} will
+\item{keep_search_list}{Logical, default is \code{FALSE} if change to \code{TRUE} will
 include entire search list as a list-column.}
 }
 \description{

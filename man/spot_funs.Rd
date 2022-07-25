@@ -19,10 +19,8 @@ following columns is returned:
 \code{pkgs}: the package a function came from. If \code{funs} is a custom function or
 if it came from a package not installed on your machine, \code{pkgs} will return
 "(unknown)".
-\code{in_multiple_pkgs}: logical, whether a function exists in multiple packages
-loaded (i.e. on the search space of \code{utils::find()}.
 
-Note that any unused loaded packages/ \code{pkgs} are dropped from output.
+Note that any unused loaded packages / \code{pkgs} are dropped from output.
 Any functions without an available package are returned with the value
 "(unknown)".
 
@@ -63,5 +61,5 @@ writeLines(file_lines, file_output)
 spot_funs(file_output)
 }
 \seealso{
-spot_funs_custom github_spot_funs
+\code{\link[=spot_funs_custom]{spot_funs_custom()}}, \code{\link[=spot_funs_files]{spot_funs_files()}}
 }

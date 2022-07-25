@@ -11,7 +11,8 @@ spot_funs_custom(
   keep_search_list = FALSE,
   copy_local = TRUE,
   print_pkgs_load_status = FALSE,
-  error_if_missing_pkg = FALSE
+  error_if_missing_pkg = FALSE,
+  keep_in_multiple_pkgs = FALSE
 )
 }
 \arguments{
@@ -25,7 +26,7 @@ Generally will be the returned value from \code{spot_pkgs(file_path, show_explic
 return individual rows for each time a function is used (rather than just
 once for the entire file).}
 
-\item{keep_search_list}{Logical, default is \code{TRUE}. If changed to \code{FALSE}
+\item{keep_search_list}{Logical, default is \code{FALSE}. If changed to \code{TRUE}
 will include entire search list for function. May be helpful for debugging
 in cases where {funspotr} may not be doing a good job of recreating the
 search list for identifying which packages function(s) came from. This will
@@ -45,6 +46,11 @@ Will continue on to produce output of function.}
 \code{print_pkgs_load_status = TRUE} automatically. If a package is not
 installed on the machine then will print load status of individual pkgs and
 result in an error.}
+
+\item{keep_in_multiple_pkgs}{Logical, default is \code{FALSE}. If set to \code{TRUE}
+will include in the outputted dataframe a column \code{in_multiple_pkgs}:
+logical, whether a function exists in multiple packages loaded (i.e. on the
+search space of \code{utils::find()}.}
 }
 \value{
 Given default arguments and no missing packages, a dataframe with the
@@ -53,10 +59,8 @@ following columns is returned:
 \code{pkgs}: the package a function came from. If \code{funs} is a custom function or
 if it came from a package not installed on your machine, \code{pkgs} will return
 "(unknown)".
-\code{in_multiple_pkgs}: logical, whether a function exists in multiple packages
-loaded (i.e. on the search space of \code{utils::find()}.
 
-Note that any unused loaded packages/ \code{pkgs} are dropped from output.
+Note that any unused loaded packages / \code{pkgs} are dropped from output.
 Any functions without an available package are returned with the value
 "(unknown)".
 
@@ -112,5 +116,5 @@ spot_funs_custom(pkgs, file_output)
 # spot_funs_custom(pkgs, file_output, error_if_missing_pkg = TRUE)
 }
 \seealso{
-spot_funs
+\code{\link[=spot_funs]{spot_funs()}}
 }

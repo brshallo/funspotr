@@ -11,20 +11,22 @@ Description: Helpers for parsing out the R functions
 License: MIT + file LICENSE
 BugReports: https://github.com/brshallo/funspotr/issues
 Imports:
-  dplyr (>= 0.8.3),
-  tidyr,
-  purrr,
-  stringr,
-  glue,
-  knitr,
-  httr,
-  callr,
-  readr,
-  formatR,
-  fs,
-  tibble, 
-  utils,
-  import
+    dplyr (>= 0.8.3),
+    tidyr,
+    purrr,
+    stringr,
+    glue,
+    knitr,
+    httr,
+    callr,
+    readr,
+    here,
+    formatR,
+    fs,
+    tibble,
+    utils,
+    import (>= 1.3.0),
+    lifecycle
 Suggests:
   remotes,
   visNetwork,

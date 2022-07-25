@@ -34,8 +34,8 @@
 #'   "pkg:fun").
 #'
 #'
-#' @seealso `spot_pkgs_used()`, `spot_pkgs_from_description()`,
-#'   `github_spot_pkgs()`, `renv::dependencies()`
+#' @seealso [spot_pkgs_used()], [spot_pkgs_from_description()],
+#'   [spot_pkgs_files()], `renv::dependencies()`
 #'
 #' @export
 #'
@@ -159,10 +159,10 @@ spot_pkgs_used <- function(file_path, as_yaml_tags = FALSE){
 #' @return Character vector of packages.
 #'
 #' @examples
-#' funspotr:::spot_pkgs_from_DESCRIPTION(
+#' funspotr:::spot_pkgs_from_description(
 #'   "https://raw.githubusercontent.com/brshallo/animatrixr/master/DESCRIPTION"
 #' )
-spot_pkgs_from_DESCRIPTION <- function(DESCRIPTION_path) {
+spot_pkgs_from_description <- function(DESCRIPTION_path) {
 
   file_path <- r_to_r_temp(DESCRIPTION_path, fileext = "")
 

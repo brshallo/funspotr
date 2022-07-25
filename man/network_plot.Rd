@@ -7,7 +7,7 @@
 network_plot(df, to = .data$pkgs, show_each_use = FALSE)
 }
 \arguments{
-\item{df}{Dataframe containing columns \code{contents}, \code{urls} and either \code{funs}
+\item{df}{Dataframe containing columns \code{relative_paths}, \code{absolute_paths} and either \code{funs}
 or \code{pkgs}. Generally the output from running:
 \verb{github_spot_*() \%>\% unnest_github_results()}}
 
@@ -22,19 +22,20 @@ visNetwork plot
 \description{
 Output simple network plot using
 \href{https://github.com/datastorm-open/visNetwork}{visNetwork} connecting either
-\code{funs} or \code{pkgs} to \code{contents}/\code{urls}.
+\code{funs} or \code{pkgs} to \code{relative_paths}/\code{absolute_paths}.
 }
 \examples{
 \dontrun{
 library(dplyr)
 library(funspotr)
 
-gh_ex_pkgs <- github_spot_pkgs(
+gh_ex_pkgs <- list_files_github_repo(
   repo = "brshallo/feat-eng-lags-presentation",
-  branch = "main")
+  branch = "main") \%>\%
+  spot_funs_files()
 
 gh_ex_pkgs \%>\%
-  unnest_github_results() \%>\%
+  unnest_results() \%>\%
   network_plot(to = pkgs)
 }
 }

@@ -3,9 +3,9 @@
 #'
 #' Output simple network plot using
 #' [visNetwork](https://github.com/datastorm-open/visNetwork) connecting either
-#' `funs` or `pkgs` to `contents`/`urls`.
+#' `funs` or `pkgs` to `relative_paths`/`absolute_paths`.
 #'
-#' @param df Dataframe containing columns `contents`, `urls` and either `funs`
+#' @param df Dataframe containing columns `relative_paths`, `absolute_paths` and either `funs`
 #'   or `pkgs`. Generally the output from running:
 #'   `github_spot_*() %>% unnest_github_results()`
 #' @param to `funs` or `pkgs`
@@ -20,12 +20,13 @@
 #' library(dplyr)
 #' library(funspotr)
 #'
-#' gh_ex_pkgs <- github_spot_pkgs(
+#' gh_ex_pkgs <- list_files_github_repo(
 #'   repo = "brshallo/feat-eng-lags-presentation",
-#'   branch = "main")
+#'   branch = "main") %>%
+#'   spot_funs_files()
 #'
 #' gh_ex_pkgs %>%
-#'   unnest_github_results() %>%
+#'   unnest_results() %>%
 #'   network_plot(to = pkgs)
 #' }
 network_plot <- function(df, to = .data$pkgs, show_each_use = FALSE){
@@ -35,7 +36,7 @@ network_plot <- function(df, to = .data$pkgs, show_each_use = FALSE){
          At least one of these seems to be missing.")
   }
 
-  if(!show_each_use) df <- distinct(df, {{to}}, .data$contents, .data$urls)
+  if(!show_each_use) df <- distinct(df, {{to}}, .data$relative_paths, .data$absolute_paths)
 
   ## used colors 1,5,10 from  -- inspired by cranly: https://github.com/ikosmidis/cranly
   # colors <- colorspace::diverge_hcl(10, c = 100, l = c(50, 100), power = 1)
@@ -49,18 +50,18 @@ network_plot <- function(df, to = .data$pkgs, show_each_use = FALSE){
     mutate(title = paste0("<p><b>", id,"</b><br>"))
 
   nodes_contents <- df %>%
-    count(.data$contents, .data$urls) %>%
-    select(id = .data$contents, value = .data$n, .data$urls) %>%
+    count(.data$relative_paths, .data$absolute_paths) %>%
+    select(id = .data$relative_paths, value = .data$n, .data$absolute_paths) %>%
     mutate(color = "#4A6FE3",
            shape = "square") %>%
-    mutate(title = paste0("<p><b>", id,"</b><br> ", .data$urls, "</p>"))
+    mutate(title = paste0("<p><b>", id,"</b><br> ", .data$absolute_paths, "</p>"))
 
   nodes <- bind_rows(nodes_pkgs,
                      nodes_contents) %>%
     mutate(label = id)
 
   edges <- df %>%
-    select(from = .data$contents, to = {{to}}) %>%
+    select(from = .data$relative_paths, to = {{to}}) %>%
     count(.data$from, to) %>%
     rename(value = n) %>%
     # mutate(color = colors[10]) %>% # this messes-up highlighting for some reason
@@ -69,7 +70,7 @@ network_plot <- function(df, to = .data$pkgs, show_each_use = FALSE){
   if(max(edges$value <= 1)) edges <- select(edges, -.data$value)
 
   ## Set-up legend
-  lnodes <- data.frame(label = c("contents / urls", "Packages Used"),
+  lnodes <- data.frame(label = c("relative / absolute", "Packages Used"),
                        color = c("#4A6FE3", "#ECEEFC"),
                        font.align = "top")
 

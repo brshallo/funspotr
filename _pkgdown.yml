@@ -3,30 +3,34 @@ template:
   bootstrap: 5
 
 reference:
-- title: "Individual files"
+- title: "Spotting functions and/or packages"
   desc: >
-    Functions for reviewing individual files
+    Functions for identifying functions or packages in a single file or collection of files.
   contents:
   - spot_funs
-  - spot_funs_custom
+  - spot_funs_files
   - spot_pkgs
-  - spot_pkgs_used
+  - spot_pkgs_files
   - spot_tags
-  - check_pkgs_availability
-- title: "Github repositories"
+- title: "List files"
   desc: >
-    Functions for mapping functions across files in
-    a github repository, collection of files, or
-    related.
+    Functions for listing the files in a repository or other location.
   contents:
-  - github_spot_funs
-  - github_spot_pkgs
-  - github_gists
-  - unnest_github_results
+  - list_files_github_repo
+  - list_files_github_gists
+  - list_files_wd
+- title: Helpers and others
+  desc: >
+    Helpers for manipulating data or plotting as well as variations on the core spotting functions.
+  contents:
   - network_plot
+  - unnest_results
+  - check_pkgs_availability
+  - spot_pkgs_used
+  - spot_funs_custom
 - title: internal
   desc: >
-    Unexported helpers.
+    Unexported helpers and deprecated functions.
   contents:
   - call_r_list_functions_doc
   - did_safely_error
@@ -37,3 +41,5 @@ reference:
   - list_functions_in_file_to_df
   - spot_pkgs_from_DESCRIPTION
   - str_detect_r_rmd
+  - github_spot_funs
+  - github_spot_pkgs
