@@ -131,8 +131,10 @@ search space of <code><a href="https://rdrr.io/r/utils/apropos.html" class="exte
     
 
 <p>Given default arguments and no missing packages, a dataframe with the
-following columns is returned:
-<code>funs</code>: specifying functions in file.
+following columns is returned:</p>
+
+
+<p><code>funs</code>: specifying functions in file.
 <code>pkgs</code>: the package a function came from. If <code>funs</code> is a custom function or
 if it came from a package not installed on your machine, <code>pkgs</code> will return
 "(unknown)".</p>
@@ -147,12 +149,12 @@ Any functions without an available package are returned with the value
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>spot_funs_custom()</code> is what you should use in cases where you don't trust
-<code><a href="spot_pkgs.html">spot_pkgs()</a></code> to properly identify package dependencies from within the same
-file and instead want to pass in your own character vector of packages.</p>
-<p>HOW IT WORKS: See README</p>
+    <p><code>spot_funs_custom()</code> is also what you should use in cases where you don't
+trust <code><a href="spot_pkgs.html">spot_pkgs()</a></code> to properly identify package dependencies from within the
+same file and instead want to pass in your own character vector of packages.</p>
+<p>See README for a description of how the function works.</p>
 <p>If a package is not included in <code>pkgs</code>, any functions called that should come
-from that package will be assigned to value of "(unknown)" in the <code>pkgs</code>
+from that package will be assigned a value of "(unknown)" in the <code>pkgs</code>
 column of the returned output. You can also use the <code>print_pkgs_load_status</code>
 and <code>error_if_missing_pkg</code> arguments to alter how output works in cases when
 not all packages are on the machine.</p>
