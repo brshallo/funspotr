@@ -37,9 +37,6 @@
     <loc>https://brshallo.github.io/funspotr/reference/github_contents_urls.html</loc>
   </url>
   <url>
-    <loc>https://brshallo.github.io/funspotr/reference/github_gists.html</loc>
-  </url>
-  <url>
     <loc>https://brshallo.github.io/funspotr/reference/github_spot_things.html</loc>
   </url>
   <url>
@@ -47,6 +44,15 @@
   </url>
   <url>
     <loc>https://brshallo.github.io/funspotr/reference/install_missing_pkgs.html</loc>
+  </url>
+  <url>
+    <loc>https://brshallo.github.io/funspotr/reference/list_files_github_gists.html</loc>
+  </url>
+  <url>
+    <loc>https://brshallo.github.io/funspotr/reference/list_files_github_repo.html</loc>
+  </url>
+  <url>
+    <loc>https://brshallo.github.io/funspotr/reference/list_files_wd.html</loc>
   </url>
   <url>
     <loc>https://brshallo.github.io/funspotr/reference/list_functions_in_file.html</loc>
@@ -76,9 +82,12 @@
     <loc>https://brshallo.github.io/funspotr/reference/spot_tags.html</loc>
   </url>
   <url>
+    <loc>https://brshallo.github.io/funspotr/reference/spot_things_files.html</loc>
+  </url>
+  <url>
     <loc>https://brshallo.github.io/funspotr/reference/str_detect_r_rmd.html</loc>
   </url>
   <url>
-    <loc>https://brshallo.github.io/funspotr/reference/unnest_github_results.html</loc>
+    <loc>https://brshallo.github.io/funspotr/reference/unnest_results.html</loc>
   </url>
 </urlset>
