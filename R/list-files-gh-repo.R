@@ -313,9 +313,17 @@ unnest_results <- function(df){
 #'   unnest_results()
 #' }
 list_files_github_repo <- function(repo,
-                                   branch,
+                                   branch = NULL,
                                    rmv_index = TRUE,
                                    keep_non_r = FALSE) {
+
+  # test "main" and then "master" branch if not specified
+  if(is.null(branch)){
+    branch <- "main"
+    url_test <- glue::glue("https://api.github.com/repos/{repo}/git/trees/{branch}?recursive=1")
+
+    if(!valid_url(url_test)) branch <- "master"
+  }
 
   contents_urls <- github_contents_urls(repo, branch)
 

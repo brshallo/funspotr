@@ -4,7 +4,12 @@
 \alias{list_files_github_repo}
 \title{List Files in Github Repo}
 \usage{
-list_files_github_repo(repo, branch, rmv_index = TRUE, keep_non_r = FALSE)
+list_files_github_repo(
+  repo,
+  branch = NULL,
+  rmv_index = TRUE,
+  keep_non_r = FALSE
+)
 }
 \arguments{
 \item{repo}{Github repository, e.g. "brshallo/feat-eng-lags-presentation"}
