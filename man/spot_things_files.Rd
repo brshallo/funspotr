@@ -4,7 +4,7 @@
 \alias{spot_funs_files}
 \alias{spot_pkgs_files}
 \alias{spot_things_files}
-\title{Spot Packages or Functions in File Paths}
+\title{Spot Packages or Functions in dataframe of Paths}
 \usage{
 spot_funs_files(df, ...)
 
@@ -18,17 +18,17 @@ spot_pkgs_files(df, ...)
 \value{
 Dataframe with \code{relative_paths} and \code{absolute_paths} of file paths
 along with a list-column \code{spotted} containing \code{purrr::safely()} lists of
-"result" and "error" for each file parsed. Use \code{unnest_results()}
-to unnest only the "result" values.
+"result" and "error" for each file parsed. Use \code{unnest_results()} to unnest
+only the "result" values.
 }
 \description{
 \code{spot_pkgs_files()} : Spot all packages that show-up in R or Rmarkdown
 documents in a dataframe of filepaths.
-}
-\details{
+
 \code{spot_funs_files()} : Spot all functions and their corresponding packages
 that show-up in R or Rmarkdown documents in a dataframe of filepaths.
-
+}
+\details{
 A \code{purrr::safely()} wrapper for mapping \code{spot_pkgs()} or \code{spot_funs()} across
 multiple filepaths.
 

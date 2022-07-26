@@ -20,58 +20,55 @@ different file).}
 \item{used}{Default is \code{FALSE}. If \code{TRUE} will pass to \code{show_pkgs_used()}
 rather than \code{show_pkgs()}. (Mainly useful for showing actual packages used
 rather than meta-packages being called like \code{tidyverse} or \code{tidymodels}.
-Also uses a more strict parsing method, so commented-out packages for
-example wouldn't show-up.).}
+Also uses a more strict parsing method.}
 
 \item{drop_knitr}{Many blogdown posts have \code{knitr::opts_chunk$set()} in them
 and you may not want this tag showing-up. Default is to keep this, but set
-to \code{FALSE} to drop "knitr" from being tagged.
-
-A better approach may be to just skip the "setup" chunk during parsing...}
+to \code{FALSE} to drop "knitr" from being tagged.}
 
 \item{yaml_bullet}{Default is \code{NULL} meaning that \code{file_path} is read-in and
 correct format is guessed based on "spot_tags" appearance with either a
 hyphen or bracket (corresponding with bulleted or array format in the YAML
-header). See examples for how to hard-code.
+header).
 
 If it's first occurrence happens on a line that contains a bracket
 the value becomes \code{FALSE} else it becomes \code{TRUE}. If set to \code{NULL} and
 "spot_tags" is not detected at all in \code{file_path} it will default to
 \code{FALSE}. \code{yaml_bullet} can also be specified directly with either \code{TRUE} or
 \code{FALSE}. \code{TRUE} entails that \code{spot_tags()} is set in a YAML bullet, \code{FALSE}
-indicates the user is inputting it in an array (see examples below).}
+indicates the user is inputting it in an array (see examples below).
+
+See examples for how to hard-code.}
 
 \item{...}{Any additional arguments to pass to \verb{spot_pkgs*()}.}
 }
 \value{
-String in a format meant to be inserted in tags argument of YAML header.
+Character vector in a format meant to be read while evaluating the
+YAML header when rendering.
 }
 \description{
 Put function in your blogdown post's YAML header to have the packages be the
 packages used in your post (wrapper around \code{funspotr::spot_pkgs()}).
 }
 \details{
-\preformatted{tags: ["`r funspotr::spot_tags()`"]
+\preformatted{tags:
+  - "`r funspotr::spot_tags()`"
+}
+
+OR\preformatted{tags: ["`r funspotr::spot_tags()`"]
 }
 
 Note that you must wrap in double quotes.
 
 Thanks Yihui for getting this working and for suggesting the function! Note
 requires blogdown >= 1.9 to work
-(https://github.com/rstudio/blogdown/issues/647).
+\href{https://github.com/rstudio/blogdown/issues/647}{blogdown#647}.
 }
 \examples{
-
-## Put this in your blogdown posts YAML header to autogenerate tags based on pkgs
-# tags:
-#   - "`r funspotr::spot_tags()`"
-
-## Can also put this in an array format in your YAML header
-# tags: ["`r funspotr::spot_tags()`"]
 
 ## To review input interactively from within rstudio you might also try:
 # funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path)
 }
 \seealso{
-show_pkgs show_pkgs_used
+\code{\link[=show_pkgs]{show_pkgs()}}, \code{\link[=show_pkgs_used]{show_pkgs_used()}}
 }

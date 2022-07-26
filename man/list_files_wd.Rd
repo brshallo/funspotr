@@ -2,7 +2,7 @@
 % Please edit documentation in R/list-files-wd.R
 \name{list_files_wd}
 \alias{list_files_wd}
-\title{List Files working directory}
+\title{List Files in Working Directory}
 \usage{
 list_files_wd(path = ".", keep_non_r = FALSE)
 }
@@ -19,6 +19,9 @@ Dataframe with columns of \code{relative_paths} and \code{absolute_paths}.
 \description{
 Return a dataframe containing the paths of files in the working directory.
 Generally used prior to \verb{spot_\{funs/pkgs\}_files()}.
+}
+\details{
+Can also be used outside of working directory if \code{path} is specified.
 }
 \examples{
 \dontrun{

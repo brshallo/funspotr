@@ -1,5 +1,5 @@
 
-#' Funspotr Network Plot
+#' funspotr Network Plot
 #'
 #' Output simple network plot using
 #' [visNetwork](https://github.com/datastorm-open/visNetwork) connecting either

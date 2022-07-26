@@ -15,6 +15,7 @@ spot_funs(file_path, ...)
 \value{
 Given default arguments and no missing packages, a dataframe with the
 following columns is returned:
+
 \code{funs}: specifying functions in file.
 \code{pkgs}: the package a function came from. If \code{funs} is a custom function or
 if it came from a package not installed on your machine, \code{pkgs} will return

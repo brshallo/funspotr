@@ -2,7 +2,7 @@
 % Please edit documentation in R/list-files-gh-repo.R
 \name{list_files_github_repo}
 \alias{list_files_github_repo}
-\title{List Files Github Repos}
+\title{List Files in Github Repo}
 \usage{
 list_files_github_repo(repo, branch, rmv_index = TRUE, keep_non_r = FALSE)
 }

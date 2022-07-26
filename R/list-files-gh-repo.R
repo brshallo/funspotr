@@ -278,7 +278,7 @@ unnest_results <- function(df){
   output
 }
 
-#' List Files Github Repos
+#' List Files in Github Repo
 #'
 #' Return a dataframe containing the paths of files in a github repostiory.
 #' Generally used prior to `spot_{funs/pkgs}_files()`.

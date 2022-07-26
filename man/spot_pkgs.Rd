@@ -2,7 +2,7 @@
 % Please edit documentation in R/spot-pkgs.R
 \name{spot_pkgs}
 \alias{spot_pkgs}
-\title{Spot packages loaded or used in file}
+\title{Spot Packages}
 \usage{
 spot_pkgs(
   file_path,
@@ -19,28 +19,29 @@ show both the package dependency and the function together. For example a
 script containing \code{dplyr::select()} (as opposed to \verb{library(dplyr); select()}) would have \code{spot_pkgs(show_explicit_funs = TRUE)} return the
 item as "dplyr::select" rather than just "dplyr")}
 
-\item{copy_local}{Logical, if changed to \code{FALSE} will not copy to a local
-temporary folder prior to doing analysis. Many processes require file to
-already be a .R file and for the file to exist locally, hence this should
-usually be set to \code{TRUE} unless these are known to be the case.}
+\item{copy_local}{Logical, default is \code{TRUE}. If changed to \code{FALSE} will not
+copy to a local temporary folder prior to doing analysis. Many processes
+require file to already be a .R file and for the file to exist locally,
+hence this should usually be set to \code{TRUE}.}
 
 \item{as_yaml_tags}{Logical, default is \code{FALSE}. If set to \code{TRUE} flattens
-and puts into a format convenient for pasting in "tags" section of a
-blogdown post Rmd document.}
+and puts into a format convenient for pasting in "tags" section of YAML
+header of  a Rmd document for a blogdown post.}
 }
 \value{
-Character vector of all packages loaded in file (or in cases where
-show_explicit_funs = TRUE and there are explicit calls in the package,
-"pkg:fun").
+Character vector of all packages loaded in file.
 }
 \description{
 Extract all \code{pkg} called in either \code{library(pkg)}, \code{require(pkg)}
 \code{requireNamespace("pkg")} or \code{pkg::fun()}. Will not identify packages loaded
 in other ways not typically done in interactive R scripts (e.g. relying on a
 DESCRIPTION file for a pkg or something like \code{source("lib-calls.R")}).
-Inspiration: https://github.com/rstudio/blogdown/issues/647
+Inspiration: \href{https://github.com/rstudio/blogdown/issues/647}{blogdown#647}.
 }
 \details{
+In cases where \code{show_explicit_funs = TRUE} and there are explicit calls in
+the package, "pkg:fun" is returned instead.
+
 Packages are extracted solely based on text -- not whether the
 package actually exists or not. Hence even packages that you do not have
 installed on your machine but show-up in the script will be returned in the

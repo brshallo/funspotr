@@ -35,7 +35,7 @@ get_gist_content <- function(user){
 
 }
 
-#' List Filepaths of Github Gists
+#' List Github Gists of User
 #'
 #' Given a username, return a dataframe with paths to all the gists by that user.
 #'

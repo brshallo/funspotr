@@ -1,7 +1,9 @@
-#' List Files working directory
+#' List Files in Working Directory
 #'
 #' Return a dataframe containing the paths of files in the working directory.
 #' Generally used prior to `spot_{funs/pkgs}_files()`.
+#'
+#' Can also be used outside of working directory if `path` is specified.
 #'
 #' @param path Character vector or path. Default is "." which will set the
 #'   starting location for `relative_paths`.

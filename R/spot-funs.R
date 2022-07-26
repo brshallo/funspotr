@@ -150,14 +150,14 @@ call_r_list_functions_explicit <- function(pkgs, pkgs_explicit, file_temp, show_
 #' requires you to provide a character vector for `pkgs` rather than identifying
 #' these automatically via `spot_pkgs()`.
 #'
-#' `spot_funs_custom()` is what you should use in cases where you don't trust
-#' `spot_pkgs()` to properly identify package dependencies from within the same
-#' file and instead want to pass in your own character vector of packages.
+#' `spot_funs_custom()` is also what you should use in cases where you don't
+#' trust `spot_pkgs()` to properly identify package dependencies from within the
+#' same file and instead want to pass in your own character vector of packages.
 #'
-#' HOW IT WORKS: See README
+#' See README for a description of how the function works.
 #'
 #' If a package is not included in `pkgs`, any functions called that should come
-#' from that package will be assigned to value of "(unknown)" in the `pkgs`
+#' from that package will be assigned a value of "(unknown)" in the `pkgs`
 #' column of the returned output. You can also use the `print_pkgs_load_status`
 #' and `error_if_missing_pkg` arguments to alter how output works in cases when
 #' not all packages are on the machine.
@@ -197,6 +197,7 @@ call_r_list_functions_explicit <- function(pkgs, pkgs_explicit, file_temp, show_
 #'
 #' @return Given default arguments and no missing packages, a dataframe with the
 #'   following columns is returned:
+#'
 #'   `funs`: specifying functions in file.
 #'   `pkgs`: the package a function came from. If `funs` is a custom function or
 #'   if it came from a package not installed on your machine, `pkgs` will return

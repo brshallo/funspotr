@@ -35,7 +35,19 @@ There are roughly three types of functions in funspotr:
     - [Identifying R Functions & Packages in Github Gists (funspotr part 2)](https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/)
     - [Network Plots of Code Collections (funspotr part 3)](https://www.bryanshalloway.com/2022/03/17/network-plots-of-code-collections-funspotr-part-3/)
 
-funspotr is primarily designed for identifying the functions / packages in self-contained files or collections of files^[See [Package dependencies in another file]] like R markdown files or blogdown projects respectively^[Rather than, for example, [targets](https://github.com/ropensci/targets) workflows. Also, in some cases funspotr may not identify *every* function and/or package in a file (see [Limitations, Problems, Musings]) or read the source code for details).].
+funspotr is primarily designed for identifying the functions / packages in self-contained files or collections of files^[See [Package dependencies in another file]] like R markdown files or blogdown projects respectively^[Rather than, for example, [targets](https://github.com/ropensci/targets) workflows. Also, in some cases funspotr may not identify *every* function and/or package in a file (see [Limitations, problems, musings]) or read the source code for details).].
+
+
+## Installation
+
+You can install the development version of funspotr from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("brshallo/funspotr")
+```
+
+Package will be submitted to CRAN shortly.
 
 ## Spot functions in a file
 
@@ -122,7 +134,7 @@ preview_files %>%
 
 Note that if you have a lot of files in a repo you may need to set-up sleep periods or clone the repo locally *and then* parse the files from there so as to stay within the limits of github API hits.
 
-## Other Things
+## Other things
 
 ### Files you didn't write
 
@@ -229,7 +241,7 @@ Many of the unexported functions in funspotr may be helpful in building up other
 
 <!-- **If you've used {funspotr} to map the R functions and packages of a public blog or repository, open an issue to add a link in the README.** -->
 
-## How `funspotr::spot_funs()` works
+## How `spot_funs()` works
 
 funspotr mimics the search space of each file prior to identifying `pkgs`/`funs`^[In a language like python, where calls are explicit (e.g. `np.*`), all of this stuff with recreating the search space would likely be unnecessary and you could just identify packages/functions with simple parsing.]. At a high-level...
 
@@ -241,7 +253,7 @@ funspotr mimics the search space of each file prior to identifying `pkgs`/`funs`
 3. Pass file through `utils::getParseData()` and filter to just functions^[inspired by `NCmisc::list.functions.in.file()`.]
 4. Pass functions through `utils::find()` to identify associated package
 
-## Limitations, Problems, Musings
+## Limitations, problems, musings
 
 * If a file contains R syntax that is not well defined it will not be parsed and will return an error. See [formatR#further-notes](https://yihui.org/formatr/#6-further-notes) (used by {funspotr} in parsing) for other common reasons for failure.
 * `knitr::read_chunk()` and `knitr::purl()` in a file passed to {funspotr} will also frequently cause an error in parsing. See [knitr#1753](https://github.com/yihui/knitr/issues/1753) & [knitr#1938](https://github.com/yihui/knitr/issues/1938)
@@ -259,11 +271,3 @@ funspotr mimics the search space of each file prior to identifying `pkgs`/`funs`
 * Currently it's possible to have github block you pretty soon due to hitting too many files (in which case you'll likely get a 403 or connection error). There are some things that could probably be done to reduce number of github API hits (e.g. above bullet, `Sys.sleep()`, ...).
 * Throughout the code and package documentation I have "inspiration" bullets followed by a link pointing to places where I took stuff from stack overflow, github, or other packages. Also see the footnotes of the README
 
-## Installation
-
-You can install the development version of funspotr from [GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("brshallo/funspotr")
-```

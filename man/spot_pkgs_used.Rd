@@ -20,10 +20,12 @@ Character vector of all packages with functions used in the file.
 Primarily used for cases where you load metapackages like \code{tidyverse} or
 \code{tidymodels} but only want to return those packages that are actually used.
 E.g. say you have a \code{library(tidyverse)} call but only end-up using functions
-that are in \code{dplyr} -- \code{spot_pkgs()} would return \code{"tidyverse"} but
+that are in \code{dplyr} -- \code{spot_pkgs()} would return \code{"tidyverse"} whereas
 \code{spot_pkgs_used()} would return \code{"dplyr"}.
 }
 \details{
-Is essentially just calling \code{spot_funs() \%>\% with(unique(pkgs))} in the
+Also does not return uninstalled packages or those loaded when R starts up.
+
+Is essentially just calling \code{spot_funs() |> with(unique(pkgs))} in the
 background. Does not have as many options as \code{spot_pkgs()} though.
 }

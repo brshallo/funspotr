@@ -14,7 +14,7 @@ Character vector of packages.
 }
 \description{
 Given explicit path to DESCRIPTION file return package dependencies therein.
-inspiration: https://stackoverflow.com/a/30225680/9059865
+Inspiration: \href{https://stackoverflow.com/a/30225680/9059865}{blogdown#647}.
 }
 \examples{
 funspotr:::spot_pkgs_from_description(

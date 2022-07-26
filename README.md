@@ -4,21 +4,21 @@
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/brshallo/funspotr/workflows/R-CMD-check/badge.svg)](https://github.com/brshallo/funspotr/actions)
 
+-   [Installation](#installation)
 -   [Spot functions in a file](#spot-functions-in-a-file)
 -   [Spot functions on all files in a
     project](#spot-functions-on-all-files-in-a-project)
     -   [Previewing and customizing files to
         parse](#previewing-and-customizing-files-to-parse)
--   [Other Things](#other-things)
+-   [Other things](#other-things)
     -   [Files you didn’t write](#files-you-didnt-write)
     -   [Package dependencies in another
         file](#package-dependencies-in-another-file)
     -   [Show all function calls](#show-all-function-calls)
     -   [Helper for blogdown tags](#helper-for-blogdown-tags)
     -   [Unexported functions](#unexported-functions)
--   [How `funspotr::spot_funs()` works](#how-funspotrspot_funs-works)
--   [Limitations, Problems, Musings](#limitations-problems-musings)
--   [Installation](#installation)
+-   [How `spot_funs()` works](#how-spot_funs-works)
+-   [Limitations, problems, musings](#limitations-problems-musings)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
@@ -40,6 +40,18 @@ There are roughly three types of functions in funspotr:
 funspotr is primarily designed for identifying the functions / packages
 in self-contained files or collections of files[2] like R markdown files
 or blogdown projects respectively[3].
+
+## Installation
+
+You can install the development version of funspotr from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("brshallo/funspotr")
+```
+
+Package will be submitted to CRAN shortly.
 
 ## Spot functions in a file
 
@@ -195,7 +207,7 @@ Note that if you have a lot of files in a repo you may need to set-up
 sleep periods or clone the repo locally *and then* parse the files from
 there so as to stay within the limits of github API hits.
 
-## Other Things
+## Other things
 
 ### Files you didn’t write
 
@@ -365,7 +377,7 @@ up other workflows for mapping `spot_funs()` across multiple files[10]
 
 <!-- **If you've used {funspotr} to map the R functions and packages of a public blog or repository, open an issue to add a link in the README.** -->
 
-## How `funspotr::spot_funs()` works
+## How `spot_funs()` works
 
 funspotr mimics the search space of each file prior to identifying
 `pkgs`/`funs`[11]. At a high-level…
@@ -384,7 +396,7 @@ the package a function comes from in the file.)
 4.  Pass functions through `utils::find()` to identify associated
     package
 
-## Limitations, Problems, Musings
+## Limitations, problems, musings
 
 -   If a file contains R syntax that is not well defined it will not be
     parsed and will return an error. See
@@ -439,16 +451,6 @@ the package a function comes from in the file.)
     from stack overflow, github, or other packages. Also see the
     footnotes of the README
 
-## Installation
-
-You can install the development version of funspotr from
-[GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("brshallo/funspotr")
-```
-
 [1] The following posts were written using the initial API for funspotr
 – the key functions used in these posts have now been deprecated:  
 - [Identifying R Functions & Packages Used in GitHub Repos (funspotr
@@ -465,8 +467,8 @@ file](#package-dependencies-in-another-file)
 [3] Rather than, for example,
 [targets](https://github.com/ropensci/targets) workflows. Also, in some
 cases funspotr may not identify *every* function and/or package in a
-file (see [Limitations, Problems,
-Musings](#limitations-problems-musings)) or read the source code for
+file (see [Limitations, problems,
+musings](#limitations-problems-musings)) or read the source code for
 details).
 
 [4] `in_multiple_pkgs`: (by default is dropped, pass in

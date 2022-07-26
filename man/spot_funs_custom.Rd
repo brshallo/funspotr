@@ -55,6 +55,7 @@ search space of \code{utils::find()}.}
 \value{
 Given default arguments and no missing packages, a dataframe with the
 following columns is returned:
+
 \code{funs}: specifying functions in file.
 \code{pkgs}: the package a function came from. If \code{funs} is a custom function or
 if it came from a package not installed on your machine, \code{pkgs} will return
@@ -73,14 +74,14 @@ requires you to provide a character vector for \code{pkgs} rather than identifyi
 these automatically via \code{spot_pkgs()}.
 }
 \details{
-\code{spot_funs_custom()} is what you should use in cases where you don't trust
-\code{spot_pkgs()} to properly identify package dependencies from within the same
-file and instead want to pass in your own character vector of packages.
+\code{spot_funs_custom()} is also what you should use in cases where you don't
+trust \code{spot_pkgs()} to properly identify package dependencies from within the
+same file and instead want to pass in your own character vector of packages.
 
-HOW IT WORKS: See README
+See README for a description of how the function works.
 
 If a package is not included in \code{pkgs}, any functions called that should come
-from that package will be assigned to value of "(unknown)" in the \code{pkgs}
+from that package will be assigned a value of "(unknown)" in the \code{pkgs}
 column of the returned output. You can also use the \code{print_pkgs_load_status}
 and \code{error_if_missing_pkg} arguments to alter how output works in cases when
 not all packages are on the machine.

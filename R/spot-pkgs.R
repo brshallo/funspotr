@@ -2,13 +2,16 @@
 # regex based approach and should perhaps be moved to use `renv::dependencies()` or
 # other established packages for dependency detection and management.
 
-#' Spot packages loaded or used in file
+#' Spot Packages
 #'
 #' Extract all `pkg` called in either `library(pkg)`, `require(pkg)`
 #' `requireNamespace("pkg")` or `pkg::fun()`. Will not identify packages loaded
 #' in other ways not typically done in interactive R scripts (e.g. relying on a
 #' DESCRIPTION file for a pkg or something like `source("lib-calls.R")`).
-#' Inspiration: https://github.com/rstudio/blogdown/issues/647
+#' Inspiration: [blogdown#647](https://github.com/rstudio/blogdown/issues/647).
+#'
+#'   In cases where `show_explicit_funs = TRUE` and there are explicit calls in
+#'   the package, "pkg:fun" is returned instead.
 #'
 #'   Packages are extracted solely based on text -- not whether the
 #'   package actually exists or not. Hence even packages that you do not have
@@ -21,17 +24,15 @@
 #'   script containing `dplyr::select()` (as opposed to `library(dplyr);
 #'   select()`) would have `spot_pkgs(show_explicit_funs = TRUE)` return the
 #'   item as "dplyr::select" rather than just "dplyr")
-#' @param copy_local Logical, if changed to `FALSE` will not copy to a local
-#'   temporary folder prior to doing analysis. Many processes require file to
-#'   already be a .R file and for the file to exist locally, hence this should
-#'   usually be set to `TRUE` unless these are known to be the case.
+#' @param copy_local Logical, default is `TRUE`. If changed to `FALSE` will not
+#'   copy to a local temporary folder prior to doing analysis. Many processes
+#'   require file to already be a .R file and for the file to exist locally,
+#'   hence this should usually be set to `TRUE`.
 #' @param as_yaml_tags Logical, default is `FALSE`. If set to `TRUE` flattens
-#'   and puts into a format convenient for pasting in "tags" section of a
-#'   blogdown post Rmd document.
+#'   and puts into a format convenient for pasting in "tags" section of YAML
+#'   header of  a Rmd document for a blogdown post.
 #'
-#' @return Character vector of all packages loaded in file (or in cases where
-#'   show_explicit_funs = TRUE and there are explicit calls in the package,
-#'   "pkg:fun").
+#' @return Character vector of all packages loaded in file.
 #'
 #'
 #' @seealso [spot_pkgs_used()], [spot_pkgs_from_description()],
@@ -116,10 +117,12 @@ spot_pkgs <- function(file_path, show_explicit_funs = FALSE, copy_local = TRUE, 
 #' Primarily used for cases where you load metapackages like `tidyverse` or
 #' `tidymodels` but only want to return those packages that are actually used.
 #' E.g. say you have a `library(tidyverse)` call but only end-up using functions
-#' that are in `dplyr` -- `spot_pkgs()` would return `"tidyverse"` but
+#' that are in `dplyr` -- `spot_pkgs()` would return `"tidyverse"` whereas
 #' `spot_pkgs_used()` would return `"dplyr"`.
 #'
-#' Is essentially just calling `spot_funs() %>% with(unique(pkgs))` in the
+#' Also does not return uninstalled packages or those loaded when R starts up.
+#'
+#' Is essentially just calling `spot_funs() |> with(unique(pkgs))` in the
 #' background. Does not have as many options as `spot_pkgs()` though.
 #'
 #' @param file_path String of path to file of interest.
@@ -134,7 +137,7 @@ spot_pkgs_used <- function(file_path, as_yaml_tags = FALSE){
   output <- spot_funs(file_path = file_path) %>%
     filter(!(.data$pkgs %in% c("(unknown)", "base", "stats", "graphics", "grDevices", "utils", "methods")))
 
-  output <- with(unique(output$pkgs))
+  output <- unique(output$pkgs)
 
   if(as_yaml_tags){
     output_tags <- output %>%
@@ -152,7 +155,7 @@ spot_pkgs_used <- function(file_path, as_yaml_tags = FALSE){
 #' Spot package dependencies from DESCRIPTION file
 #'
 #' Given explicit path to DESCRIPTION file return package dependencies therein.
-#' inspiration: https://stackoverflow.com/a/30225680/9059865
+#' Inspiration: [blogdown#647](https://stackoverflow.com/a/30225680/9059865).
 #'
 #' @param DESCRIPTION_path Path to DESCRIPTION file
 #'

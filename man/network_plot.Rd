@@ -2,7 +2,7 @@
 % Please edit documentation in R/network-plot.R
 \name{network_plot}
 \alias{network_plot}
-\title{Funspotr Network Plot}
+\title{funspotr Network Plot}
 \usage{
 network_plot(df, to = .data$pkgs, show_each_use = FALSE)
 }

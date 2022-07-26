@@ -30,14 +30,16 @@ spot_pkgs_files <- function(df, ...){
 }
 
 
-#' Spot Packages or Functions in File Paths
+#' Spot Packages or Functions in dataframe of Paths
 #'
+#' @description
 #' `spot_pkgs_files()` : Spot all packages that show-up in R or Rmarkdown
 #' documents in a dataframe of filepaths.
 #'
 #' `spot_funs_files()` : Spot all functions and their corresponding packages
 #' that show-up in R or Rmarkdown documents in a dataframe of filepaths.
 #'
+#' @details
 #' A `purrr::safely()` wrapper for mapping `spot_pkgs()` or `spot_funs()` across
 #' multiple filepaths.
 #'
@@ -49,8 +51,8 @@ spot_pkgs_files <- function(df, ...){
 #'
 #' @return Dataframe with `relative_paths` and `absolute_paths` of file paths
 #'   along with a list-column `spotted` containing `purrr::safely()` lists of
-#'   "result" and "error" for each file parsed. Use `unnest_results()`
-#'   to unnest only the "result" values.
+#'   "result" and "error" for each file parsed. Use `unnest_results()` to unnest
+#'   only the "result" values.
 #'
 #' @seealso [spot_pkgs()], [spot_funs()], [unnest_results()]
 #'

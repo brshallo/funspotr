@@ -2,7 +2,7 @@
 % Please edit documentation in R/list-files-gh-gists.R
 \name{list_files_github_gists}
 \alias{list_files_github_gists}
-\title{List Filepaths of Github Gists}
+\title{List Github Gists of User}
 \usage{
 list_files_github_gists(user, keep_non_r = FALSE)
 }
