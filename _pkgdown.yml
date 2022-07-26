@@ -39,7 +39,7 @@ reference:
   - install_missing_pkgs
   - list_functions_in_file
   - list_functions_in_file_to_df
-  - spot_pkgs_from_DESCRIPTION
+  - spot_pkgs_from_description
   - str_detect_r_rmd
   - github_spot_funs
   - github_spot_pkgs
