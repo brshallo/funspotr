@@ -1,6 +1,8 @@
 funspotr
 ================
 
+<a href="https://brshallo.github.io/funspotr/"><img src="man/figures/logo.png" align="right" height="139" /></a>
+
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/brshallo/funspotr/workflows/R-CMD-check/badge.svg)](https://github.com/brshallo/funspotr/actions)
 
@@ -28,6 +30,12 @@ The goal of funspotr (R function spotter) is to make it easy to identify
 which functions and packages are used in files and projects. It was
 initially written to create reference tables of the functions and
 packages used in a few popular github repositories[1].
+
+There are roughly three types of functions in funspotr:
+
+-   \`list\_files\_\*(): that identify files
+-   `spot_*()`: that identify functions or packages in files
+-   helpers, that manipulate or plot outputs from the above functions
 
 funspotr is primarily designed for identifying the functions / packages
 in self-contained files or collections of files[2] e.g. R markdown files
