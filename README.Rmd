@@ -1,5 +1,4 @@
 ---
-title: "funspotr"
 output: 
   github_document:
     includes:
@@ -27,16 +26,16 @@ The goal of funspotr (R function spotter) is to make it easy to identify which f
 
 There are roughly three types of functions in funspotr:
 
-* `list_files_*(): that identify files
+* `list_files_*()`: that identify files in a repository or related location
 * `spot_*()`: that identify functions or packages in files
-* helpers, that manipulate or plot outputs from the above functions
+* other helpers that manipulate or plot outputs from the above functions
 
 [^prior-posts]: The following posts were written using the initial API for funspotr -- the key functions used in these posts have now been deprecated:  
     - [Identifying R Functions & Packages Used in GitHub Repos (funspotr part 1)](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/) 
     - [Identifying R Functions & Packages in Github Gists (funspotr part 2)](https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/)
     - [Network Plots of Code Collections (funspotr part 3)](https://www.bryanshalloway.com/2022/03/17/network-plots-of-code-collections-funspotr-part-3/)
 
-funspotr is primarily designed for identifying the functions / packages in self-contained files or collections of files^[See [Package dependencies in another file]] e.g. R markdown files or blogdown projects respectively^[Rather than, for example, [targets](https://github.com/ropensci/targets) workflows. Also, in some cases funspotr may not identify *every* function and/or package in a file (see [Limitations, Problems, Musings]) or read the source code for details.].
+funspotr is primarily designed for identifying the functions / packages in self-contained files or collections of files^[See [Package dependencies in another file]] like R markdown files or blogdown projects respectively^[Rather than, for example, [targets](https://github.com/ropensci/targets) workflows. Also, in some cases funspotr may not identify *every* function and/or package in a file (see [Limitations, Problems, Musings]) or read the source code for details).].
 
 ## Spot functions in a file
 
@@ -66,15 +65,15 @@ writeLines(file_lines, file_output)
 spot_funs(file_path = file_output)
 ```
 
-* `funs`: function used in file
-* `pkgs`: best guess as to the package the function came from  
+* `funs`: functions in file
+* `pkgs`: best guess as to the package the functions came from  
 * ...^[`in_multiple_pkgs`: (by default is dropped, pass in `keep_in_multiple_pkgs = TRUE` to `...` to display)Whether the function has multiple packages/environments on it's (guessed) search space. By default only the package at the top of the search space is returned. E.g. `as_tibble()` is attributed to [tidyr](https://tidyr.tidyverse.org/) by `spot_funs()` however `as_tibble()` is also in [dplyr](https://dplyr.tidyverse.org/). I don't worry about getting to the root source of the package or the fact that both of those packages are just reexporting it from [tibble](https://tibble.tidyverse.org/). Setting `keep_search_list = TRUE` will return rows for each item in the search list which may be helpful if getting unexpected results.)] 
 
 <!-- The example below uses `spot_pkgs_from_DESCRIPTION()` to load in package dependencies and then passes the resulting character vector to `spot_funs_custom()`. -->
 
 ## Spot functions on all files in a project
 
-funspotr has a few `list_files_*()` functions that return a dataframe of `relative_paths` and `absolute_paths` of all the R or R markdown files in different locations (e.g. github repo, gists). These can be combined with a variant of `spot_funs()` that maps the function across the paths, `spot_funs_files()`:
+funspotr has a few `list_files_*()` functions that return a dataframe of `relative_paths` and `absolute_paths` of all the R or R markdown files in a specified location (e.g. github repo, gists). These can be combined with a variant of `spot_funs()` that maps the function across each file path found, `spot_funs_files()`:
 
 ```{r}
 # repo for an old presentation I gave
@@ -98,11 +97,11 @@ gh_ex %>%
   filter(pkgs %in% c("here", "readr", "rsample"))
 ```
 
-The outputs from `funspotr::unnest_results()` can also be passed into `funspotr::network_plot()` to build a network visualization of the connections between functions/packages and files^[Took some inspiration from `plot()` method in [cranly](https://github.com/ikosmidis/cranly).]
+The outputs from `funspotr::unnest_results()` can also be passed into `funspotr::network_plot()` to build a network visualization of the connections between functions/packages and files^[Took some inspiration from `plot()` method in [cranly](https://github.com/ikosmidis/cranly).].
 
 ### Previewing and customizing files to parse
 
-You might only want to parse a subset of the files in a repo
+You might only want to parse a subset of the files in a repo.
 
 ```{r}
 preview_files <- list_files_github_repo(

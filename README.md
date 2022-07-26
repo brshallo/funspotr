@@ -1,7 +1,5 @@
-funspotr
-================
 
-<a href="https://brshallo.github.io/funspotr/"><img src="man/figures/logo.png" align="right" height="139" /></a>
+# funspotr <a href="https://brshallo.github.io/funspotr/"><img src="man/figures/logo.png" align="right" height="139" /></a>
 
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/brshallo/funspotr/workflows/R-CMD-check/badge.svg)](https://github.com/brshallo/funspotr/actions)
@@ -33,12 +31,14 @@ packages used in a few popular github repositories[1].
 
 There are roughly three types of functions in funspotr:
 
--   \`list\_files\_\*(): that identify files
+-   `list_files_*()`: that identify files in a repository or related
+    location
 -   `spot_*()`: that identify functions or packages in files
--   helpers, that manipulate or plot outputs from the above functions
+-   other helpers that manipulate or plot outputs from the above
+    functions
 
 funspotr is primarily designed for identifying the functions / packages
-in self-contained files or collections of files[2] e.g. R markdown files
+in self-contained files or collections of files[2] like R markdown files
 or blogdown projects respectively[3].
 
 ## Spot functions in a file
@@ -83,8 +83,8 @@ spot_funs(file_path = file_output)
 #> 10 made_up_fun  (unknown)
 ```
 
--   `funs`: function used in file
--   `pkgs`: best guess as to the package the function came from  
+-   `funs`: functions in file
+-   `pkgs`: best guess as to the package the functions came from  
 -   …[4]
 
 <!-- The example below uses `spot_pkgs_from_DESCRIPTION()` to load in package dependencies and then passes the resulting character vector to `spot_funs_custom()`. -->
@@ -93,9 +93,9 @@ spot_funs(file_path = file_output)
 
 funspotr has a few `list_files_*()` functions that return a dataframe of
 `relative_paths` and `absolute_paths` of all the R or R markdown files
-in different locations (e.g. github repo, gists). These can be combined
-with a variant of `spot_funs()` that maps the function across the paths,
-`spot_funs_files()`:
+in a specified location (e.g. github repo, gists). These can be combined
+with a variant of `spot_funs()` that maps the function across each file
+path found, `spot_funs_files()`:
 
 ``` r
 # repo for an old presentation I gave
@@ -146,11 +146,11 @@ gh_ex %>%
 
 The outputs from `funspotr::unnest_results()` can also be passed into
 `funspotr::network_plot()` to build a network visualization of the
-connections between functions/packages and files[6]
+connections between functions/packages and files[6].
 
 ### Previewing and customizing files to parse
 
-You might only want to parse a subset of the files in a repo
+You might only want to parse a subset of the files in a repo.
 
 ``` r
 preview_files <- list_files_github_repo(
@@ -467,7 +467,7 @@ file](#package-dependencies-in-another-file)
 cases funspotr may not identify *every* function and/or package in a
 file (see [Limitations, Problems,
 Musings](#limitations-problems-musings)) or read the source code for
-details.
+details).
 
 [4] `in_multiple_pkgs`: (by default is dropped, pass in
 `keep_in_multiple_pkgs = TRUE` to `...` to display)Whether the function

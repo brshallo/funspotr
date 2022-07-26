@@ -8,10 +8,10 @@ reference:
     Functions for identifying functions or packages in a single file or collection of files.
   contents:
   - spot_funs
-  - spot_funs_files
   - spot_pkgs
-  - spot_pkgs_files
   - spot_tags
+  - spot_funs_files
+  - spot_pkgs_files
 - title: "List files"
   desc: >
     Functions for listing the files in a repository or other location.
