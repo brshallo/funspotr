@@ -70,5 +70,5 @@ requires blogdown >= 1.9 to work
 # funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path)
 }
 \seealso{
-\code{\link[=show_pkgs]{show_pkgs()}}, \code{\link[=show_pkgs_used]{show_pkgs_used()}}
+\code{\link[=spot_pkgs]{spot_pkgs()}}, \code{\link[=spot_pkgs_used]{spot_pkgs_used()}}
 }

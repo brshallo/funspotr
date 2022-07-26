@@ -51,7 +51,7 @@
 #'   YAML header when rendering.
 #' @export
 #'
-#' @seealso [show_pkgs()], [show_pkgs_used()]
+#' @seealso [spot_pkgs()], [spot_pkgs_used()]
 #'
 #' @examples
 #'
