@@ -17,9 +17,9 @@ spot_pkgs_files(df, ...)
 }
 \value{
 Dataframe with \code{relative_paths} and \code{absolute_paths} of file paths
-along with a list-column \code{spotted} containing \code{purrr::safely()} lists of
-"result" and "error" for each file parsed. Use \code{unnest_results()} to unnest
-only the "result" values.
+along with a list-column \code{spotted} containing \code{purrr::safely()} named list
+of "result" and "error" for each file parsed. Use \code{unnest_results()} to
+unnest only the "result" values.
 }
 \description{
 \code{spot_pkgs_files()} : Spot all packages that show-up in R or Rmarkdown

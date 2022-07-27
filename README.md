@@ -5,6 +5,10 @@
 [![R-CMD-check](https://github.com/brshallo/funspotr/workflows/R-CMD-check/badge.svg)](https://github.com/brshallo/funspotr/actions)
 
 -   [Installation](#installation)
+-   [Linked examples](#linked-examples)
+    -   [Talks and posts](#talks-and-posts)
+    -   [funspotr built reference
+        tables](#funspotr-built-reference-tables)
 -   [Spot functions in a file](#spot-functions-in-a-file)
 -   [Spot functions on all files in a
     project](#spot-functions-on-all-files-in-a-project)
@@ -52,6 +56,33 @@ devtools::install_github("brshallo/funspotr")
 ```
 
 Package will be submitted to CRAN shortly.
+
+## Linked examples
+
+funspotr can be used to quickly create reference tables of the functions
+and packages used in R projects.
+
+### Talks and posts
+
+-   slides from Rstudio Conf 2022 [From summarizing projects to setting
+    tags, uses of parsing R
+    files](https://github.com/brshallo/funspotr-rstudioconf2022)
+-   Part 1 of a series on [Identifying R functions and
+    packages…](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/)
+    (WARNING: uses old API)
+
+### funspotr built reference tables
+
+-   [Julia Silge
+    blog](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/#julia-silge-blog)
+-   [David Robinson
+    screencasts](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/#david-robinson-tidy-tuesday)
+-   [R for Data Science
+    book](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/#r-for-data-science-chapters)
+-   [Bryan Shalloway
+    blog](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/#bryan-shalloway-blog)
+-   [brshallo
+    gists](https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/#binding-files-together)
 
 ## Spot functions in a file
 

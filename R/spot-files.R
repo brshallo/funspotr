@@ -50,9 +50,9 @@ spot_pkgs_files <- function(df, ...){
 #' @param ... Arguments passed onto `spot_{pkgs|funs}()`.
 #'
 #' @return Dataframe with `relative_paths` and `absolute_paths` of file paths
-#'   along with a list-column `spotted` containing `purrr::safely()` lists of
-#'   "result" and "error" for each file parsed. Use `unnest_results()` to unnest
-#'   only the "result" values.
+#'   along with a list-column `spotted` containing `purrr::safely()` named list
+#'   of "result" and "error" for each file parsed. Use `unnest_results()` to
+#'   unnest only the "result" values.
 #'
 #' @seealso [spot_pkgs()], [spot_funs()], [unnest_results()]
 #'
