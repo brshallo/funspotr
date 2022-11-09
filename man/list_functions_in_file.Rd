@@ -15,5 +15,5 @@ is used rather than once for everything}
 \description{
 Simply a wrapper on \code{utils::getParseData()} . Is mostly copied from:
 NCmisc::list.functions.in.file(). Rewrote because function made order of
-output dependent on packages. Also wanted to add \code{show_each_use} argugment.
+output dependent on packages. Also wanted to add \code{show_each_use} argument.
 }

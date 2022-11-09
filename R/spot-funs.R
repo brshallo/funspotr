@@ -3,7 +3,7 @@
 #'
 #' Simply a wrapper on `utils::getParseData()` . Is mostly copied from:
 #' NCmisc::list.functions.in.file(). Rewrote because function made order of
-#' output dependent on packages. Also wanted to add `show_each_use` argugment.
+#' output dependent on packages. Also wanted to add `show_each_use` argument.
 #'
 #' @param file_path character vector of path to file.
 #' @param show_each_use If changed to `TRUE` will return each instance a function

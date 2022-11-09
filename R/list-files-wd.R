@@ -30,7 +30,7 @@
 #' }
 list_files_wd <- function(path = ".",
                           keep_non_r = FALSE){
-  contents <- tibble(relative_paths = fs::dir_ls(path = ".", recurse = TRUE)) %>%
+  contents <- tibble(relative_paths = fs::dir_ls(path = path, recurse = TRUE)) %>%
     mutate(absolute_paths = map_chr(.data$relative_paths, here::here))
 
   if(keep_non_r){
