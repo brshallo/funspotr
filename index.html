@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="index.html">funspotr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,17 +79,22 @@
 <ul>
 <li><a href="#installation">Installation</a></li>
 <li>
-<a href="#linked-examples">Linked examples</a><ul>
+<a href="#linked-examples">Linked examples</a>
+<ul>
 <li><a href="#talks-and-posts">Talks and posts</a></li>
 <li><a href="#funspotr-built-reference-tables">funspotr built reference tables</a></li>
 </ul>
 </li>
 <li><a href="#spot-functions-in-a-file">Spot functions in a file</a></li>
 <li>
-<a href="#spot-functions-on-all-files-in-a-project">Spot functions on all files in a project</a><ul><li><a href="#previewing-and-customizing-files-to-parse">Previewing and customizing files to parse</a></li></ul>
+<a href="#spot-functions-on-all-files-in-a-project">Spot functions on all files in a project</a>
+<ul>
+<li><a href="#previewing-and-customizing-files-to-parse">Previewing and customizing files to parse</a></li>
+</ul>
 </li>
 <li>
-<a href="#other-things">Other things</a><ul>
+<a href="#other-things">Other things</a>
+<ul>
 <li><a href="#files-you-didnt-write">Files you didn’t write</a></li>
 <li><a href="#package-dependencies-in-another-file">Package dependencies in another file</a></li>
 <li><a href="#show-all-function-calls">Show all function calls</a></li>
@@ -439,7 +444,8 @@
 <li>funspotr does not pay attention to when functions are reexported from elsewhere. For example, many tibble functions are reexported by dplyr and tidyr – funspotr though will not know the “true” home of these functions it is simply looking at the top of the search space[15].</li>
 <li>Feel free to open an issue if you’d be interested in a simplifying function or vignette for mapping <code><a href="reference/spot_funs.html">spot_funs()</a></code> through other folder structures not yet mentioned.</li>
 <li>All the functions in “R/spot-pkgs.R” would probably be better handled by something like <code>renv::dependencies()</code> or a parsing based approach. The simple regex’s I use have a variety of problems. As just one example <code>funspotr::get_pkgs()</code> will not recognize when a package is within quotes or being escaped[16]. Another useful package for installing missing dependencies may be <a href="https://thinkr-open.github.io/attachment/index.html" class="external-link">attachment</a>.</li>
-<li>I am curious if there is something to be learned from how <code>R CMD check</code> does function parsing.<ul>
+<li>I am curious if there is something to be learned from how <code>R CMD check</code> does function parsing.
+<ul>
 <li>`funspotr’s current approach is slow</li>
 <li>Current approach uses some imperfect heuristics</li>
 </ul>
