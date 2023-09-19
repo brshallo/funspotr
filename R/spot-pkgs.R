@@ -82,8 +82,8 @@ spot_pkgs <- function(file_path, show_explicit_funs = FALSE, copy_local = TRUE, 
   }
 
 
-  lib_calls <- "(?<=library\\()[:alnum:]+(?=[:punct:])"
-  req_calls <- "(?<=require\\()[:alnum:]+(?=[:punct:])"
+  lib_calls <- "(?<=library\\()[:punct:]?[:alnum:]+(?=[:punct:])"
+  req_calls <- "(?<=require\\()[:punct:]?[:alnum:]+(?=[:punct:])"
   reqns_calls <- "(?<=requireNamespace\\([:punct:])[:alnum:]+(?=[:punct:])"
 
   if(show_explicit_funs){

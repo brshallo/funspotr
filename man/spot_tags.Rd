@@ -51,12 +51,14 @@ Put function in your blogdown post's YAML header to have the packages be the
 packages used in your post (wrapper around \code{funspotr::spot_pkgs()}).
 }
 \details{
-\preformatted{tags:
+\if{html}{\out{<div class="sourceCode">}}\preformatted{tags:
   - "`r funspotr::spot_tags()`"
-}
+}\if{html}{\out{</div>}}
 
-OR\preformatted{tags: ["`r funspotr::spot_tags()`"]
-}
+OR
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{tags: ["`r funspotr::spot_tags()`"]
+}\if{html}{\out{</div>}}
 
 Note that you must wrap in double quotes.
 

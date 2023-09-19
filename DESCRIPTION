@@ -1,6 +1,6 @@
 Package: funspotr
 Title: Spot R Functions & Packages
-Version: 0.0.2
+Version: 0.0.2.9000
 Authors@R: 
   person(given = "Bryan",
          family = "Shalloway",
@@ -35,5 +35,5 @@ Enhances:
   blogdown
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 URL: https://brshallo.github.io/funspotr/
