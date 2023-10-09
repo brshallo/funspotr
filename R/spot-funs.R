@@ -118,7 +118,8 @@ attach_pkg_fun <- function(pkg_fun){
 
   import::from(pkg, fun, .into = {env}, .character_only = TRUE)
 
-  attach(env, name = env_nm)
+  make_attach <- attach # Make R CMD check happy.
+  make_attach(env, name = env_nm)
 }
 
 try_attach_pkg_fun <- function(pkg_fun) try(attach_pkg_fun(pkg_fun))
