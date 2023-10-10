@@ -81,7 +81,7 @@ list_files_github_gists <- function(user, keep_non_r = FALSE){
 
   if(keep_non_r){
     return(output)
-  } else filter(output, str_detect_r_rmd(.data$relative_paths))
+  } else filter(output, str_detect_r_docs(.data$relative_paths))
 }
 
 

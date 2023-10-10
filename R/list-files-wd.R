@@ -35,6 +35,6 @@ list_files_wd <- function(path = ".",
 
   if(keep_non_r){
     return(contents)
-  } else filter(contents, str_detect_r_rmd(.data$relative_paths))
+  } else filter(contents, str_detect_r_docs(.data$relative_paths))
 
 }

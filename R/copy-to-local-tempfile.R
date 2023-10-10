@@ -1,5 +1,5 @@
 ### HELPERS TO MAKE LOCAL TEMPFILES
-# `rmd_chunks_to_r_temp()` ; `r_to_r_temp()` ; go into
+# `notebook_chunks_to_r_temp()` ; `r_to_r_temp()` ; go into
 # `copy_to_local_tempfile()` which is a helper for creating local R temp files
 # from other file locations .
 # It would probably be more efficient to first have a check whether the file is
@@ -7,7 +7,10 @@
 
 # RMD to local R temp file
 # inspiration: https://gist.github.com/noamross/a549ee50e8a4fd68b8b1
-rmd_chunks_to_r_temp <- function(file){
+# Currently only works on Rmarkdown or quarto documents, to apply to jupyter
+# notebooks you'd need to first convert them to .Rmd files which you can do like
+# described here: https://stackoverflow.com/a/65683697/9059865
+notebook_chunks_to_r_temp <- function(file){
 
   temp <- tempfile(fileext=".R")
 
@@ -30,15 +33,15 @@ r_to_r_temp <- function(file, fileext = ".R"){
 
 # copy R or Rmarkdown file format to a local temporary R file
 copy_to_local_tempfile <- function(file_path){
-  if(stringr::str_to_lower(fs::path_ext(file_path)) %in% c("rmd", "rmarkdown")){
-    file_temp <- rmd_chunks_to_r_temp(file_path)
+  if(stringr::str_to_lower(fs::path_ext(file_path)) %in% c("rmd", "rmarkdown", "qmd")){
+    file_temp <- notebook_chunks_to_r_temp(file_path)
   } else {
     file_temp <- r_to_r_temp(file_path)
 
     # remove comments
     suppressMessages(formatR::tidy_file(file_temp, comment = FALSE))
 
-    if(!(stringr::str_to_lower(fs::path_ext(file_path)) %in% c("r", "rmd", "rmarkdown"))){
+    if(!(stringr::str_to_lower(fs::path_ext(file_path)) %in% c("r", "rmd", "rmarkdown", "qmd"))){
       warning("File extension does not seem to be an R or Rmarkdown file. File is being processed as though it is a .R file .")
     }
   }

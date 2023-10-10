@@ -93,13 +93,14 @@ github_contents_urls <- function(repo, branch = "main"){
 #' @param rmv_index Logical, default to `TRUE`, most repos containing blogdown
 #'   sites will have an index.R file at the root. Change to `FALSE` if you don't
 #'   want this file removed.
+#' @param pattern Regex pattern to identify file types.
 #' @return Logical vector.
 #' @examples
-#' files <- c("file1.R", "file2.Rmd", "file3.Rmarkdown", "file4.Rproj")
-#' funspotr:::str_detect_r_rmd(files)
-str_detect_r_rmd <- function(contents, rmv_index = TRUE){
+#' files <- c("file1.R", "file2.Rmd", "file3.Rmarkdown", "file4.Rproj", "file5.qmd")
+#' funspotr:::str_detect_r_docs(files)
+str_detect_r_docs <- function(contents, rmv_index = TRUE, pattern = "(r|rmd|rmarkdown|qmd)$"){
   contents_lower <- stringr::str_to_lower(contents)
-  contents_subset <- str_detect(fs::path_ext(contents_lower), "(r|rmd|rmarkdown)$")
+  contents_subset <- str_detect(fs::path_ext(contents_lower), pattern)
 
   if(rmv_index) contents_subset <- contents_subset & !str_detect(contents_lower, "^index")
 
@@ -120,7 +121,7 @@ github_spot <-
     contents_urls <- github_contents_urls(repo, branch)
 
     contents_urls <- contents_urls %>%
-      filter(str_detect_r_rmd(.data$relative_paths, rmv_index))
+      filter(str_detect_r_docs(.data$relative_paths, rmv_index))
 
   } else contents_urls <- custom_urls
 
@@ -329,7 +330,7 @@ list_files_github_repo <- function(repo,
 
   if(keep_non_r){
     return(contents_urls)
-  } else filter(contents_urls, str_detect_r_rmd(.data$relative_paths, rmv_index))
+  } else filter(contents_urls, str_detect_r_docs(.data$relative_paths, rmv_index))
 
 }
 
