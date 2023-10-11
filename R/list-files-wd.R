@@ -8,7 +8,7 @@
 #' @param path Character vector or path. Default is "." which will set the
 #'   starting location for `relative_paths`.
 #' @param keep_non_r Logical, default is `FALSE` so keeps only records with
-#'   `relative_paths` ending in "(r|rmd|rmarkdown)$".
+#'   `relative_paths` ending in "(r|rmd|rmarkdown|qmd)$".
 #'
 #' @return Dataframe with columns of `relative_paths` and `absolute_paths`.
 #' @export

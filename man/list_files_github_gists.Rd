@@ -10,9 +10,9 @@ list_files_github_gists(user, keep_non_r = FALSE)
 \item{user}{Character string of username whose github gists you want to pull.}
 
 \item{keep_non_r}{Logical, default is \code{FALSE} so keeps only records with
-\code{relative_path} ending in "(r|rmd|rmarkdown)$". If you have a lot of .md
+\code{relative_path} ending in "(r|rmd|rmarkdown|qmd)$". If you have a lot of .md
 gists that can easily be converted to .R files, you may want to set this to
-\code{TRUE}.}
+\code{TRUE} so as to also parse those.}
 }
 \value{
 Dataframe with \code{relative_paths} and \code{absolute_paths} of file paths.

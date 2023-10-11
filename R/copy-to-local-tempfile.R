@@ -31,7 +31,7 @@ r_to_r_temp <- function(file, fileext = ".R"){
   file_output
 }
 
-# copy R or Rmarkdown file format to a local temporary R file
+# copy R or Rmarkdown or quarto file format to a local temporary R file
 copy_to_local_tempfile <- function(file_path){
   if(stringr::str_to_lower(fs::path_ext(file_path)) %in% c("rmd", "rmarkdown", "qmd")){
     file_temp <- notebook_chunks_to_r_temp(file_path)
@@ -42,7 +42,7 @@ copy_to_local_tempfile <- function(file_path){
     suppressMessages(formatR::tidy_file(file_temp, comment = FALSE))
 
     if(!(stringr::str_to_lower(fs::path_ext(file_path)) %in% c("r", "rmd", "rmarkdown", "qmd"))){
-      warning("File extension does not seem to be an R or Rmarkdown file. File is being processed as though it is a .R file .")
+      warning("File extension does not seem to be an R or Rmarkdown or quarto file. File is being processed as though it is a .R file .")
     }
   }
 

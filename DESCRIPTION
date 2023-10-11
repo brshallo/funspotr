@@ -7,7 +7,7 @@ Authors@R:
          role = c("aut", "cre"),
          email = "brshallodev@gmail.com")
 Description: Helpers for parsing out the R functions 
-  and packages used in R and R markdown files.
+  and packages used in R, Rmarkdown, and quarto files.
 License: MIT + file LICENSE
 BugReports: https://github.com/brshallo/funspotr/issues
 Imports:

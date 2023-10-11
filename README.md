@@ -134,10 +134,10 @@ spot_funs(file_path = file_output)
 ## Spot functions on all files in a project
 
 funspotr has a few `list_files_*()` functions that return a dataframe of
-`relative_paths` and `absolute_paths` of all the R or R markdown files
-in a specified location (e.g. github repo, gists). These can be combined
-with a variant of `spot_funs()` that maps the function across each file
-path found, `spot_funs_files()`:
+`relative_paths` and `absolute_paths` of all the R, Rmarkdown, or quarto
+files in a specified location (e.g. github repo, gists). These can be
+combined with a variant of `spot_funs()` that maps the function across
+each file path found, `spot_funs_files()`:
 
 ``` r
 # repo for an old presentation I gave

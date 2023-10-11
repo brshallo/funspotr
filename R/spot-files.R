@@ -33,11 +33,12 @@ spot_pkgs_files <- function(df, ...){
 #' Spot Packages or Functions in dataframe of Paths
 #'
 #' @description
-#' `spot_pkgs_files()` : Spot all packages that show-up in R or Rmarkdown
-#' documents in a dataframe of filepaths.
+#' `spot_pkgs_files()` : Spot all packages that show-up in R or Rmarkdown or
+#' quarto documents in a dataframe of filepaths.
 #'
 #' `spot_funs_files()` : Spot all functions and their corresponding packages
-#' that show-up in R or Rmarkdown documents in a dataframe of filepaths.
+#' that show-up in R or Rmarkdown or quarto documents in a dataframe of
+#' filepaths.
 #'
 #' @details
 #' A `purrr::safely()` wrapper for mapping `spot_pkgs()` or `spot_funs()` across

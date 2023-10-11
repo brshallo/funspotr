@@ -22,11 +22,12 @@ of "result" and "error" for each file parsed. Use \code{unnest_results()} to
 unnest only the "result" values.
 }
 \description{
-\code{spot_pkgs_files()} : Spot all packages that show-up in R or Rmarkdown
-documents in a dataframe of filepaths.
+\code{spot_pkgs_files()} : Spot all packages that show-up in R or Rmarkdown or
+quarto documents in a dataframe of filepaths.
 
 \code{spot_funs_files()} : Spot all functions and their corresponding packages
-that show-up in R or Rmarkdown documents in a dataframe of filepaths.
+that show-up in R or Rmarkdown or quarto documents in a dataframe of
+filepaths.
 }
 \details{
 A \code{purrr::safely()} wrapper for mapping \code{spot_pkgs()} or \code{spot_funs()} across

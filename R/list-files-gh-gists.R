@@ -41,9 +41,9 @@ get_gist_content <- function(user){
 #'
 #' @param user Character string of username whose github gists you want to pull.
 #' @param keep_non_r Logical, default is `FALSE` so keeps only records with
-#'   `relative_path` ending in "(r|rmd|rmarkdown)$". If you have a lot of .md
+#'   `relative_path` ending in "(r|rmd|rmarkdown|qmd)$". If you have a lot of .md
 #'   gists that can easily be converted to .R files, you may want to set this to
-#'   `TRUE`.
+#'   `TRUE` so as to also parse those.
 #'
 #' @return Dataframe with `relative_paths` and `absolute_paths` of file paths.
 #'   Because gists do not exist in a folder structure `relative_paths` will

@@ -11,7 +11,7 @@ list_files_wd(path = ".", keep_non_r = FALSE)
 starting location for \code{relative_paths}.}
 
 \item{keep_non_r}{Logical, default is \code{FALSE} so keeps only records with
-\code{relative_paths} ending in "(r|rmd|rmarkdown)$".}
+\code{relative_paths} ending in "(r|rmd|rmarkdown|qmd)$".}
 }
 \value{
 Dataframe with columns of \code{relative_paths} and \code{absolute_paths}.
