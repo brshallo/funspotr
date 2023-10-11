@@ -35,7 +35,7 @@ There are roughly three types of functions in funspotr:
     - [Identifying R Functions & Packages in Github Gists (funspotr part 2)](https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/)
     - [Network Plots of Code Collections (funspotr part 3)](https://www.bryanshalloway.com/2022/03/17/network-plots-of-code-collections-funspotr-part-3/)
 
-funspotr is primarily designed for identifying the functions / packages in self-contained files or collections of files^[See [Package dependencies in another file]] like R markdown files or blogdown projects respectively^[Rather than, for example, [targets](https://github.com/ropensci/targets) workflows. Also, in some cases funspotr may not identify *every* function and/or package in a file (see [Limitations, problems, musings]) or read the source code for details).].
+funspotr is primarily designed for identifying the functions / packages in self-contained files or collections of files^[See [Package dependencies in another file]] like Rmarkdown or quarto files or blogdown projects respectively^[Rather than, for example, [targets](https://github.com/ropensci/targets) workflows. Also, in some cases funspotr may not identify *every* function and/or package in a file (see [Limitations, problems, musings]) or read the source code for details).].
 
 
 ## Installation
@@ -55,7 +55,7 @@ funspotr can be used to quickly create reference tables of the functions and pac
 
 ### Talks and posts
 
-- slides from Rstudio Conf 2022 [From summarizing projects to setting tags, uses of parsing R files](https://github.com/brshallo/funspotr-rstudioconf2022)
+- [slides](https://github.com/brshallo/funspotr-rstudioconf2022) and [presentation](https://www.youtube.com/watch?v=c9oU7ALJS3o) from Rstudio Conf 2022 *From summarizing projects to setting tags, uses of parsing R files*
 - Part 1 of a series on [Identifying R functions and packages...](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/) (WARNING: uses old API)
 
 ### funspotr built reference tables
@@ -275,7 +275,7 @@ funspotr mimics the search space of each file prior to identifying `pkgs`/`funs`
 * If a file contains R syntax that is not well defined it will not be parsed and will return an error. See [formatR#further-notes](https://yihui.org/formatr/#6-further-notes) (used by {funspotr} in parsing) for other common reasons for failure.
 * `knitr::read_chunk()` and `knitr::purl()` in a file passed to {funspotr} will also frequently cause an error in parsing. See [knitr#1753](https://github.com/yihui/knitr/issues/1753) & [knitr#1938](https://github.com/yihui/knitr/issues/1938)
 * Please open an issue if you find other cases where parsing breaks :-) .
-* As mentioned elsewhere, the default parsing of `spot_funs()` is primarily for cases where package dependencies are loaded in the same file that they are used in^[i.e. in interactive R scripts or Rmd documents where you use `library()` or related calls within the script.]. Scripts that are not self-contained typically should have the `pkgs` argument provided explicitly via `spot_funs_custom()`.
+* As mentioned elsewhere, the default parsing of `spot_funs()` is primarily for cases where package dependencies are loaded in the same file that they are used in^[i.e. in interactive R scripts or Rmd or qmd documents where you use `library()` or related calls within the script.]. Scripts that are not self-contained typically should have the `pkgs` argument provided explicitly via `spot_funs_custom()`.
 * funspotr does not pay attention to when functions are reexported from elsewhere. For example, many tibble functions are reexported by dplyr and tidyr -- funspotr though will not know the "true" home of these functions it is simply looking at the top of the search space^[For example when reviewing David Robinson's Tidy Tuesday code I found that the [meme](https://github.com/GuangchuangYu/meme) package was used far more than I would have expected. Turns out it was just due to it reexporting the `aes()` function from ggplot.].
 * Feel free to open an issue if you'd be interested in a simplifying function or vignette for mapping `spot_funs()` through other folder structures not yet mentioned.
 * All the functions in "R/spot-pkgs.R" would probably be better handled by something like `renv::dependencies()` or a parsing based approach. The simple regex's I use have a variety of problems. As just one example `funspotr::get_pkgs()` will not recognize when a package is within quotes or being escaped^[e.g. in this case `lines <- "library(pkg)"`  the `pkg` would show-up as a dependency despite just being part of a quote rather than actually loaded.]. Another useful package for installing missing dependencies may be [attachment](https://thinkr-open.github.io/attachment/index.html).
