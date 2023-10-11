@@ -112,7 +112,6 @@ github_spot <-
   output
 }
 
-#' @export
 #' @rdname github_spot_things
 github_spot_pkgs <-
   function(repo,
@@ -129,7 +128,6 @@ github_spot_pkgs <-
   github_spot(spot_pkgs, repo, branch, ..., preview = preview, rmv_index = rmv_index, custom_urls = custom_urls)
 }
 
-#' @export
 #' @rdname github_spot_things
 github_spot_funs <-
   function(repo,

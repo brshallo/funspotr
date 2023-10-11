@@ -34,12 +34,8 @@ reference:
   contents:
   - call_r_list_functions_doc
   - did_safely_error
-  - github_contents
-  - github_contents_urls
   - install_missing_pkgs
   - list_functions_in_file
   - list_functions_in_file_to_df
   - spot_pkgs_from_description
   - str_detect_r_docs
-  - github_spot_funs
-  - github_spot_pkgs
