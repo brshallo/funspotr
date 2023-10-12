@@ -41,7 +41,7 @@ the files themselves.
 library(funspotr)
 library(dplyr)
 
-list_files_github_repos("brshallo/feat-eng-lags-presentation", branch = "main", preview = TRUE) \%>\%
+list_files_github_repos("brshallo/feat-eng-lags-presentation", branch = "main") \%>\%
   spot_funs_files()
 }
 }

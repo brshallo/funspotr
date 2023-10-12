@@ -1,9 +1,10 @@
 # engine for `spot_funs_files()` and `spot_pkgs_files()`
+# spot_type is either spot_funs or spot_pkgs
 spot_files <- function(spot_type, df, ...){
 
   if(!exists("absolute_paths", df)) stop("`df` is missing required column 'absolute_paths'.")
 
-  safe_spot_type <- purrr::safely(spot_type)
+  safe_spot_type <- purrr::safely(spot_type, quiet = TRUE)
 
   output <- df %>%
     mutate(spotted = map(.data$absolute_paths, safe_spot_type, ...))
@@ -11,7 +12,11 @@ spot_files <- function(spot_type, df, ...){
   output_errors <- filter(output, did_safely_error(.data$spotted))
 
   if(nrow(output_errors) > 0){
-    warning("Did not evaluate properly for the following absolute_paths: ", output_errors$paths)
+    warning("Failed for the following absolute_paths: \n\n",
+            paste(output_errors$absolute_paths, collapse = "\n"),
+            '\n\nCode to investigate errors (replace {output} with the returned object name):\n',
+            'dplyr::filter({output}, funspotr:::did_safely_error(.data$spotted))$spotted |> purrr::map("error")'
+            )
   }
 
   output
@@ -62,8 +67,45 @@ spot_pkgs_files <- function(df, ...){
 #' library(funspotr)
 #' library(dplyr)
 #'
-#' list_files_github_repos("brshallo/feat-eng-lags-presentation", branch = "main", preview = TRUE) %>%
+#' list_files_github_repos("brshallo/feat-eng-lags-presentation", branch = "main") %>%
 #'   spot_funs_files()
 #' }
 #' @name spot_things_files
 NULL
+
+
+
+#' Unnest Results
+#'
+#' Run after running `list_files_*() |> spot_{funs|pkgs}_files()` to unnest the
+#' `spotted` list-column.
+#'
+#' @param df Dataframe outputted by `spot_{funs|pkgs}_files()` that contains a
+#'   `spotted` list-column.
+#'
+#' @return An unnested dataframe with what was in `spotted` moved to the front.
+#' @export
+#'
+#' @seealso [spot_funs_files()], [spot_pkgs_files()]
+#'
+#' @examples
+#' \dontrun{
+#' library(funspotr)
+#' library(dplyr)
+#'
+#' list_files_github_repo("brshallo/feat-eng-lags-presentation", branch = "main") %>%
+#'   spot_funs_files() %>%
+#'   unnest_results()
+#' }
+unnest_results <- function(df){
+  output <- df %>%
+    filter(!did_safely_error(.data$spotted)) %>%
+    mutate(spotted = map(.data$spotted, "result")) %>%
+    relocate(.data$spotted) %>%
+    unnest(.data$spotted)
+
+  if(any(names(output) == "spotted")) output <- rename(output, pkgs = .data$spotted)
+
+  output
+}
+

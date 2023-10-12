@@ -33,38 +33,3 @@ str_detect_r_docs <- function(contents, rmv_index = TRUE, pattern = "(r|rmd|rmar
 
   contents_subset
 }
-
-
-#' Unnest Results
-#'
-#' Run after running `list_files_*() |> spot_{funs|pkgs}_files()` to unnest the
-#' `spotted` list-column.
-#'
-#' @param df Dataframe outputted by `spot_{funs|pkgs}_files()` that contains a
-#'   `spotted` list-column.
-#'
-#' @return An unnested dataframe with what was in `spotted` moved to the front.
-#' @export
-#'
-#' @seealso [spot_funs_files()], [spot_pkgs_files()]
-#'
-#' @examples
-#' \dontrun{
-#' library(funspotr)
-#' library(dplyr)
-#'
-#' list_files_github_repo("brshallo/feat-eng-lags-presentation", branch = "main") %>%
-#'   spot_funs_files() %>%
-#'   unnest_results()
-#' }
-unnest_results <- function(df){
-  output <- df %>%
-    filter(!did_safely_error(.data$spotted)) %>%
-    mutate(spotted = map(.data$spotted, "result")) %>%
-    relocate(.data$spotted) %>%
-    unnest(.data$spotted)
-
-  if(any(names(output) == "spotted")) output <- rename(output, pkgs = .data$spotted)
-
-  output
-}
