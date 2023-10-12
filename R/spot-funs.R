@@ -60,7 +60,7 @@ list_functions_in_file_to_df <- function(funs, keep_search_list = FALSE){
 #' The next several function are all created to make namespaces *slightly*
 #' better -- honestly not sure is worth the added complexity this created. But
 #' what I do is essentially: if there are no explicit function calls (i.e.
-#' pkg::fun() ) `spot_funs()` / `spot_funs_custom()` will run
+#' pkg::fun() ) then `spot_funs()` / `spot_funs_custom()` will run
 #' `call_r_list_functions()` to identify functions and packages, but if there
 #' are explicit functions it will run `call_r_list_functions_explicit()` which
 #' does the same thing as `call_r_list_functions()` except it first loads any

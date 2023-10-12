@@ -41,3 +41,5 @@ reference:
   - str_detect_r_docs
   - github_spot_funs
   - github_spot_pkgs
+  - github_contents
+  - github_contents_urls

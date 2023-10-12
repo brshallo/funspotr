@@ -31,7 +31,7 @@ once for the entire file).}
 The next several function are all created to make namespaces \emph{slightly}
 better -- honestly not sure is worth the added complexity this created. But
 what I do is essentially: if there are no explicit function calls (i.e.
-pkg::fun() ) \code{spot_funs()} / \code{spot_funs_custom()} will run
+pkg::fun() ) then \code{spot_funs()} / \code{spot_funs_custom()} will run
 \code{call_r_list_functions()} to identify functions and packages, but if there
 are explicit functions it will run \code{call_r_list_functions_explicit()} which
 does the same thing as \code{call_r_list_functions()} except it first loads any

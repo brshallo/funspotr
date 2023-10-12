@@ -7,9 +7,9 @@ spot_files <- function(spot_type, df, ...){
   safe_spot_type <- purrr::safely(spot_type, quiet = TRUE)
 
   output <- df %>%
-    mutate(spotted = map(.data$absolute_paths, safe_spot_type, ...))
+    mutate(spotted = purrr::map(.data$absolute_paths, safe_spot_type, ...))
 
-  output_errors <- filter(output, did_safely_error(.data$spotted))
+  output_errors <- dplyr::filter(output, did_safely_error(.data$spotted))
 
   if(nrow(output_errors) > 0){
     warning("Failed for the following absolute_paths: \n\n",
