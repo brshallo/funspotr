@@ -14,8 +14,8 @@ spot_files <- function(spot_type, df, ...){
   if(nrow(output_errors) > 0){
     warning("Failed for the following absolute_paths: \n\n",
             paste(output_errors$absolute_paths, collapse = "\n"),
-            '\n\nCode to investigate errors (replace {output} with the returned object name):\n',
-            'dplyr::filter({output}, funspotr:::did_safely_error(.data$spotted))$spotted |> purrr::map("error")'
+            '\n\nCode to investigate errors (replace {output} with the returned object):\n',
+            'funspotr:::review_spot_files_errors({output})'
             )
   }
 
@@ -109,3 +109,13 @@ unnest_results <- function(df){
   output
 }
 
+# df should be the returned object from running `spot_*_files()` , e.g.:
+review_spot_files_errors <- function(df){
+  df %>%
+    dplyr::filter(did_safely_error(.data$spotted)) %>%
+    dplyr::mutate(error = purrr::map(.data$spotted, "error")) %>%
+    dplyr::select(-.data$spotted) %>%
+    as.list() %>%
+    purrr::list_transpose()
+
+}

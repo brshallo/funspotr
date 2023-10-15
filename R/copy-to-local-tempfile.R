@@ -39,7 +39,7 @@ copy_to_local_tempfile <- function(file_path){
     file_temp <- r_to_r_temp(file_path)
 
     # remove comments
-    suppressMessages(formatR::tidy_file(file_temp, comment = FALSE))
+    formatR::tidy_source(file_temp, file = file_temp, comment = FALSE)
 
     if(!(stringr::str_to_lower(fs::path_ext(file_path)) %in% c("r", "rmd", "rmarkdown", "qmd"))){
       warning("File extension does not seem to be an R or Rmarkdown or quarto file. File is being processed as though it is a .R file .")
