@@ -428,6 +428,12 @@ the package a function comes from in the file.)
 
 ## Limitations, problems, musings
 
+- funspotr does not work perfectly at identifying functions or packages.
+  One common example example is it will not identify functions passed as
+  arguments. For example it will not identify `mean` in this example:
+  `lapply(x, mean)` . Similarly it will not identify functions within
+  `switch()`. See
+  [\#13](https://github.com/brshallo/funspotr/issues/13).
 - If a file contains R syntax that is not well defined it will not be
   parsed and will return an error. See
   [formatR#further-notes](https://yihui.org/formatr/#6-further-notes)
@@ -454,13 +460,11 @@ the package a function comes from in the file.)
   by something like `renv::dependencies()` or a parsing based approach.
   The simple regex’s I use have a variety of problems. As just one
   example `funspotr::get_pkgs()` will not recognize when a package is
-  within quotes or being escaped[^16]. Another useful package for
-  installing missing dependencies may be
-  [attachment](https://thinkr-open.github.io/attachment/index.html).
-- I am curious if there is something to be learned from how
-  `R CMD check` does function parsing.
-  - \`funspotr’s current approach is slow
-  - Current approach uses some imperfect heuristics
+  within quotes or being escaped[^16]. See
+  [\#14](https://github.com/brshallo/funspotr/issues/14)
+- There may be something to be learned from how `R CMD check` does
+  function parsing.
+  - funspotr’s current approach is slow and uses imperfect heuristics
 - Does not identify infix operators, e.g. `+`[^17]
 - funspotr has lots of dependencies. It may have make sense to move some
   of the non-core functionality into a separate package (e.g. stuff
@@ -471,13 +475,12 @@ the package a function comes from in the file.)
   number of API hits to github.
 - Currently it’s possible to have github block you pretty soon due to
   hitting too many files (in which case you’ll likely get a 403 or
-  connection error). There are some things that could probably be done
-  to reduce number of github API hits (e.g. above bullet, `Sys.sleep()`,
-  …).
+  connection error). There are some things that could be done to reduce
+  number of github API hits (e.g. above bullet, `Sys.sleep()`, …).
 - Throughout the code and package documentation I have “inspiration”
   bullets followed by a link pointing to places where I took stuff from
   stack overflow, github, or other packages. Also see the footnotes of
-  the README
+  the README.
 
 [^1]: The following posts were written using the initial API for
     funspotr – the key functions used in these posts have now been

@@ -9,5 +9,6 @@
 # funspotr 0.0.3
 
 * Add support for quarto documents
-* No longer export `github_*` functions (instead use `list_*` funs)
+* No longer export `github_*` functions 
+  (instead use `list_*() |> spot_{pkgs|funs}_files()`)
 * Prepare for publishing on CRAN

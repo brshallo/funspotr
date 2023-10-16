@@ -272,19 +272,19 @@ funspotr mimics the search space of each file prior to identifying `pkgs`/`funs`
 
 ## Limitations, problems, musings
 
+* funspotr does not work perfectly at identifying functions or packages. One common example example is it will not identify functions passed as arguments. For example it will not identify `mean` in this example: `lapply(x, mean)` . Similarly it will not identify functions within `switch()`. See [#13](https://github.com/brshallo/funspotr/issues/13).
 * If a file contains R syntax that is not well defined it will not be parsed and will return an error. See [formatR#further-notes](https://yihui.org/formatr/#6-further-notes) (used by {funspotr} in parsing) for other common reasons for failure.
 * `knitr::read_chunk()` and `knitr::purl()` in a file passed to {funspotr} will also frequently cause an error in parsing. See [knitr#1753](https://github.com/yihui/knitr/issues/1753) & [knitr#1938](https://github.com/yihui/knitr/issues/1938)
 * Please open an issue if you find other cases where parsing breaks :-) .
 * As mentioned elsewhere, the default parsing of `spot_funs()` is primarily for cases where package dependencies are loaded in the same file that they are used in^[i.e. in interactive R scripts or Rmd or qmd documents where you use `library()` or related calls within the script.]. Scripts that are not self-contained typically should have the `pkgs` argument provided explicitly via `spot_funs_custom()`.
 * funspotr does not pay attention to when functions are reexported from elsewhere. For example, many tibble functions are reexported by dplyr and tidyr -- funspotr though will not know the "true" home of these functions it is simply looking at the top of the search space^[For example when reviewing David Robinson's Tidy Tuesday code I found that the [meme](https://github.com/GuangchuangYu/meme) package was used far more than I would have expected. Turns out it was just due to it reexporting the `aes()` function from ggplot.].
 * Feel free to open an issue if you'd be interested in a simplifying function or vignette for mapping `spot_funs()` through other folder structures not yet mentioned.
-* All the functions in "R/spot-pkgs.R" would probably be better handled by something like `renv::dependencies()` or a parsing based approach. The simple regex's I use have a variety of problems. As just one example `funspotr::get_pkgs()` will not recognize when a package is within quotes or being escaped^[e.g. in this case `lines <- "library(pkg)"`  the `pkg` would show-up as a dependency despite just being part of a quote rather than actually loaded.]. Another useful package for installing missing dependencies may be [attachment](https://thinkr-open.github.io/attachment/index.html).
-* I am curious if there is something to be learned from how `R CMD check` does function parsing. 
-    * `funspotr's current approach is slow
-    * Current approach uses some imperfect heuristics
+* All the functions in "R/spot-pkgs.R" would probably be better handled by something like `renv::dependencies()` or a parsing based approach. The simple regex's I use have a variety of problems. As just one example `funspotr::get_pkgs()` will not recognize when a package is within quotes or being escaped^[e.g. in this case `lines <- "library(pkg)"`  the `pkg` would show-up as a dependency despite just being part of a quote rather than actually loaded.]. See [#14](https://github.com/brshallo/funspotr/issues/14)
+* There may be something to be learned from how `R CMD check` does function parsing. 
+    * funspotr's current approach is slow and uses imperfect heuristics
 * Does not identify infix operators, e.g. `+`^[maybe that's fine though.]
 * funspotr has lots of dependencies. It may have make sense to move some of the non-core functionality into a separate package (e.g. stuff concerning `list_files*()`)
 * Rather than running `list_files_github_repo()` it may make sense to instead clone the repo locally and then run `list_files_wd()` from the repo prior to running `spot_funs_files()` as this will limit the number of API hits to github.
-* Currently it's possible to have github block you pretty soon due to hitting too many files (in which case you'll likely get a 403 or connection error). There are some things that could probably be done to reduce number of github API hits (e.g. above bullet, `Sys.sleep()`, ...).
-* Throughout the code and package documentation I have "inspiration" bullets followed by a link pointing to places where I took stuff from stack overflow, github, or other packages. Also see the footnotes of the README
+* Currently it's possible to have github block you pretty soon due to hitting too many files (in which case you'll likely get a 403 or connection error). There are some things that could be done to reduce number of github API hits (e.g. above bullet, `Sys.sleep()`, ...).
+* Throughout the code and package documentation I have "inspiration" bullets followed by a link pointing to places where I took stuff from stack overflow, github, or other packages. Also see the footnotes of the README.
 
