@@ -115,7 +115,7 @@ review_spot_files_errors <- function(df){
     dplyr::filter(did_safely_error(.data$spotted)) %>%
     dplyr::mutate(error = purrr::map(.data$spotted, "error")) %>%
     dplyr::select(-.data$spotted) %>%
-    as.list() %>%
+    base::as.list() %>%
     purrr::list_transpose()
 
 }
