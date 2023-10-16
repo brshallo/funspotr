@@ -6,14 +6,18 @@
 \alias{spot_things_files}
 \title{Spot Packages or Functions in dataframe of Paths}
 \usage{
-spot_funs_files(df, ...)
+spot_funs_files(df, ..., .progress = FALSE)
 
-spot_pkgs_files(df, ...)
+spot_pkgs_files(df, ..., .progress = FALSE)
 }
 \arguments{
 \item{df}{Dataframe containing a column of \code{absolute_paths}.}
 
 \item{...}{Arguments passed onto \verb{spot_\{pkgs|funs\}()}.}
+
+\item{.progress}{Whether to show a progress bar. Use TRUE to a turn on a
+basic progress bar, use a string to give it a name, see progress_bars in
+purrr for more detail.}
 }
 \value{
 Dataframe with \code{relative_paths} and \code{absolute_paths} of file paths
@@ -41,7 +45,7 @@ the files themselves.
 library(funspotr)
 library(dplyr)
 
-list_files_github_repos("brshallo/feat-eng-lags-presentation", branch = "main") \%>\%
+list_files_github_repo("brshallo/feat-eng-lags-presentation", branch = "main") \%>\%
   spot_funs_files()
 }
 }

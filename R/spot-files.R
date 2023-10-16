@@ -1,13 +1,13 @@
 # engine for `spot_funs_files()` and `spot_pkgs_files()`
 # spot_type is either spot_funs or spot_pkgs
-spot_files <- function(spot_type, df, ...){
+spot_files <- function(spot_type, df, ..., .progress = FALSE){
 
   if(!exists("absolute_paths", df)) stop("`df` is missing required column 'absolute_paths'.")
 
   safe_spot_type <- purrr::safely(spot_type, quiet = TRUE)
 
   output <- df %>%
-    mutate(spotted = purrr::map(.data$absolute_paths, safe_spot_type, ...))
+    mutate(spotted = purrr::map(.data$absolute_paths, safe_spot_type, ..., .progress = .progress))
 
   output_errors <- dplyr::filter(output, did_safely_error(.data$spotted))
 
@@ -24,14 +24,14 @@ spot_files <- function(spot_type, df, ...){
 
 #' @export
 #' @rdname spot_things_files
-spot_funs_files <- function(df, ...){
-  spot_files(spot_funs, df, ...)
+spot_funs_files <- function(df, ..., .progress = FALSE){
+  spot_files(spot_funs, df, ..., .progress = .progress)
 }
 
 #' @export
 #' @rdname spot_things_files
-spot_pkgs_files <- function(df, ...){
-  spot_files(spot_pkgs, df, ...)
+spot_pkgs_files <- function(df, ..., .progress = FALSE){
+  spot_files(spot_pkgs, df, ..., .progress = .progress)
 }
 
 
@@ -54,6 +54,9 @@ spot_pkgs_files <- function(df, ...){
 #'
 #' @param df Dataframe containing a column of `absolute_paths`.
 #' @param ... Arguments passed onto `spot_{pkgs|funs}()`.
+#' @param .progress Whether to show a progress bar. Use TRUE to a turn on a
+#'   basic progress bar, use a string to give it a name, see progress_bars in
+#'   purrr for more detail.
 #'
 #' @return Dataframe with `relative_paths` and `absolute_paths` of file paths
 #'   along with a list-column `spotted` containing `purrr::safely()` named list
@@ -67,7 +70,7 @@ spot_pkgs_files <- function(df, ...){
 #' library(funspotr)
 #' library(dplyr)
 #'
-#' list_files_github_repos("brshallo/feat-eng-lags-presentation", branch = "main") %>%
+#' list_files_github_repo("brshallo/feat-eng-lags-presentation", branch = "main") %>%
 #'   spot_funs_files()
 #' }
 #' @name spot_things_files
