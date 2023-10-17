@@ -84,11 +84,11 @@ include entire search list as a list-column.</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Note that the <code>map_chr(pkgs, 1)</code> step at the end means that it only keeps
-the version of the function at the top of the fabricated search list. This is
-not perfect however. It also does nothing with reexported functions etc.
-(e.g. <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble()</a></code> home is tibble but it is reexported by dplyr and
-tidyr -- this is meaningless to <code><a href="spot_funs.html">spot_funs()</a></code> though which is just
-looking at the top of the search space via <code><a href="https://rdrr.io/r/utils/apropos.html" class="external-link">utils::find()</a></code>)</p>
+the version of the function at the top of the fabricated search list. This
+is not perfect however. It also does nothing with reexported functions etc.
+(e.g. <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble()</a></code> home is tibble but it is reexported by dplyr and tidyr
+-- this is meaningless to <code><a href="spot_funs.html">spot_funs()</a></code> though which is just looking at the
+top of the search space via <code><a href="https://rdrr.io/r/utils/apropos.html" class="external-link">utils::find()</a></code>)</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

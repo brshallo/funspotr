@@ -63,9 +63,9 @@ filepaths.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">spot_funs_files</span><span class="op">(</span><span class="va">df</span>, <span class="va">...</span>, .progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">spot_funs_files</span><span class="op">(</span><span class="va">df</span>, <span class="va">...</span>, .progress <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">spot_pkgs_files</span><span class="op">(</span><span class="va">df</span>, <span class="va">...</span>, .progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">spot_pkgs_files</span><span class="op">(</span><span class="va">df</span>, <span class="va">...</span>, .progress <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -79,9 +79,9 @@ filepaths.</p>
 
 
 <dt>.progress</dt>
-<dd><p>Whether to show a progress bar. Use TRUE to a turn on a
-basic progress bar, use a string to give it a name, see progress_bars in
-purrr for more detail.</p></dd>
+<dd><p>Whether to show a progress bar. Use <code>TRUE</code> to a turn on
+a basic progress bar, use a string to give it a name, or see
+<a href="https://purrr.tidyverse.org/reference/progress_bars.html" class="external-link">progress_bars</a> for more details.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -96,9 +96,10 @@ unnest only the "result" values.</p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>A <code><a href="https://purrr.tidyverse.org/reference/safely.html" class="external-link">purrr::safely()</a></code> wrapper for mapping <code><a href="spot_pkgs.html">spot_pkgs()</a></code> or <code><a href="spot_funs.html">spot_funs()</a></code> across
-multiple filepaths.</p>
-<p>Defaults are meant for files where package libraries are referenced <em>within</em>
-the files themselves.</p>
+multiple filepaths. I.e. even if some files fail to parse the function will
+continue on.</p>
+<p>Default settings are meant for files where package libraries are referenced
+<em>within</em> the files themselves. See README for more details.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
