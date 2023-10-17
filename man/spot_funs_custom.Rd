@@ -28,7 +28,7 @@ once for the entire file).}
 
 \item{keep_search_list}{Logical, default is \code{FALSE}. If changed to \code{TRUE}
 will include entire search list for function. May be helpful for debugging
-in cases where {funspotr} may not be doing a good job of recreating the
+in cases where funspotr may not be doing a good job of recreating the
 search list for identifying which packages function(s) came from. This will
 print all packages in the search list for each function.}
 

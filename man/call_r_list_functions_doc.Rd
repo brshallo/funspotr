@@ -39,7 +39,7 @@ regular packages AND THEN attaches any explicit function calls -- this has
 the impact of giving explicit function calls precedence in terms of being
 identified while not attaching the entire package (the way prior approaches
 did). This still has problems in some cases but on the whole I think is
-better... These functions use the {import} package to manage this process and
+better... These functions use the import package to manage this process and
 takes the approach described here:
 https://github.com/rticulate/import/issues/57
 }

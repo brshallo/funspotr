@@ -7,8 +7,8 @@
 list_files_github_repo(
   repo,
   branch = NULL,
-  rmv_index = TRUE,
-  keep_non_r = FALSE
+  pattern = stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE),
+  rmv_index = TRUE
 )
 }
 \arguments{
@@ -16,12 +16,13 @@ list_files_github_repo(
 
 \item{branch}{Branch of github repository, default is "main".}
 
+\item{pattern}{Regex pattern to keep only matching files. Default is
+\code{stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE)} which will
+keep only R, Rmarkdown and Quarto documents. To keep all files use \code{"."}.}
+
 \item{rmv_index}{Logical, most repos containing blogdown sites will have an
 index.R file at the root. Change to \code{FALSE} if you don't want this file
 removed.}
-
-\item{keep_non_r}{Logical, default is \code{FALSE} so keeps only records with
-\code{relative_path} ending in "(r|rmd|rmarkdown)$".}
 }
 \value{
 Dataframe with columns of \code{relative_paths} and \code{absolute_paths} for

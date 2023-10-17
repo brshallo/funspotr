@@ -2,4 +2,8 @@
 
 0 errors | 0 warnings | 0 notes
 
-* This is a new release.
+## Resubmission 
+
+This is a resubmission. In this version I have:
+
+* Corrected the NOTE on the various locations of "Lost braces..." in the linux .Rcheck

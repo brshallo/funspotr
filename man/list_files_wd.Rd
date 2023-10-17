@@ -4,14 +4,23 @@
 \alias{list_files_wd}
 \title{List Files in Working Directory}
 \usage{
-list_files_wd(path = ".", keep_non_r = FALSE)
+list_files_wd(
+  path = ".",
+  pattern = stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE),
+  rmv_index = TRUE
+)
 }
 \arguments{
 \item{path}{Character vector or path. Default is "." which will set the
 starting location for \code{relative_paths}.}
 
-\item{keep_non_r}{Logical, default is \code{FALSE} so keeps only records with
-\code{relative_paths} ending in "(r|rmd|rmarkdown|qmd)$".}
+\item{pattern}{Regex pattern to keep only matching files. Default is
+\code{stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE)} which will
+keep only R, Rmarkdown and Quarto documents. To keep all files use \code{"."}.}
+
+\item{rmv_index}{Logical, most repos containing blogdown sites will have an
+index.R file at the root. Change to \code{FALSE} if you don't want this file
+removed.}
 }
 \value{
 Dataframe with columns of \code{relative_paths} and \code{absolute_paths}.
@@ -32,7 +41,7 @@ library(funspotr)
 files_local <- list_files_wd()
 
 # Will just parse the first 2 files/gists
-contents <- spot_funs_files(slice(files_local, 1:2))
+contents <- spot_funs_files(slice(files_local, 2:3))
 
 contents \%>\%
   unnest_results()

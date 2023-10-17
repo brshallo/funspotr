@@ -40,10 +40,11 @@ get_gist_content <- function(user){
 #' Given a username, return a dataframe with paths to all the gists by that user.
 #'
 #' @param user Character string of username whose github gists you want to pull.
-#' @param keep_non_r Logical, default is `FALSE` so keeps only records with
-#'   `relative_path` ending in "(r|rmd|rmarkdown|qmd)$". If you have a lot of .md
-#'   gists that can easily be converted to .R files, you may want to set this to
-#'   `TRUE` so as to also parse those.
+#' @param pattern Regex pattern to keep only matching files. Default is
+#'   `stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE)` which will
+#'   keep only R, Rmarkdown and Quarto documents. If you have a lot of .md gists
+#'   that can be converted to .R files you may want to edit this argument. To
+#'   keep all files use `"."`.
 #'
 #' @return Dataframe with `relative_paths` and `absolute_paths` of file paths.
 #'   Because gists do not exist in a folder structure `relative_paths` will
@@ -59,16 +60,20 @@ get_gist_content <- function(user){
 #' library(funspotr)
 #'
 #' # pulling and analyzing my R file github gists
-#' gists_urls <- list_files_github_gists("brshallo")
+#' gists_urls <- list_files_github_gists("brshallo", pattern = ".")
 #'
 #' # Will just parse the first 2 files/gists
 #' # Note that is easy to hit the API limit if have lots of gists
-#' contents <- spot_funs_files(slice(gists_urls, 1:2))
+#' contents <- filter(gists_urls, funspotr:::str_detect_r_docs(absolute_paths)) %>%
+#'   slice(1:2) %>%
+#'   spot_funs_files()
+#'
 #'
 #' contents %>%
 #'   unnest_results()
 #' }
-list_files_github_gists <- function(user, keep_non_r = FALSE){
+list_files_github_gists <- function(user,
+                                    pattern = stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE)){
 
   content <- get_gist_content(user)
 
@@ -79,9 +84,7 @@ list_files_github_gists <- function(user, keep_non_r = FALSE){
 
   output <- tibble(relative_paths = fs::path_file(raw_urls), absolute_paths = raw_urls)
 
-  if(keep_non_r){
-    return(output)
-  } else filter(output, str_detect_r_docs(.data$relative_paths))
+  filter(output, str_detect_r_docs(.data$relative_paths, pattern = pattern, rmv_index = FALSE))
 }
 
 

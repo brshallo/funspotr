@@ -23,9 +23,9 @@ check there for documentation on the returned output.
 }
 \details{
 Note that the \code{map_chr(pkgs, 1)} step at the end means that it only keeps
-the version of the function at the top of the fabricated search list. This is
-not perfect however. It also does nothing with reexported functions etc.
-(e.g. \code{as_tibble()} home is {tibble} but it is reexported by {dplyr} and
-{tidyr} -- this is meaningless to \code{spot_funs()} though which is just
-looking at the top of the search space via \code{utils::find()})
+the version of the function at the top of the fabricated search list. This
+is not perfect however. It also does nothing with reexported functions etc.
+(e.g. \code{as_tibble()} home is tibble but it is reexported by dplyr and tidyr
+-- this is meaningless to \code{spot_funs()} though which is just looking at the
+top of the search space via \code{utils::find()})
 }

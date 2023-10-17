@@ -7,7 +7,7 @@ Authors@R:
          role = c("aut", "cre"),
          email = "brshallodev@gmail.com")
 Description: Helpers for parsing out the R functions 
-  and packages used in R, Rmarkdown, and quarto files.
+  and packages used in R scripts and notebooks.
 License: MIT + file LICENSE
 BugReports: https://github.com/brshallo/funspotr/issues
 Imports:
@@ -28,12 +28,13 @@ Imports:
     import (>= 1.3.0),
     lifecycle
 Suggests:
-  remotes,
-  visNetwork,
-  igraph
+    remotes,
+    visNetwork,
+    igraph
 Enhances:
   blogdown
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 URL: https://brshallo.github.io/funspotr/
+Language: en-US

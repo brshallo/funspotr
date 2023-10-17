@@ -4,15 +4,19 @@
 \alias{list_files_github_gists}
 \title{List Github Gists of User}
 \usage{
-list_files_github_gists(user, keep_non_r = FALSE)
+list_files_github_gists(
+  user,
+  pattern = stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE)
+)
 }
 \arguments{
 \item{user}{Character string of username whose github gists you want to pull.}
 
-\item{keep_non_r}{Logical, default is \code{FALSE} so keeps only records with
-\code{relative_path} ending in "(r|rmd|rmarkdown|qmd)$". If you have a lot of .md
-gists that can easily be converted to .R files, you may want to set this to
-\code{TRUE} so as to also parse those.}
+\item{pattern}{Regex pattern to keep only matching files. Default is
+\code{stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE)} which will
+keep only R, Rmarkdown and Quarto documents. If you have a lot of .md gists
+that can be converted to .R files you may want to edit this argument. To
+keep all files use \code{"."}.}
 }
 \value{
 Dataframe with \code{relative_paths} and \code{absolute_paths} of file paths.
@@ -29,11 +33,14 @@ library(dplyr)
 library(funspotr)
 
 # pulling and analyzing my R file github gists
-gists_urls <- list_files_github_gists("brshallo")
+gists_urls <- list_files_github_gists("brshallo", pattern = ".")
 
 # Will just parse the first 2 files/gists
 # Note that is easy to hit the API limit if have lots of gists
-contents <- spot_funs_files(slice(gists_urls, 1:2))
+contents <- filter(gists_urls, funspotr:::str_detect_r_docs(absolute_paths)) \%>\%
+  slice(1:2) \%>\%
+  spot_funs_files()
+
 
 contents \%>\%
   unnest_results()

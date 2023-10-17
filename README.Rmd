@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of funspotr (R function spotter) is to make it easy to identify which functions and packages are used in files and projects. It was initially written to create reference tables of the functions and packages used in a few popular github repositories[^prior-posts].
+The goal of funspotr (R function spotter) is to make it easy to identify which R functions and packages are used in files and projects. It was initially written to create reference tables of the functions and packages used in a few popular github repositories[^prior-posts].
 
 There are roughly three types of functions in funspotr:
 
@@ -35,8 +35,9 @@ There are roughly three types of functions in funspotr:
     - [Identifying R Functions & Packages in Github Gists (funspotr part 2)](https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/)
     - [Network Plots of Code Collections (funspotr part 3)](https://www.bryanshalloway.com/2022/03/17/network-plots-of-code-collections-funspotr-part-3/)
 
-funspotr is primarily designed for identifying the functions / packages in self-contained files or collections of files^[See [Package dependencies in another file]] like Rmarkdown or quarto files or blogdown projects respectively^[Rather than, for example, [targets](https://github.com/ropensci/targets) workflows. Also, in some cases funspotr may not identify *every* function and/or package in a file (see [Limitations, problems, musings]) or read the source code for details).].
+funspotr is set-up for parsing R, Rmarkdown or Quarto files. If you want to parse a Jupyter notebook you should first [convert it](https://www.rdocumentation.org/packages/rmarkdown/versions/2.6/topics/convert_ipynb) to an appropriate file type. If you pass in a file type that is not recognized (e.g. a .txt file) funspotr will attempt to parse it as if it is a .R script.
 
+funspotr is primarily designed for identifying the functions / packages in self-contained files or collections of self-contained files (e.g. a [blogdown](https://github.com/rstudio/blogdown) project^[Rather than, for example, [targets](https://github.com/ropensci/targets) workflows. Also, in some cases funspotr may not identify *every* function and/or package in a file (see [Limitations, problems, musings]) or read the source code for details).]). Though see [Package dependencies in another file] for examples of using it in other contexts.
 
 ## Installation
 
@@ -47,18 +48,14 @@ You can install the development version of funspotr from [GitHub](https://github
 devtools::install_github("brshallo/funspotr")
 ```
 
-Package will be submitted to CRAN shortly.
-
-## Linked examples
-
-funspotr can be used to quickly create reference tables of the functions and packages used in R projects.
-
-### Talks and posts
+## Talks and posts
 
 - [slides](https://github.com/brshallo/funspotr-rstudioconf2022) and [presentation](https://www.youtube.com/watch?v=c9oU7ALJS3o) from Rstudio Conf 2022 *From summarizing projects to setting tags, uses of parsing R files*
-- Part 1 of a series on [Identifying R functions and packages...](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/) (WARNING: uses old API)
+- Part 1 of 3 from a series on [Identifying R functions and packages...](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/) 
 
-### funspotr built reference tables
+## Examples of funspotr built reference tables
+
+funspotr can be used to create reference tables of the functions and packages used in R projects.
 
 - [Julia Silge blog](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/#julia-silge-blog)
 - [David Robinson screencasts](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/#david-robinson-tidy-tuesday)
@@ -72,7 +69,6 @@ The primary function in funspotr is `spot_funs()` which returns a dataframe show
 
 ```{r}
 library(funspotr)
-library(dplyr)
 
 file_lines <- "
 library(dplyr)
@@ -102,9 +98,11 @@ spot_funs(file_path = file_output)
 
 ## Spot functions on all files in a project
 
-funspotr has a few `list_files_*()` functions that return a dataframe of `relative_paths` and `absolute_paths` of all the R, Rmarkdown, or quarto files in a specified location (e.g. github repo, gists). These can be combined with a variant of `spot_funs()` that maps the function across each file path found, `spot_funs_files()`:
+funspotr has a few `list_files_*()` functions that return a dataframe of `relative_paths` and `absolute_paths` of all the R, Rmarkdown, or quarto files in a specified location (currently: github repo, gists, or local). These can be combined with a variant of `spot_funs()` that maps the function across each file path found, `spot_funs_files()`:
 
 ```{r}
+library(dplyr)
+
 # repo for an old presentation I gave
 gh_ex <- list_files_github_repo(
   repo = "brshallo/feat-eng-lags-presentation", 
@@ -130,7 +128,7 @@ The outputs from `funspotr::unnest_results()` can also be passed into `funspotr:
 
 ### Previewing and customizing files to parse
 
-You might only want to parse a subset of the files in a repo.
+You might only want to parse certain file types or a subset of the files in a repo.
 
 ```{r}
 preview_files <- list_files_github_repo(
@@ -260,9 +258,9 @@ Many of the unexported functions in funspotr may be helpful in building up other
 
 ## How `spot_funs()` works
 
-funspotr mimics the search space of each file prior to identifying `pkgs`/`funs`^[In a language like python, where calls are explicit (e.g. `np.*`), all of this stuff with recreating the search space would likely be unnecessary and you could just identify packages/functions with simple parsing.]. At a high-level...
+funspotr mimics the search space of each file prior to identifying `pkgs`/`funs`. At a high-level...
 
-1. Create a new R instance using [callr](https://github.com/r-lib/callr)
+1. Create a new R instance using [callr](https://github.com/r-lib/callr) and clean-up the specified file using [formatR]()
 2. Load packages. Explicit calls (e.g. `pkg::fun()`) are loaded individually via [import](https://github.com/rticulate/import) and are loaded last (putting them at the top of the search space)^[This heuristic is imperfect and means that a file with "library(dplyr); select(); MASS::select()" would view both `select()` calls as coming from {MASS} -- when what it should do is view the first was as coming from {dplyr} and the second from {MASS}.].
 
 (steps 1 and 2 needed so that step 4 has the best chance of identifying the package a function comes from in the file.)
@@ -270,8 +268,13 @@ funspotr mimics the search space of each file prior to identifying `pkgs`/`funs`
 3. Pass file through `utils::getParseData()` and filter to just functions^[inspired by `NCmisc::list.functions.in.file()`.]
 4. Pass functions through `utils::find()` to identify associated package
 
+*Explainer slide from Rstudio Conf 2022 [presentation](https://www.youtube.com/watch?v=c9oU7ALJS3o):*
+
+<img src="man/figures/how-funspotr-works.png" width="100%" />
+
 ## Limitations, problems, musings
 
+* funspotr is specific to R. If you try and pass in a file from a different language you will get a parsing error or the code commented out^[For example... If you pass in a .Rmd or .qmd that has a mix of R and python code chunks, the python chunks will simply be commented out. If you pass in a python script, you will almost certainly get a parsing error for that file.]. The steps taken by funspotr would also not be needed in many other programming languages^[In a language like python, where calls are more explicit (e.g. `np.*`), all of the stuff with recreating the search space would likely be unnecessary and you could more easily just identify packages/functions by parsing the text (which would run faster).].
 * funspotr does not work perfectly at identifying functions or packages. One common example example is it will not identify functions passed as arguments. For example it will not identify `mean` in this example: `lapply(x, mean)` . Similarly it will not identify functions within `switch()`. See [#13](https://github.com/brshallo/funspotr/issues/13).
 * If a file contains R syntax that is not well defined it will not be parsed and will return an error. See [formatR#further-notes](https://yihui.org/formatr/#6-further-notes) (used by {funspotr} in parsing) for other common reasons for failure.
 * `knitr::read_chunk()` and `knitr::purl()` in a file passed to {funspotr} will also frequently cause an error in parsing. See [knitr#1753](https://github.com/yihui/knitr/issues/1753) & [knitr#1938](https://github.com/yihui/knitr/issues/1938)

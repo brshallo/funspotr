@@ -30,11 +30,11 @@ list_functions_in_file <- function(file_path, show_each_use = FALSE){
 #'   check there for documentation on the returned output.
 #'
 #'   Note that the `map_chr(pkgs, 1)` step at the end means that it only keeps
-#'   the version of the function at the top of the fabricated search list. This is
-#'   not perfect however. It also does nothing with reexported functions etc.
-#'   (e.g. `as_tibble()` home is {tibble} but it is reexported by {dplyr} and
-#'   {tidyr} -- this is meaningless to `spot_funs()` though which is just
-#'   looking at the top of the search space via `utils::find()`)
+#'   the version of the function at the top of the fabricated search list. This
+#'   is not perfect however. It also does nothing with reexported functions etc.
+#'   (e.g. `as_tibble()` home is tibble but it is reexported by dplyr and tidyr
+#'   -- this is meaningless to `spot_funs()` though which is just looking at the
+#'   top of the search space via `utils::find()`)
 #'
 #' @param funs List output returned from running
 #'   `funspotr:::list_functions_in_file()`
@@ -68,7 +68,7 @@ list_functions_in_file_to_df <- function(funs, keep_search_list = FALSE){
 #' the impact of giving explicit function calls precedence in terms of being
 #' identified while not attaching the entire package (the way prior approaches
 #' did). This still has problems in some cases but on the whole I think is
-#' better... These functions use the {import} package to manage this process and
+#' better... These functions use the import package to manage this process and
 #' takes the approach described here:
 #' https://github.com/rticulate/import/issues/57
 #' @name call_r_list_functions_doc
@@ -176,7 +176,7 @@ call_r_list_functions_explicit <- function(pkgs, pkgs_explicit, file_temp, show_
 #'   once for the entire file).
 #' @param keep_search_list Logical, default is `FALSE`. If changed to `TRUE`
 #'   will include entire search list for function. May be helpful for debugging
-#'   in cases where {funspotr} may not be doing a good job of recreating the
+#'   in cases where funspotr may not be doing a good job of recreating the
 #'   search list for identifying which packages function(s) came from. This will
 #'   print all packages in the search list for each function.
 #' @param copy_local Logical, if changed to `FALSE` will not copy to a local

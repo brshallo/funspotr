@@ -6,18 +6,18 @@
 \alias{spot_things_files}
 \title{Spot Packages or Functions in dataframe of Paths}
 \usage{
-spot_funs_files(df, ..., .progress = FALSE)
+spot_funs_files(df, ..., .progress = TRUE)
 
-spot_pkgs_files(df, ..., .progress = FALSE)
+spot_pkgs_files(df, ..., .progress = TRUE)
 }
 \arguments{
 \item{df}{Dataframe containing a column of \code{absolute_paths}.}
 
 \item{...}{Arguments passed onto \verb{spot_\{pkgs|funs\}()}.}
 
-\item{.progress}{Whether to show a progress bar. Use TRUE to a turn on a
-basic progress bar, use a string to give it a name, see progress_bars in
-purrr for more detail.}
+\item{.progress}{Whether to show a progress bar. Use \code{TRUE} to a turn on
+a basic progress bar, use a string to give it a name, or see
+\link[purrr]{progress_bars} for more details.}
 }
 \value{
 Dataframe with \code{relative_paths} and \code{absolute_paths} of file paths
@@ -35,10 +35,11 @@ filepaths.
 }
 \details{
 A \code{purrr::safely()} wrapper for mapping \code{spot_pkgs()} or \code{spot_funs()} across
-multiple filepaths.
+multiple filepaths. I.e. even if some files fail to parse the function will
+continue on.
 
-Defaults are meant for files where package libraries are referenced \emph{within}
-the files themselves.
+Default settings are meant for files where package libraries are referenced
+\emph{within} the files themselves. See README for more details.
 }
 \examples{
 \dontrun{

@@ -17,7 +17,7 @@ Named logical vector indicating whether each package is available on
 the machine.
 }
 \description{
-See example for way may use in {funspotr}.
+See example for how may use \code{check_pkgs_availability()} in funspotr.
 }
 \examples{
 library(funspotr)

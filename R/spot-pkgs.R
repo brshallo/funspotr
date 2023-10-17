@@ -77,7 +77,6 @@ spot_pkgs <- function(file_path, show_explicit_funs = FALSE, copy_local = TRUE, 
 
   # Remove comments so regexs don't run through
   if(stringr::str_trim(str_flatten(file)) == "") {
-    message("No R code in file.")
     return(character())
   }
 
@@ -117,8 +116,8 @@ spot_pkgs <- function(file_path, show_explicit_funs = FALSE, copy_local = TRUE, 
 #' Primarily used for cases where you load metapackages like `tidyverse` or
 #' `tidymodels` but only want to return those packages that are actually used.
 #' E.g. say you have a `library(tidyverse)` call but only end-up using functions
-#' that are in `dplyr` -- `spot_pkgs()` would return `"tidyverse"` whereas
-#' `spot_pkgs_used()` would return `"dplyr"`.
+#' that are in `dplyr` -- in that case `spot_pkgs()` would return `"tidyverse"`
+#' whereas `spot_pkgs_used()` would return `"dplyr"`.
 #'
 #' Also does not return uninstalled packages or those loaded when R starts up.
 #'
@@ -178,7 +177,7 @@ spot_pkgs_from_description <- function(DESCRIPTION_path) {
 
 #' Check Packages Availability
 #'
-#' See example for way may use in {funspotr}.
+#' See example for how may use `check_pkgs_availability()` in funspotr.
 #'
 #' @param pkgs Character vector of package names. (Typically the output from
 #'   `spot_pkgs()`).

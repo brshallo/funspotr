@@ -5,9 +5,9 @@
 [![R-CMD-check](https://github.com/brshallo/funspotr/workflows/R-CMD-check/badge.svg)](https://github.com/brshallo/funspotr/actions)
 
 - [Installation](#installation)
-- [Linked examples](#linked-examples)
-  - [Talks and posts](#talks-and-posts)
-  - [funspotr built reference tables](#funspotr-built-reference-tables)
+- [Talks and posts](#talks-and-posts)
+- [Examples of funspotr built reference
+  tables](#examples-of-funspotr-built-reference-tables)
 - [Spot functions in a file](#spot-functions-in-a-file)
 - [Spot functions on all files in a
   project](#spot-functions-on-all-files-in-a-project)
@@ -28,7 +28,7 @@
 <!-- badges: end -->
 
 The goal of funspotr (R function spotter) is to make it easy to identify
-which functions and packages are used in files and projects. It was
+which R functions and packages are used in files and projects. It was
 initially written to create reference tables of the functions and
 packages used in a few popular github repositories[^1].
 
@@ -39,9 +39,19 @@ There are roughly three types of functions in funspotr:
 - `spot_*()`: that identify functions or packages in files
 - other helpers that manipulate or plot outputs from the above functions
 
+funspotr is set-up for parsing R, Rmarkdown or Quarto files. If you want
+to parse a Jupyter notebook you should first [convert
+it](https://www.rdocumentation.org/packages/rmarkdown/versions/2.6/topics/convert_ipynb)
+to an appropriate file type. If you pass in a file type that is not
+recognized (e.g. a .txt file) funspotr will attempt to parse it as if it
+is a .R script.
+
 funspotr is primarily designed for identifying the functions / packages
-in self-contained files or collections of files[^2] like Rmarkdown or
-quarto files or blogdown projects respectively[^3].
+in self-contained files or collections of self-contained files (e.g. a
+[blogdown](https://github.com/rstudio/blogdown) project[^2]). Though see
+[Package dependencies in another
+file](#package-dependencies-in-another-file) for examples of using it in
+other contexts.
 
 ## Installation
 
@@ -53,24 +63,19 @@ You can install the development version of funspotr from
 devtools::install_github("brshallo/funspotr")
 ```
 
-Package will be submitted to CRAN shortly.
-
-## Linked examples
-
-funspotr can be used to quickly create reference tables of the functions
-and packages used in R projects.
-
-### Talks and posts
+## Talks and posts
 
 - [slides](https://github.com/brshallo/funspotr-rstudioconf2022) and
   [presentation](https://www.youtube.com/watch?v=c9oU7ALJS3o) from
   Rstudio Conf 2022 *From summarizing projects to setting tags, uses of
   parsing R files*
-- Part 1 of a series on [Identifying R functions and
+- Part 1 of 3 from a series on [Identifying R functions and
   packages…](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/)
-  (WARNING: uses old API)
 
-### funspotr built reference tables
+## Examples of funspotr built reference tables
+
+funspotr can be used to create reference tables of the functions and
+packages used in R projects.
 
 - [Julia Silge
   blog](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/#julia-silge-blog)
@@ -90,7 +95,6 @@ dataframe showing the functions and associated packages used in a file.
 
 ``` r
 library(funspotr)
-library(dplyr)
 
 file_lines <- "
 library(dplyr)
@@ -127,7 +131,7 @@ spot_funs(file_path = file_output)
 
 - `funs`: functions in file
 - `pkgs`: best guess as to the package the functions came from  
-- …[^4]
+- …[^3]
 
 <!-- The example below uses `spot_pkgs_from_DESCRIPTION()` to load in package dependencies and then passes the resulting character vector to `spot_funs_custom()`. -->
 
@@ -135,11 +139,13 @@ spot_funs(file_path = file_output)
 
 funspotr has a few `list_files_*()` functions that return a dataframe of
 `relative_paths` and `absolute_paths` of all the R, Rmarkdown, or quarto
-files in a specified location (e.g. github repo, gists). These can be
-combined with a variant of `spot_funs()` that maps the function across
-each file path found, `spot_funs_files()`:
+files in a specified location (currently: github repo, gists, or local).
+These can be combined with a variant of `spot_funs()` that maps the
+function across each file path found, `spot_funs_files()`:
 
 ``` r
+library(dplyr)
+
 # repo for an old presentation I gave
 gh_ex <- list_files_github_repo(
   repo = "brshallo/feat-eng-lags-presentation", 
@@ -159,7 +165,7 @@ gh_ex
 - `relative_paths` : relative filepath
 - `absolute_paths`: absolute filepath (in this case URL to raw file on
   github)
-- `spotted`: `purrr::safely()` style list-column of results[^5] from
+- `spotted`: `purrr::safely()` style list-column of results[^4] from
   mapping `spot_funs()` across `absolute_paths`.
 
 These results may then be unnested with the helper
@@ -188,11 +194,12 @@ gh_ex %>%
 
 The outputs from `funspotr::unnest_results()` can also be passed into
 `funspotr::network_plot()` to build a network visualization of the
-connections between functions/packages and files[^6].
+connections between functions/packages and files[^5].
 
 ### Previewing and customizing files to parse
 
-You might only want to parse a subset of the files in a repo.
+You might only want to parse certain file types or a subset of the files
+in a repo.
 
 ``` r
 preview_files <- list_files_github_repo(
@@ -287,7 +294,7 @@ check_pkgs_availability(file_path) %>%
 ```
 
 Alternatively, you may want to clone the repository locally and then use
-`renv::dependencies()` and only then start using funspotr[^7].
+`renv::dependencies()` and only then start using funspotr[^6].
 
 ### Package dependencies in another file
 
@@ -384,11 +391,11 @@ spot_pkgs(
 ```
 
 `spot_pkgs_used()` will only return those packages that have functions
-actually used[^8].
+actually used[^7].
 
 *To automatically have your packages used as the tags for a post* you
 can add the function `funspotr::spot_tags()` to a bullet in the `tags`
-argument of your YAML header[^9]. For example:
+argument of your YAML header[^8]. For example:
 
     ---
     title: This is a post
@@ -402,7 +409,7 @@ argument of your YAML header[^9]. For example:
 ### Unexported functions
 
 Many of the unexported functions in funspotr may be helpful in building
-up other workflows for mapping `spot_funs()` across multiple files[^10]
+up other workflows for mapping `spot_funs()` across multiple files[^9]
 *If you have a suggestion for a function, feel free to open an issue.*
 
 <!-- **If you've used {funspotr} to map the R functions and packages of a public blog or repository, open an issue to add a link in the README.** -->
@@ -410,24 +417,34 @@ up other workflows for mapping `spot_funs()` across multiple files[^10]
 ## How `spot_funs()` works
 
 funspotr mimics the search space of each file prior to identifying
-`pkgs`/`funs`[^11]. At a high-level…
+`pkgs`/`funs`. At a high-level…
 
 1.  Create a new R instance using
-    [callr](https://github.com/r-lib/callr)
+    [callr](https://github.com/r-lib/callr) and clean-up the specified
+    file using [formatR]()
 2.  Load packages. Explicit calls (e.g. `pkg::fun()`) are loaded
     individually via [import](https://github.com/rticulate/import) and
-    are loaded last (putting them at the top of the search space)[^12].
+    are loaded last (putting them at the top of the search space)[^10].
 
 (steps 1 and 2 needed so that step 4 has the best chance of identifying
 the package a function comes from in the file.)
 
 3.  Pass file through `utils::getParseData()` and filter to just
-    functions[^13]
+    functions[^11]
 4.  Pass functions through `utils::find()` to identify associated
     package
 
+*Explainer slide from Rstudio Conf 2022
+[presentation](https://www.youtube.com/watch?v=c9oU7ALJS3o):*
+
+<img src="man/figures/how-funspotr-works.png" width="100%" />
+
 ## Limitations, problems, musings
 
+- funspotr is specific to R. If you try and pass in a file from a
+  different language you will get a parsing error or the code commented
+  out[^12]. The steps taken by funspotr would also not be needed in many
+  other programming languages[^13].
 - funspotr does not work perfectly at identifying functions or packages.
   One common example example is it will not identify functions passed as
   arguments. For example it will not identify `mean` in this example:
@@ -493,17 +510,14 @@ the package a function comes from in the file.)
     [Network Plots of Code Collections (funspotr part
     3)](https://www.bryanshalloway.com/2022/03/17/network-plots-of-code-collections-funspotr-part-3/)
 
-[^2]: See [Package dependencies in another
-    file](#package-dependencies-in-another-file)
-
-[^3]: Rather than, for example,
+[^2]: Rather than, for example,
     [targets](https://github.com/ropensci/targets) workflows. Also, in
     some cases funspotr may not identify *every* function and/or package
     in a file (see [Limitations, problems,
     musings](#limitations-problems-musings)) or read the source code for
     details).
 
-[^4]: `in_multiple_pkgs`: (by default is dropped, pass in
+[^3]: `in_multiple_pkgs`: (by default is dropped, pass in
     `keep_in_multiple_pkgs = TRUE` to `...` to display)Whether the
     function has multiple packages/environments on it’s (guessed) search
     space. By default only the package at the top of the search space is
@@ -516,42 +530,47 @@ the package a function comes from in the file.)
     `keep_search_list = TRUE` will return rows for each item in the
     search list which may be helpful if getting unexpected results.)
 
-[^5]: list-column output where each item is a list containing `result`
+[^4]: list-column output where each item is a list containing `result`
     and `error`.
 
-[^6]: Took some inspiration from `plot()` method in
+[^5]: Took some inspiration from `plot()` method in
     [cranly](https://github.com/ikosmidis/cranly).
 
-[^7]: [renv](https://rstudio.github.io/renv/) is a more robust approach
+[^6]: [renv](https://rstudio.github.io/renv/) is a more robust approach
     to finding and installing dependencies – particularly in cases where
     you are missing many dependencies or don’t want to alter the
     packages in your global library.
 
-[^8]: E.g. for cases when there are library calls that aren’t actually
+[^7]: E.g. for cases when there are library calls that aren’t actually
     used in the file. This may be useful in cases when metapackages like
     tidyverse or tidymodels are loaded but not all packages are actually
     used.
 
-[^9]: See
+[^8]: See
     ([blogdown#647](https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327),
     [blogdown#693](https://github.com/rstudio/blogdown/issues/693)) for
     an explanation of how `funspotr::spot_tags()` works.
 
-[^10]: Most unexported functions in `funspotr` still include a man file
+[^9]: Most unexported functions in `funspotr` still include a man file
     and at least partial documentation.
 
-[^11]: In a language like python, where calls are explicit
-    (e.g. `np.*`), all of this stuff with recreating the search space
-    would likely be unnecessary and you could just identify
-    packages/functions with simple parsing.
-
-[^12]: This heuristic is imperfect and means that a file with
+[^10]: This heuristic is imperfect and means that a file with
     “library(dplyr); select(); MASS::select()” would view both
     `select()` calls as coming from {MASS} – when what it should do is
     view the first was as coming from {dplyr} and the second from
     {MASS}.
 
-[^13]: inspired by `NCmisc::list.functions.in.file()`.
+[^11]: inspired by `NCmisc::list.functions.in.file()`.
+
+[^12]: For example… If you pass in a .Rmd or .qmd that has a mix of R
+    and python code chunks, the python chunks will simply be commented
+    out. If you pass in a python script, you will almost certainly get a
+    parsing error for that file.
+
+[^13]: In a language like python, where calls are more explicit
+    (e.g. `np.*`), all of the stuff with recreating the search space
+    would likely be unnecessary and you could more easily just identify
+    packages/functions by parsing the text (which would run faster).
 
 [^14]: i.e. in interactive R scripts or Rmd or qmd documents where you
     use `library()` or related calls within the script.

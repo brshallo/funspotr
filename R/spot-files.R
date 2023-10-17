@@ -1,6 +1,6 @@
 # engine for `spot_funs_files()` and `spot_pkgs_files()`
 # spot_type is either spot_funs or spot_pkgs
-spot_files <- function(spot_type, df, ..., .progress = FALSE){
+spot_files <- function(spot_type, df, ..., .progress = TRUE){
 
   if(!exists("absolute_paths", df)) stop("`df` is missing required column 'absolute_paths'.")
 
@@ -24,13 +24,13 @@ spot_files <- function(spot_type, df, ..., .progress = FALSE){
 
 #' @export
 #' @rdname spot_things_files
-spot_funs_files <- function(df, ..., .progress = FALSE){
+spot_funs_files <- function(df, ..., .progress = TRUE){
   spot_files(spot_funs, df, ..., .progress = .progress)
 }
 
 #' @export
 #' @rdname spot_things_files
-spot_pkgs_files <- function(df, ..., .progress = FALSE){
+spot_pkgs_files <- function(df, ..., .progress = TRUE){
   spot_files(spot_pkgs, df, ..., .progress = .progress)
 }
 
@@ -47,16 +47,15 @@ spot_pkgs_files <- function(df, ..., .progress = FALSE){
 #'
 #' @details
 #' A `purrr::safely()` wrapper for mapping `spot_pkgs()` or `spot_funs()` across
-#' multiple filepaths.
+#' multiple filepaths. I.e. even if some files fail to parse the function will
+#' continue on.
 #'
-#' Defaults are meant for files where package libraries are referenced *within*
-#' the files themselves.
+#' Default settings are meant for files where package libraries are referenced
+#' *within* the files themselves. See README for more details.
 #'
 #' @param df Dataframe containing a column of `absolute_paths`.
 #' @param ... Arguments passed onto `spot_{pkgs|funs}()`.
-#' @param .progress Whether to show a progress bar. Use TRUE to a turn on a
-#'   basic progress bar, use a string to give it a name, see progress_bars in
-#'   purrr for more detail.
+#' @inheritParams purrr::map
 #'
 #' @return Dataframe with `relative_paths` and `absolute_paths` of file paths
 #'   along with a list-column `spotted` containing `purrr::safely()` named list

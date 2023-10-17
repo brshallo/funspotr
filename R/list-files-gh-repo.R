@@ -214,11 +214,12 @@ NULL
 #'
 #' @param repo Github repository, e.g. "brshallo/feat-eng-lags-presentation"
 #' @param branch Branch of github repository, default is "main".
+#' @param pattern Regex pattern to keep only matching files. Default is
+#'   `stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE)` which will
+#'   keep only R, Rmarkdown and Quarto documents. To keep all files use `"."`.
 #' @param rmv_index Logical, most repos containing blogdown sites will have an
 #'   index.R file at the root. Change to `FALSE` if you don't want this file
 #'   removed.
-#' @param keep_non_r Logical, default is `FALSE` so keeps only records with
-#'   `relative_path` ending in "(r|rmd|rmarkdown)$".
 #'
 #' @return Dataframe with columns of `relative_paths` and `absolute_paths` for
 #'   file path locations. `absolute_paths` will be urls to raw files.
@@ -243,8 +244,8 @@ NULL
 #' }
 list_files_github_repo <- function(repo,
                                    branch = NULL,
-                                   rmv_index = TRUE,
-                                   keep_non_r = FALSE) {
+                                   pattern = stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE),
+                                   rmv_index = TRUE) {
 
   # test "main" and then "master" branch if not specified
   if(is.null(branch)){
@@ -256,9 +257,7 @@ list_files_github_repo <- function(repo,
 
   contents_urls <- github_contents_urls(repo, branch)
 
-  if(keep_non_r){
-    return(contents_urls)
-  } else filter(contents_urls, str_detect_r_docs(.data$relative_paths, rmv_index))
+  filter(contents_urls, str_detect_r_docs(.data$relative_paths, pattern = pattern, rmv_index = rmv_index))
 
 }
 

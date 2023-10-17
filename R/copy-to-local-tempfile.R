@@ -25,7 +25,7 @@ notebook_chunks_to_r_temp <- function(file){
 # R to local R temp file
 r_to_r_temp <- function(file, fileext = ".R"){
 
-  lines <- readLines(file)
+  lines <- readLines(file, warn = FALSE)
   file_output <- tempfile(fileext = fileext)
   writeLines(lines, file_output)
   file_output

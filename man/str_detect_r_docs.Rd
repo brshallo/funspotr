@@ -6,18 +6,18 @@
 \usage{
 str_detect_r_docs(
   contents,
-  rmv_index = TRUE,
-  pattern = "(r|rmd|rmarkdown|qmd)$"
+  pattern = stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE),
+  rmv_index = TRUE
 )
 }
 \arguments{
 \item{contents}{Character vector of file path.}
 
+\item{pattern}{Regex pattern to identify file types.}
+
 \item{rmv_index}{Logical, default to \code{TRUE}, most repos containing blogdown
 sites will have an index.R file at the root. Change to \code{FALSE} if you don't
 want this file removed.}
-
-\item{pattern}{Regex pattern to identify file types.}
 }
 \value{
 Logical vector.
