@@ -17,11 +17,6 @@ valid_url <- function(url_in,t=2){
 #'   invalid, "master".
 #'
 #' @return Character vector of contents from github repo.
-#'
-#' @examples
-#' \dontrun{
-#' funspotr:::github_contents("brshallo/feat-eng-lags-presentation", branch = "main")
-#' }
 github_contents <- function(repo, branch = NULL){
 
   # default try `branch = "main", if doesn't work try `branch = "master"`
@@ -49,10 +44,6 @@ github_rbf_to_url <- function(repo, branch, file) glue::glue("https://raw.github
 #' @inheritParams github_contents
 #'
 #' @return Dataframe with columns `relative_paths` and `absolute_paths`.
-#' @examples
-#' \dontrun{
-#' funspotr:::github_contents_urls("brshallo/feat-eng-lags-presentation", branch = "main")
-#' }
 github_contents_urls <- function(repo, branch = "main"){
   # This step should probably be taken out of the function and instead it should
   # be to pass in a list of files and then select only the r versions... maybe
@@ -188,21 +179,6 @@ github_spot_funs <-
 #' @seealso spot_pkgs spot_funs spot_funs_custom unnest_github_results
 #'
 #' @keywords internal
-#'
-#' @examples
-#' \dontrun{
-#' library(funspotr)
-#'
-#' github_spot_funs("brshallo/feat-eng-lags-presentation", branch = "main")
-#'
-#' # Say you only want to parse a subset of the R file discovered, you could do
-#' # something like:
-#' library(dplyr)
-#'
-#' github_spot_funs("brshallo/feat-eng-lags-presentation", branch = "main", preview = TRUE) %>%
-#'   slice(1:2) %>%
-#'   github_spot_funs(custom_urls = .)
-#' }
 #' @name github_spot_things
 NULL
 
@@ -229,7 +205,7 @@ NULL
 #' @seealso [list_files_wd()], [list_files_github_gists()]
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(dplyr)
 #' library(funspotr)
 #'

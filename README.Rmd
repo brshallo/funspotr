@@ -41,6 +41,12 @@ funspotr is primarily designed for identifying the functions / packages in self-
 
 ## Installation
 
+Install the latest stable version of funspotr from [CRAN](https://cran.r-project.org/) with:
+
+```r
+install.packages("funspotr")
+```
+
 You can install the development version of funspotr from [GitHub](https://github.com/) with:
 
 ``` r
@@ -174,13 +180,14 @@ writeLines(file_lines_missing_pkgs, missing_pkgs_ex)
 spot_funs(file_path = missing_pkgs_ex)
 ```
 
-*To spot which package a function is from you must have the package installed locally.* Hence for files on others' github repos or that you created on a different machine, it is a good idea to start with `funspotr::check_pkgs_availability()` to see which packages you are missing.
+*To spot which package a function is from you must have the package installed locally.* Hence for files on others' github repos or that you created on a different machine, it is a good idea to start with `funspotr::check_pkgs_availability()` to see which packages you are missing and install the missing packages locally. If you don't want to edit your global library you may want to use [renv](https://rstudio.github.io/renv/) or other environment management tools.
 
-`funspotr:::install_missing_pkgs()` is an unexported helper for installing missing packages (see "R/spot-pkgs.R" for documentation):
+funspotr has an internal helper `funspotr::install_missing_pkgs()` for installing missing packages (see source "R/spot-pkgs.R" for documentation on use):
 
 ```r
-check_pkgs_availability(file_path) %>% 
-  funspotr:::install_missing_pkgs()
+spot_pkgs(file_output) %>%
+  check_pkgs_availability() %>%
+  funspotr::install_missing_pkgs()
 ```
 
 Alternatively, you may want to clone the repository locally and then use `renv::dependencies()` and only then start using funspotr^[[renv](https://rstudio.github.io/renv/) is a more robust approach to finding and installing dependencies -- particularly in cases where you are missing many dependencies or don't want to alter the packages in your global library.]. 
@@ -219,7 +226,7 @@ spot_funs_custom(
   file_path = file_run_output)
 ```
 
-Also see `funspotr:::spot_pkgs_from_description()`.
+Also see `funspotr::spot_pkgs_from_description()`.
 
 ### Show all function calls
 
@@ -260,7 +267,7 @@ Many of the unexported functions in funspotr may be helpful in building up other
 
 funspotr mimics the search space of each file prior to identifying `pkgs`/`funs`. At a high-level...
 
-1. Create a new R instance using [callr](https://github.com/r-lib/callr) and clean-up the specified file using [formatR]()
+1. Create a new R instance using [callr](https://github.com/r-lib/callr) and clean-up the specified file using [formatR](https://github.com/yihui/formatR)
 2. Load packages. Explicit calls (e.g. `pkg::fun()`) are loaded individually via [import](https://github.com/rticulate/import) and are loaded last (putting them at the top of the search space)^[This heuristic is imperfect and means that a file with "library(dplyr); select(); MASS::select()" would view both `select()` calls as coming from {MASS} -- when what it should do is view the first was as coming from {dplyr} and the second from {MASS}.].
 
 (steps 1 and 2 needed so that step 4 has the best chance of identifying the package a function comes from in the file.)

@@ -28,7 +28,7 @@ generally just be a file name. \code{absolute_paths} a url to the raw file. See
 Given a username, return a dataframe with paths to all the gists by that user.
 }
 \examples{
-\dontrun{
+\donttest{
 library(dplyr)
 library(funspotr)
 
@@ -37,7 +37,7 @@ gists_urls <- list_files_github_gists("brshallo", pattern = ".")
 
 # Will just parse the first 2 files/gists
 # Note that is easy to hit the API limit if have lots of gists
-contents <- filter(gists_urls, funspotr:::str_detect_r_docs(absolute_paths)) \%>\%
+contents <- filter(gists_urls, str_detect_r_docs(absolute_paths)) \%>\%
   slice(1:2) \%>\%
   spot_funs_files()
 

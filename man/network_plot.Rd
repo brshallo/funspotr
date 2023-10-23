@@ -25,7 +25,7 @@ Output simple network plot using
 \code{funs} or \code{pkgs} to \code{relative_paths}/\code{absolute_paths}.
 }
 \examples{
-\dontrun{
+\donttest{
 library(dplyr)
 library(funspotr)
 

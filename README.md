@@ -55,6 +55,13 @@ other contexts.
 
 ## Installation
 
+Install the latest stable version of funspotr from
+[CRAN](https://cran.r-project.org/) with:
+
+``` r
+install.packages("funspotr")
+```
+
 You can install the development version of funspotr from
 [GitHub](https://github.com/) with:
 
@@ -283,14 +290,19 @@ spot_funs(file_path = missing_pkgs_ex)
 installed locally.* Hence for files on others’ github repos or that you
 created on a different machine, it is a good idea to start with
 `funspotr::check_pkgs_availability()` to see which packages you are
-missing.
+missing and install the missing packages locally. If you don’t want to
+edit your global library you may want to use
+[renv](https://rstudio.github.io/renv/) or other environment management
+tools.
 
-`funspotr:::install_missing_pkgs()` is an unexported helper for
-installing missing packages (see “R/spot-pkgs.R” for documentation):
+funspotr has an internal helper `funspotr::install_missing_pkgs()` for
+installing missing packages (see source “R/spot-pkgs.R” for
+documentation on use):
 
 ``` r
-check_pkgs_availability(file_path) %>% 
-  funspotr:::install_missing_pkgs()
+spot_pkgs(file_output) %>%
+  check_pkgs_availability() %>%
+  funspotr::install_missing_pkgs()
 ```
 
 Alternatively, you may want to clone the repository locally and then use
@@ -344,7 +356,7 @@ spot_funs_custom(
 #> 5 days   lubridate
 ```
 
-Also see `funspotr:::spot_pkgs_from_description()`.
+Also see `funspotr::spot_pkgs_from_description()`.
 
 ### Show all function calls
 
@@ -421,7 +433,7 @@ funspotr mimics the search space of each file prior to identifying
 
 1.  Create a new R instance using
     [callr](https://github.com/r-lib/callr) and clean-up the specified
-    file using [formatR]()
+    file using [formatR](https://github.com/yihui/formatR)
 2.  Load packages. Explicit calls (e.g. `pkg::fun()`) are loaded
     individually via [import](https://github.com/rticulate/import) and
     are loaded last (putting them at the top of the search space)[^10].

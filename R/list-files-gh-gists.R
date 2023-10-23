@@ -55,7 +55,7 @@ get_gist_content <- function(user){
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(dplyr)
 #' library(funspotr)
 #'
@@ -64,7 +64,7 @@ get_gist_content <- function(user){
 #'
 #' # Will just parse the first 2 files/gists
 #' # Note that is easy to hit the API limit if have lots of gists
-#' contents <- filter(gists_urls, funspotr:::str_detect_r_docs(absolute_paths)) %>%
+#' contents <- filter(gists_urls, str_detect_r_docs(absolute_paths)) %>%
 #'   slice(1:2) %>%
 #'   spot_funs_files()
 #'

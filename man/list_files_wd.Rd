@@ -33,7 +33,7 @@ Generally used prior to \verb{spot_\{funs/pkgs\}_files()}.
 Can also be used outside of working directory if \code{path} is specified.
 }
 \examples{
-\dontrun{
+\donttest{
 library(dplyr)
 library(funspotr)
 

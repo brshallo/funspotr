@@ -2,7 +2,7 @@
 % Please edit documentation in R/spot-pkgs.R
 \name{install_missing_pkgs}
 \alias{install_missing_pkgs}
-\title{Install missing packages}
+\title{Install Missing Packages From CRAN}
 \usage{
 install_missing_pkgs(pkgs_availability)
 }
@@ -12,17 +12,14 @@ generally the output of running \code{check_pkgs_availability()}.}
 }
 \value{
 Installs packages from cran using \code{remotes::install_cran()} if
-available else \code{install.packages()}
+available, else \code{install.packages()}
 }
 \description{
-Attempt to install missing packages from CRAN.
-}
-\details{
-In most cases, is probably safer to clone and use \code{renv::dependencies()} -- README.
+Attempt to install missing packages from CRAN. In most cases, it is safer to
+clone and use \code{renv::dependencies()}. See README for example. You should
+first verify packages specified are available on CRAN, otherwise will error.
 }
 \examples{
-# should verify pkgs are available on CRAN -- example below wouldn't work #
-# because madeUpPkg doesn't exist on CRAN
 \dontrun{
 library(funspotr)
 library(dplyr)
@@ -30,7 +27,6 @@ library(dplyr)
 file_lines <- "
 library(dplyr)
 require(tidyr)
-library(madeUpPkg)
 
 as_tibble(mpg) \%>\%
   group_by(class) \%>\%
@@ -38,7 +34,6 @@ as_tibble(mpg) \%>\%
   mutate(stats = purrr::map(data,
                             ~lm(cty ~ hwy, data = .x)))
 
-made_up_fun()
 "
 
 file_output <- tempfile(fileext = '.R')
@@ -46,6 +41,7 @@ writeLines(file_lines, file_output)
 
 spot_pkgs(file_output) \%>\%
   check_pkgs_availability() \%>\%
-  funspotr:::install_missing_pkgs()
+  funspotr::install_missing_pkgs()
 }
 }
+\keyword{internal}

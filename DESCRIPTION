@@ -6,7 +6,7 @@ Authors@R:
          family = "Shalloway",
          role = c("aut", "cre"),
          email = "brshallodev@gmail.com")
-Description: Helpers for parsing out the R functions 
+Description: Helpers for parsing out the R functions
   and packages used in R scripts and notebooks.
 License: MIT + file LICENSE
 BugReports: https://github.com/brshallo/funspotr/issues

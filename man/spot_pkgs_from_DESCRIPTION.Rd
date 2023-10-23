@@ -17,7 +17,8 @@ Given explicit path to DESCRIPTION file return package dependencies therein.
 Inspiration: \href{https://stackoverflow.com/a/30225680/9059865}{blogdown#647}.
 }
 \examples{
-funspotr:::spot_pkgs_from_description(
+funspotr::spot_pkgs_from_description(
   "https://raw.githubusercontent.com/brshallo/animatrixr/master/DESCRIPTION"
 )
 }
+\keyword{internal}

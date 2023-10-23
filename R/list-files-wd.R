@@ -19,7 +19,7 @@
 #'
 #' @seealso [list_files_github_repo()], [list_files_github_gists()]
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(dplyr)
 #' library(funspotr)
 #'

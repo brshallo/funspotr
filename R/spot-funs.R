@@ -8,6 +8,8 @@
 #' @param file_path character vector of path to file.
 #' @param show_each_use If changed to `TRUE` will return each instance a function
 #'   is used rather than once for everything
+#'
+#' @noRd
 list_functions_in_file <- function(file_path, show_each_use = FALSE){
   tmp <- utils::getParseData(parse(file_path, keep.source = TRUE))
   nms <- tmp$text[which(tmp$token == "SYMBOL_FUNCTION_CALL")]
@@ -40,6 +42,7 @@ list_functions_in_file <- function(file_path, show_each_use = FALSE){
 #'   `funspotr:::list_functions_in_file()`
 #' @param keep_search_list Logical, default is `FALSE` if change to `TRUE` will
 #'   include entire search list as a list-column.
+#' @noRd
 list_functions_in_file_to_df <- function(funs, keep_search_list = FALSE){
 
   output <- tibble::enframe(funs) %>%

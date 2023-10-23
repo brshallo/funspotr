@@ -69,21 +69,6 @@ where this is not the case will need to build an alternative workflow. See
 unexported functions in R/github-spot.R for some potentially helpful building
 blocks.
 }
-\examples{
-\dontrun{
-library(funspotr)
-
-github_spot_funs("brshallo/feat-eng-lags-presentation", branch = "main")
-
-# Say you only want to parse a subset of the R file discovered, you could do
-# something like:
-library(dplyr)
-
-github_spot_funs("brshallo/feat-eng-lags-presentation", branch = "main", preview = TRUE) \%>\%
-  slice(1:2) \%>\%
-  github_spot_funs(custom_urls = .)
-}
-}
 \seealso{
 spot_pkgs spot_funs spot_funs_custom unnest_github_results
 }

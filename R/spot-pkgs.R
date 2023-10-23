@@ -114,10 +114,11 @@ spot_pkgs <- function(file_path, show_explicit_funs = FALSE, copy_local = TRUE, 
 #' Spot Packages Used
 #'
 #' Primarily used for cases where you load metapackages like `tidyverse` or
-#' `tidymodels` but only want to return those packages that are actually used.
-#' E.g. say you have a `library(tidyverse)` call but only end-up using functions
-#' that are in `dplyr` -- in that case `spot_pkgs()` would return `"tidyverse"`
-#' whereas `spot_pkgs_used()` would return `"dplyr"`.
+#' `tidymodels` but only want to return those packages that have functions from
+#' the package that are actually called. E.g. say you have a
+#' `library(tidyverse)` call but only end-up using functions that are in `dplyr`
+#' -- in that case `spot_pkgs()` would return `"tidyverse"` whereas
+#' `spot_pkgs_used()` would return `"dplyr"`.
 #'
 #' Also does not return uninstalled packages or those loaded when R starts up.
 #'
@@ -159,9 +160,11 @@ spot_pkgs_used <- function(file_path, as_yaml_tags = FALSE){
 #' @param DESCRIPTION_path Path to DESCRIPTION file
 #'
 #' @return Character vector of packages.
+#' @export
+#' @keywords internal
 #'
 #' @examples
-#' funspotr:::spot_pkgs_from_description(
+#' funspotr::spot_pkgs_from_description(
 #'   "https://raw.githubusercontent.com/brshallo/animatrixr/master/DESCRIPTION"
 #' )
 spot_pkgs_from_description <- function(DESCRIPTION_path) {
@@ -177,7 +180,7 @@ spot_pkgs_from_description <- function(DESCRIPTION_path) {
 
 #' Check Packages Availability
 #'
-#' See example for how may use `check_pkgs_availability()` in funspotr.
+#' Check whether packages are available in current library.
 #'
 #' @param pkgs Character vector of package names. (Typically the output from
 #'   `spot_pkgs()`).
@@ -223,21 +226,22 @@ check_pkgs_availability <- function(pkgs, quietly = TRUE){
 }
 
 
-#' Install missing packages
+#' Install Missing Packages From CRAN
 #'
-#' Attempt to install missing packages from CRAN.
-#'
-#' In most cases, is probably safer to clone and use `renv::dependencies()` -- README.
+#' Attempt to install missing packages from CRAN. In most cases, it is safer to
+#' clone and use `renv::dependencies()`. See README for example. You should
+#' first verify packages specified are available on CRAN, otherwise will error.
 #'
 #' @param pkgs_availability Named logical vector where names are packages --
 #'   generally the output of running `check_pkgs_availability()`.
 #'
 #' @return Installs packages from cran using `remotes::install_cran()` if
-#'   available else `install.packages()`
+#'   available, else `install.packages()`
+#'
+#' @export
+#' @keywords internal
 #'
 #' @examples
-#' # should verify pkgs are available on CRAN -- example below wouldn't work #
-#' # because madeUpPkg doesn't exist on CRAN
 #' \dontrun{
 #' library(funspotr)
 #' library(dplyr)
@@ -245,7 +249,6 @@ check_pkgs_availability <- function(pkgs, quietly = TRUE){
 #' file_lines <- "
 #' library(dplyr)
 #' require(tidyr)
-#' library(madeUpPkg)
 #'
 #' as_tibble(mpg) %>%
 #'   group_by(class) %>%
@@ -253,7 +256,6 @@ check_pkgs_availability <- function(pkgs, quietly = TRUE){
 #'   mutate(stats = purrr::map(data,
 #'                             ~lm(cty ~ hwy, data = .x)))
 #'
-#' made_up_fun()
 #' "
 #'
 #' file_output <- tempfile(fileext = '.R')
@@ -261,7 +263,7 @@ check_pkgs_availability <- function(pkgs, quietly = TRUE){
 #'
 #' spot_pkgs(file_output) %>%
 #'   check_pkgs_availability() %>%
-#'   funspotr:::install_missing_pkgs()
+#'   funspotr::install_missing_pkgs()
 #' }
 install_missing_pkgs <- function(pkgs_availability){
 
