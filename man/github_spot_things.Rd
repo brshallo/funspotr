@@ -47,7 +47,7 @@ removed.}
 \value{
 Dataframe with \code{relative_paths} and \code{absolute_paths} of file paths
 along with a list-column \code{spotted} containing \code{purrr::safely()} lists of
-"result" and "error" for each file parsed. See \code{unnest_github_results()}
+"result" and "error" for each file parsed. See \code{unnest_results()}
 for helper to put into an easier to read format.
 }
 \description{
@@ -70,6 +70,6 @@ unexported functions in R/github-spot.R for some potentially helpful building
 blocks.
 }
 \seealso{
-spot_pkgs spot_funs spot_funs_custom unnest_github_results
+spot_pkgs spot_funs spot_funs_custom unnest_results
 }
 \keyword{internal}

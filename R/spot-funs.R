@@ -240,9 +240,8 @@ call_r_list_functions_explicit <- function(pkgs, pkgs_explicit, file_temp, show_
 #'
 #' spot_funs_custom(pkgs, file_output)
 #'
-#' # If you'd rather it error when a pkg doesn't exist (e.g. {madeUpPkg})
-#' # You could run:
-#' # spot_funs_custom(pkgs, file_output, error_if_missing_pkg = TRUE)
+#' # If you'd rather it error when a pkg doesn't exist e.g. for {madeUpPkg}
+#' # set`error_if_missing_pkg = TRUE`
 spot_funs_custom <- function(pkgs,
                              file_path,
                              show_each_use = FALSE,

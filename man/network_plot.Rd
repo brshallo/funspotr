@@ -9,7 +9,7 @@ network_plot(df, to = .data$pkgs, show_each_use = FALSE)
 \arguments{
 \item{df}{Dataframe containing columns \code{relative_paths}, \code{absolute_paths} and either \code{funs}
 or \code{pkgs}. Generally the output from running:
-\verb{github_spot_*() \%>\% unnest_github_results()}}
+\verb{github_spot_*() \%>\% unnest_results()}}
 
 \item{to}{\code{funs} or \code{pkgs}}
 

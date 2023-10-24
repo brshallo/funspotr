@@ -49,7 +49,7 @@ get_gist_content <- function(user){
 #' @return Dataframe with `relative_paths` and `absolute_paths` of file paths.
 #'   Because gists do not exist in a folder structure `relative_paths` will
 #'   generally just be a file name. `absolute_paths` a url to the raw file. See
-#'   `unnest_github_results()` for helper to put into an easier to read format.
+#'   `unnest_results()` for helper to put into an easier to read format.
 #'
 #' @seealso [list_files_github_repo()], [list_files_wd()]
 #' @export

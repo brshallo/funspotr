@@ -112,9 +112,8 @@ pkgs <- spot_pkgs(file_output)
 
 spot_funs_custom(pkgs, file_output)
 
-# If you'd rather it error when a pkg doesn't exist (e.g. {madeUpPkg})
-# You could run:
-# spot_funs_custom(pkgs, file_output, error_if_missing_pkg = TRUE)
+# If you'd rather it error when a pkg doesn't exist e.g. for {madeUpPkg}
+# set`error_if_missing_pkg = TRUE`
 }
 \seealso{
 \code{\link[=spot_funs]{spot_funs()}}

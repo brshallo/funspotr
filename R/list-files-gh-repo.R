@@ -98,7 +98,7 @@ github_spot <-
 
   # message(
   #   "Each item in `spotted` column is a `purrr::safely()` named list containing 'result' and 'error'.
-  #   See `funspotr::unnest_github_results()` to remove rows with errors and unnest 'result' column."
+  #   See `funspotr::unnest_results()` to remove rows with errors and unnest 'result' column."
   # )
   output
 }
@@ -173,10 +173,10 @@ github_spot_funs <-
 #'
 #' @return Dataframe with `relative_paths` and `absolute_paths` of file paths
 #'   along with a list-column `spotted` containing `purrr::safely()` lists of
-#'   "result" and "error" for each file parsed. See `unnest_github_results()`
+#'   "result" and "error" for each file parsed. See `unnest_results()`
 #'   for helper to put into an easier to read format.
 #'
-#' @seealso spot_pkgs spot_funs spot_funs_custom unnest_github_results
+#' @seealso spot_pkgs spot_funs spot_funs_custom unnest_results
 #'
 #' @keywords internal
 #' @name github_spot_things

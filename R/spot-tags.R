@@ -55,8 +55,10 @@
 #'
 #' @examples
 #'
-#' ## To review input interactively from within rstudio you might also try:
-#' # funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path)
+#' # To review input interactively from within rstudio you might also try:
+#' \dontrun{
+#' funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path)
+#' }
 spot_tags <- function(file_path = knitr::current_input(),
                       used = FALSE,
                       drop_knitr = FALSE,

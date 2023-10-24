@@ -407,7 +407,7 @@ actually used[^7].
 
 *To automatically have your packages used as the tags for a post* you
 can add the function `funspotr::spot_tags()` to a bullet in the `tags`
-argument of your YAML header[^8]. For example:
+argument of your YAML header on blogdown[^8]. For example:
 
     ---
     title: This is a post

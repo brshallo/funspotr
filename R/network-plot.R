@@ -7,7 +7,7 @@
 #'
 #' @param df Dataframe containing columns `relative_paths`, `absolute_paths` and either `funs`
 #'   or `pkgs`. Generally the output from running:
-#'   `github_spot_*() %>% unnest_github_results()`
+#'   `github_spot_*() %>% unnest_results()`
 #' @param to `funs` or `pkgs`
 #' @param show_each_use Binary, default is `FALSE`. If `TRUE` edge thickness
 #'   will be based on the number of times a package or function is used.

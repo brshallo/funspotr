@@ -91,7 +91,7 @@ NULL
 #' @seealso [spot_funs_files()], [spot_pkgs_files()]
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(funspotr)
 #' library(dplyr)
 #'

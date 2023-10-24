@@ -68,8 +68,10 @@ requires blogdown >= 1.9 to work
 }
 \examples{
 
-## To review input interactively from within rstudio you might also try:
-# funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path)
+# To review input interactively from within rstudio you might also try:
+\dontrun{
+funspotr::spot_tags(rstudioapi::getSourceEditorContext()$path)
+}
 }
 \seealso{
 \code{\link[=spot_pkgs]{spot_pkgs()}}, \code{\link[=spot_pkgs_used]{spot_pkgs_used()}}

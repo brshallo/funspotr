@@ -22,7 +22,7 @@ keep all files use \code{"."}.}
 Dataframe with \code{relative_paths} and \code{absolute_paths} of file paths.
 Because gists do not exist in a folder structure \code{relative_paths} will
 generally just be a file name. \code{absolute_paths} a url to the raw file. See
-\code{unnest_github_results()} for helper to put into an easier to read format.
+\code{unnest_results()} for helper to put into an easier to read format.
 }
 \description{
 Given a username, return a dataframe with paths to all the gists by that user.
