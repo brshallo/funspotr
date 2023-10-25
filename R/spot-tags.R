@@ -1,7 +1,8 @@
 #' Spot Tags
 #'
-#' Put function in your blogdown post's YAML header to have the packages be the
-#' packages used in your post (wrapper around `funspotr::spot_pkgs()`).
+#' Put quoted inline R function in your blogdown or quarto post's YAML header to
+#' have the packages be the packages used in your post (wrapper around
+#' `funspotr::spot_pkgs()`).
 #'
 #' ```
 #' tags:
@@ -14,11 +15,14 @@
 #' tags: ["`r funspotr::spot_tags()`"]
 #' ```
 #'
-#' Note that you must wrap in double quotes.
+#' OR
 #'
-#' Thanks Yihui for getting this working and for suggesting the function! Note
-#' requires blogdown >= 1.9 to work
-#' [blogdown#647](https://github.com/rstudio/blogdown/issues/647).
+#' ```
+#' categories: ["`r funspotr::spot_tags()`"]
+#' ```
+#'
+#' Thanks Yihui for the suggestions and for getting this working
+#' [blogdown#647](https://github.com/rstudio/blogdown/issues/647), [blogdown#693](https://github.com/rstudio/blogdown/issues/693).)
 #'
 #' @param file_path Default is the file being knitted but can change to some
 #'   other file (e.g. in cases where the code for the post may reside in a

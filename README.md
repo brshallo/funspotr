@@ -19,7 +19,6 @@
     file](#package-dependencies-in-another-file)
   - [Show all function calls](#show-all-function-calls)
   - [Helper for blogdown tags](#helper-for-blogdown-tags)
-  - [Unexported functions](#unexported-functions)
 - [How `spot_funs()` works](#how-spot_funs-works)
 - [Limitations, problems, musings](#limitations-problems-musings)
 
@@ -139,8 +138,6 @@ spot_funs(file_path = file_output)
 - `funs`: functions in file
 - `pkgs`: best guess as to the package the functions came from  
 - …[^3]
-
-<!-- The example below uses `spot_pkgs_from_DESCRIPTION()` to load in package dependencies and then passes the resulting character vector to `spot_funs_custom()`. -->
 
 ## Spot functions on all files in a project
 
@@ -405,26 +402,17 @@ spot_pkgs(
 `spot_pkgs_used()` will only return those packages that have functions
 actually used[^7].
 
-*To automatically have your packages used as the tags for a post* you
-can add the function `funspotr::spot_tags()` to a bullet in the `tags`
-argument of your YAML header on blogdown[^8]. For example:
+*To automatically have your packages used as the tags for a blog post*
+you can add an inline function `funspotr::spot_tags()` to a bullet in
+the `tags` or `categories` argument of your YAML header. For example:
 
     ---
     title: This is a post
     author: brshallo
     date: '2022-02-11'
-    tags: 
-      - "`r funspotr::spot_tags()`"
+    tags: ["`r funspotr::spot_tags()`"]
     slug: this-is-a-post
     ---
-
-### Unexported functions
-
-Many of the unexported functions in funspotr may be helpful in building
-up other workflows for mapping `spot_funs()` across multiple files[^9]
-*If you have a suggestion for a function, feel free to open an issue.*
-
-<!-- **If you've used {funspotr} to map the R functions and packages of a public blog or repository, open an issue to add a link in the README.** -->
 
 ## How `spot_funs()` works
 
@@ -436,13 +424,13 @@ funspotr mimics the search space of each file prior to identifying
     file using [formatR](https://github.com/yihui/formatR)
 2.  Load packages. Explicit calls (e.g. `pkg::fun()`) are loaded
     individually via [import](https://github.com/rticulate/import) and
-    are loaded last (putting them at the top of the search space)[^10].
+    are loaded last (putting them at the top of the search space)[^8].
 
 (steps 1 and 2 needed so that step 4 has the best chance of identifying
 the package a function comes from in the file.)
 
 3.  Pass file through `utils::getParseData()` and filter to just
-    functions[^11]
+    functions
 4.  Pass functions through `utils::find()` to identify associated
     package
 
@@ -455,8 +443,8 @@ the package a function comes from in the file.)
 
 - funspotr is specific to R. If you try and pass in a file from a
   different language you will get a parsing error or the code commented
-  out[^12]. The steps taken by funspotr would also not be needed in many
-  other programming languages[^13].
+  out[^9]. The steps taken by funspotr would also not be needed in many
+  other programming languages[^10].
 - funspotr does not work perfectly at identifying functions or packages.
   One common example example is it will not identify functions passed as
   arguments. For example it will not identify `mean` in this example:
@@ -475,13 +463,13 @@ the package a function comes from in the file.)
   .
 - As mentioned elsewhere, the default parsing of `spot_funs()` is
   primarily for cases where package dependencies are loaded in the same
-  file that they are used in[^14]. Scripts that are not self-contained
+  file that they are used in[^11]. Scripts that are not self-contained
   typically should have the `pkgs` argument provided explicitly via
   `spot_funs_custom()`.
 - funspotr does not pay attention to when functions are reexported from
   elsewhere. For example, many tibble functions are reexported by dplyr
   and tidyr – funspotr though will not know the “true” home of these
-  functions it is simply looking at the top of the search space[^15].
+  functions it is simply looking at the top of the search space[^12].
 - Feel free to open an issue if you’d be interested in a simplifying
   function or vignette for mapping `spot_funs()` through other folder
   structures not yet mentioned.
@@ -489,12 +477,12 @@ the package a function comes from in the file.)
   by something like `renv::dependencies()` or a parsing based approach.
   The simple regex’s I use have a variety of problems. As just one
   example `funspotr::get_pkgs()` will not recognize when a package is
-  within quotes or being escaped[^16]. See
+  within quotes or being escaped[^13]. See
   [\#14](https://github.com/brshallo/funspotr/issues/14)
 - There may be something to be learned from how `R CMD check` does
   function parsing.
   - funspotr’s current approach is slow and uses imperfect heuristics
-- Does not identify infix operators, e.g. `+`[^17]
+- Does not identify infix operators, e.g. `+`
 - funspotr has lots of dependencies. It may have make sense to move some
   of the non-core functionality into a separate package (e.g. stuff
   concerning `list_files*()`)
@@ -511,41 +499,29 @@ the package a function comes from in the file.)
   stack overflow, github, or other packages. Also see the footnotes of
   the README.
 
-[^1]: The following posts were written using the initial API for
-    funspotr – the key functions used in these posts have now been
-    deprecated:  
+[^1]: Prior posts (some of which used a now deprecated API):  
     - [Identifying R Functions & Packages Used in GitHub Repos (funspotr
     part
-    1)](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/) -
-    [Identifying R Functions & Packages in Github Gists (funspotr part
-    2)](https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/) -
-    [Network Plots of Code Collections (funspotr part
+    1)](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/)  
+    - [Identifying R Functions & Packages in Github Gists (funspotr part
+    2)](https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/)  
+    - [Network Plots of Code Collections (funspotr part
     3)](https://www.bryanshalloway.com/2022/03/17/network-plots-of-code-collections-funspotr-part-3/)
 
 [^2]: Rather than, for example,
     [targets](https://github.com/ropensci/targets) workflows. Also, in
     some cases funspotr may not identify *every* function and/or package
     in a file (see [Limitations, problems,
-    musings](#limitations-problems-musings)) or read the source code for
+    musings](#limitations-problems-musings) or read the source code for
     details).
 
-[^3]: `in_multiple_pkgs`: (by default is dropped, pass in
-    `keep_in_multiple_pkgs = TRUE` to `...` to display)Whether the
-    function has multiple packages/environments on it’s (guessed) search
-    space. By default only the package at the top of the search space is
-    returned. E.g. `as_tibble()` is attributed to
-    [tidyr](https://tidyr.tidyverse.org/) by `spot_funs()` however
-    `as_tibble()` is also in [dplyr](https://dplyr.tidyverse.org/). I
-    don’t worry about getting to the root source of the package or the
-    fact that both of those packages are just reexporting it from
-    [tibble](https://tibble.tidyverse.org/). Setting
-    `keep_search_list = TRUE` will return rows for each item in the
-    search list which may be helpful if getting unexpected results.)
+[^3]: Other arguments may produce additional columns. See `spot_funs()`
+    reference page for details.
 
 [^4]: list-column output where each item is a list containing `result`
     and `error`.
 
-[^5]: Took some inspiration from `plot()` method in
+[^5]: Took inspiration from `plot()` method in
     [cranly](https://github.com/ikosmidis/cranly).
 
 [^6]: [renv](https://rstudio.github.io/renv/) is a more robust approach
@@ -555,45 +531,33 @@ the package a function comes from in the file.)
 
 [^7]: E.g. for cases when there are library calls that aren’t actually
     used in the file. This may be useful in cases when metapackages like
-    tidyverse or tidymodels are loaded but not all packages are actually
-    used.
+    tidyverse or tidymodels are loaded but you want to return the
+    specific packages from within those being used.
 
-[^8]: See
-    ([blogdown#647](https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327),
-    [blogdown#693](https://github.com/rstudio/blogdown/issues/693)) for
-    an explanation of how `funspotr::spot_tags()` works.
-
-[^9]: Most unexported functions in `funspotr` still include a man file
-    and at least partial documentation.
-
-[^10]: This heuristic is imperfect and means that a file with
+[^8]: This heuristic is imperfect and means that a file with
     “library(dplyr); select(); MASS::select()” would view both
     `select()` calls as coming from {MASS} – when what it should do is
     view the first was as coming from {dplyr} and the second from
     {MASS}.
 
-[^11]: inspired by `NCmisc::list.functions.in.file()`.
-
-[^12]: For example… If you pass in a .Rmd or .qmd that has a mix of R
-    and python code chunks, the python chunks will simply be commented
-    out. If you pass in a python script, you will almost certainly get a
+[^9]: For example… If you pass in a .Rmd or .qmd that has a mix of R and
+    python code chunks, the python chunks will simply be commented out.
+    If you pass in a python script, you will almost certainly get a
     parsing error for that file.
 
-[^13]: In a language like python, where calls are more explicit
+[^10]: In a language like python, where calls are more explicit
     (e.g. `np.*`), all of the stuff with recreating the search space
     would likely be unnecessary and you could more easily just identify
-    packages/functions by parsing the text (which would run faster).
+    packages/functions by parsing the text.
 
-[^14]: i.e. in interactive R scripts or Rmd or qmd documents where you
+[^11]: i.e. in interactive R scripts or Rmd or qmd documents where you
     use `library()` or related calls within the script.
 
-[^15]: For example when reviewing David Robinson’s Tidy Tuesday code I
+[^12]: For example when reviewing David Robinson’s Tidy Tuesday code I
     found that the [meme](https://github.com/GuangchuangYu/meme) package
     was used far more than I would have expected. Turns out it was just
     due to it reexporting the `aes()` function from ggplot.
 
-[^16]: e.g. in this case `lines <- "library(pkg)"` the `pkg` would
+[^13]: e.g. in this case `lines <- "library(pkg)"` the `pkg` would
     show-up as a dependency despite just being part of a quote rather
     than actually loaded.
-
-[^17]: maybe that’s fine though.

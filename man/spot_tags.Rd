@@ -47,8 +47,9 @@ Character vector in a format meant to be read while evaluating the
 YAML header when rendering.
 }
 \description{
-Put function in your blogdown post's YAML header to have the packages be the
-packages used in your post (wrapper around \code{funspotr::spot_pkgs()}).
+Put quoted inline R function in your blogdown or quarto post's YAML header to
+have the packages be the packages used in your post (wrapper around
+\code{funspotr::spot_pkgs()}).
 }
 \details{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{tags:
@@ -60,11 +61,13 @@ OR
 \if{html}{\out{<div class="sourceCode">}}\preformatted{tags: ["`r funspotr::spot_tags()`"]
 }\if{html}{\out{</div>}}
 
-Note that you must wrap in double quotes.
+OR
 
-Thanks Yihui for getting this working and for suggesting the function! Note
-requires blogdown >= 1.9 to work
-\href{https://github.com/rstudio/blogdown/issues/647}{blogdown#647}.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{categories: ["`r funspotr::spot_tags()`"]
+}\if{html}{\out{</div>}}
+
+Thanks Yihui for the suggestions and for getting this working
+\href{https://github.com/rstudio/blogdown/issues/647}{blogdown#647}, \href{https://github.com/rstudio/blogdown/issues/693}{blogdown#693}.)
 }
 \examples{
 

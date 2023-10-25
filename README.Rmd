@@ -30,14 +30,14 @@ There are roughly three types of functions in funspotr:
 * `spot_*()`: that identify functions or packages in files
 * other helpers that manipulate or plot outputs from the above functions
 
-[^prior-posts]: The following posts were written using the initial API for funspotr -- the key functions used in these posts have now been deprecated:  
-    - [Identifying R Functions & Packages Used in GitHub Repos (funspotr part 1)](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/) 
-    - [Identifying R Functions & Packages in Github Gists (funspotr part 2)](https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/)
+[^prior-posts]: Prior posts (some of which used a now deprecated API):  
+    - [Identifying R Functions & Packages Used in GitHub Repos (funspotr part 1)](https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/)  
+    - [Identifying R Functions & Packages in Github Gists (funspotr part 2)](https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/)  
     - [Network Plots of Code Collections (funspotr part 3)](https://www.bryanshalloway.com/2022/03/17/network-plots-of-code-collections-funspotr-part-3/)
 
 funspotr is set-up for parsing R, Rmarkdown or Quarto files. If you want to parse a Jupyter notebook you should first [convert it](https://www.rdocumentation.org/packages/rmarkdown/versions/2.6/topics/convert_ipynb) to an appropriate file type. If you pass in a file type that is not recognized (e.g. a .txt file) funspotr will attempt to parse it as if it is a .R script.
 
-funspotr is primarily designed for identifying the functions / packages in self-contained files or collections of self-contained files (e.g. a [blogdown](https://github.com/rstudio/blogdown) project^[Rather than, for example, [targets](https://github.com/ropensci/targets) workflows. Also, in some cases funspotr may not identify *every* function and/or package in a file (see [Limitations, problems, musings]) or read the source code for details).]). Though see [Package dependencies in another file] for examples of using it in other contexts.
+funspotr is primarily designed for identifying the functions / packages in self-contained files or collections of self-contained files (e.g. a [blogdown](https://github.com/rstudio/blogdown) project^[Rather than, for example, [targets](https://github.com/ropensci/targets) workflows. Also, in some cases funspotr may not identify *every* function and/or package in a file (see [Limitations, problems, musings] or read the source code for details).]). Though see [Package dependencies in another file] for examples of using it in other contexts.
 
 ## Installation
 
@@ -98,9 +98,7 @@ spot_funs(file_path = file_output)
 
 * `funs`: functions in file
 * `pkgs`: best guess as to the package the functions came from  
-* ...^[`in_multiple_pkgs`: (by default is dropped, pass in `keep_in_multiple_pkgs = TRUE` to `...` to display)Whether the function has multiple packages/environments on it's (guessed) search space. By default only the package at the top of the search space is returned. E.g. `as_tibble()` is attributed to [tidyr](https://tidyr.tidyverse.org/) by `spot_funs()` however `as_tibble()` is also in [dplyr](https://dplyr.tidyverse.org/). I don't worry about getting to the root source of the package or the fact that both of those packages are just reexporting it from [tibble](https://tibble.tidyverse.org/). Setting `keep_search_list = TRUE` will return rows for each item in the search list which may be helpful if getting unexpected results.)] 
-
-<!-- The example below uses `spot_pkgs_from_DESCRIPTION()` to load in package dependencies and then passes the resulting character vector to `spot_funs_custom()`. -->
+* ...^[Other arguments may produce additional columns. See `spot_funs()` reference page for details.] 
 
 ## Spot functions on all files in a project
 
@@ -130,7 +128,7 @@ gh_ex %>%
   filter(pkgs %in% c("here", "readr", "rsample"))
 ```
 
-The outputs from `funspotr::unnest_results()` can also be passed into `funspotr::network_plot()` to build a network visualization of the connections between functions/packages and files^[Took some inspiration from `plot()` method in [cranly](https://github.com/ikosmidis/cranly).].
+The outputs from `funspotr::unnest_results()` can also be passed into `funspotr::network_plot()` to build a network visualization of the connections between functions/packages and files^[Took inspiration from `plot()` method in [cranly](https://github.com/ikosmidis/cranly).].
 
 ### Previewing and customizing files to parse
 
@@ -249,19 +247,13 @@ spot_pkgs(
   cat()
 ```
 
-`spot_pkgs_used()` will only return those packages that have functions actually used^[E.g. for cases when there are library calls that aren't actually used in the file. This may be useful in cases when metapackages like tidyverse or tidymodels are loaded but not all packages are actually used.].
+`spot_pkgs_used()` will only return those packages that have functions actually used^[E.g. for cases when there are library calls that aren't actually used in the file. This may be useful in cases when metapackages like tidyverse or tidymodels are loaded but you want to return the specific packages from within those being used.].
 
-*To automatically have your packages used as the tags for a post* you can add the function `funspotr::spot_tags()` to a bullet in the `tags` argument of your YAML header on blogdown^[See ([blogdown#647](https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327), [blogdown#693](https://github.com/rstudio/blogdown/issues/693)) for an explanation of how `funspotr::spot_tags()` works.]. For example:
+*To automatically have your packages used as the tags for a blog post* you can add an inline function `funspotr::spot_tags()` to a bullet in the `tags` or `categories` argument of your YAML header. For example:
 
 ```{r echo = FALSE, comment = ""}
 cat(htmltools::includeText("inst/ex-rmd-tags.Rmd"))
 ```
-
-### Unexported functions
-
-Many of the unexported functions in funspotr may be helpful in building up other workflows for mapping `spot_funs()` across multiple files^[Most unexported functions in `funspotr` still include a man file and at least partial documentation.] *If you have a suggestion for a function, feel free to open an issue.* 
-
-<!-- **If you've used {funspotr} to map the R functions and packages of a public blog or repository, open an issue to add a link in the README.** -->
 
 ## How `spot_funs()` works
 
@@ -272,7 +264,7 @@ funspotr mimics the search space of each file prior to identifying `pkgs`/`funs`
 
 (steps 1 and 2 needed so that step 4 has the best chance of identifying the package a function comes from in the file.)
 
-3. Pass file through `utils::getParseData()` and filter to just functions^[inspired by `NCmisc::list.functions.in.file()`.]
+3. Pass file through `utils::getParseData()` and filter to just functions
 4. Pass functions through `utils::find()` to identify associated package
 
 *Explainer slide from Rstudio Conf 2022 [presentation](https://www.youtube.com/watch?v=c9oU7ALJS3o):*
@@ -281,7 +273,7 @@ funspotr mimics the search space of each file prior to identifying `pkgs`/`funs`
 
 ## Limitations, problems, musings
 
-* funspotr is specific to R. If you try and pass in a file from a different language you will get a parsing error or the code commented out^[For example... If you pass in a .Rmd or .qmd that has a mix of R and python code chunks, the python chunks will simply be commented out. If you pass in a python script, you will almost certainly get a parsing error for that file.]. The steps taken by funspotr would also not be needed in many other programming languages^[In a language like python, where calls are more explicit (e.g. `np.*`), all of the stuff with recreating the search space would likely be unnecessary and you could more easily just identify packages/functions by parsing the text (which would run faster).].
+* funspotr is specific to R. If you try and pass in a file from a different language you will get a parsing error or the code commented out^[For example... If you pass in a .Rmd or .qmd that has a mix of R and python code chunks, the python chunks will simply be commented out. If you pass in a python script, you will almost certainly get a parsing error for that file.]. The steps taken by funspotr would also not be needed in many other programming languages^[In a language like python, where calls are more explicit (e.g. `np.*`), all of the stuff with recreating the search space would likely be unnecessary and you could more easily just identify packages/functions by parsing the text.].
 * funspotr does not work perfectly at identifying functions or packages. One common example example is it will not identify functions passed as arguments. For example it will not identify `mean` in this example: `lapply(x, mean)` . Similarly it will not identify functions within `switch()`. See [#13](https://github.com/brshallo/funspotr/issues/13).
 * If a file contains R syntax that is not well defined it will not be parsed and will return an error. See [formatR#further-notes](https://yihui.org/formatr/#6-further-notes) (used by {funspotr} in parsing) for other common reasons for failure.
 * `knitr::read_chunk()` and `knitr::purl()` in a file passed to {funspotr} will also frequently cause an error in parsing. See [knitr#1753](https://github.com/yihui/knitr/issues/1753) & [knitr#1938](https://github.com/yihui/knitr/issues/1938)
@@ -292,7 +284,7 @@ funspotr mimics the search space of each file prior to identifying `pkgs`/`funs`
 * All the functions in "R/spot-pkgs.R" would probably be better handled by something like `renv::dependencies()` or a parsing based approach. The simple regex's I use have a variety of problems. As just one example `funspotr::get_pkgs()` will not recognize when a package is within quotes or being escaped^[e.g. in this case `lines <- "library(pkg)"`  the `pkg` would show-up as a dependency despite just being part of a quote rather than actually loaded.]. See [#14](https://github.com/brshallo/funspotr/issues/14)
 * There may be something to be learned from how `R CMD check` does function parsing. 
     * funspotr's current approach is slow and uses imperfect heuristics
-* Does not identify infix operators, e.g. `+`^[maybe that's fine though.]
+* Does not identify infix operators, e.g. `+`
 * funspotr has lots of dependencies. It may have make sense to move some of the non-core functionality into a separate package (e.g. stuff concerning `list_files*()`)
 * Rather than running `list_files_github_repo()` it may make sense to instead clone the repo locally and then run `list_files_wd()` from the repo prior to running `spot_funs_files()` as this will limit the number of API hits to github.
 * Currently it's possible to have github block you pretty soon due to hitting too many files (in which case you'll likely get a 403 or connection error). There are some things that could be done to reduce number of github API hits (e.g. above bullet, `Sys.sleep()`, ...).
