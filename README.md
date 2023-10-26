@@ -3,6 +3,7 @@
 
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/brshallo/funspotr/workflows/R-CMD-check/badge.svg)](https://github.com/brshallo/funspotr/actions)
+[![CRAN status](https://www.r-pkg.org/badges/version/funspotr)](https://CRAN.R-project.org/package=funspotr)
 
 - [Installation](#installation)
 - [Talks and posts](#talks-and-posts)
@@ -24,6 +25,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
+<!-- Actually go to inst/header.md to add badges -->
 <!-- badges: end -->
 
 The goal of funspotr (R function spotter) is to make it easy to identify

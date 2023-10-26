@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 ```
 
 <!-- badges: start -->
+<!-- Actually go to inst/header.md to add badges -->
 <!-- badges: end -->
 
 The goal of funspotr (R function spotter) is to make it easy to identify which R functions and packages are used in files and projects. It was initially written to create reference tables of the functions and packages used in a few popular github repositories[^prior-posts].
