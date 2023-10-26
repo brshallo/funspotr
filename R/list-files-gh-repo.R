@@ -17,6 +17,7 @@ valid_url <- function(url_in,t=2){
 #'   invalid, "master".
 #'
 #' @return Character vector of contents from github repo.
+#' @noRd
 github_contents <- function(repo, branch = NULL){
 
   # default try `branch = "main", if doesn't work try `branch = "master"`
@@ -44,6 +45,7 @@ github_rbf_to_url <- function(repo, branch, file) glue::glue("https://raw.github
 #' @inheritParams github_contents
 #'
 #' @return Dataframe with columns `relative_paths` and `absolute_paths`.
+#' @noRd
 github_contents_urls <- function(repo, branch = "main"){
   # This step should probably be taken out of the function and instead it should
   # be to pass in a list of files and then select only the r versions... maybe
@@ -103,7 +105,7 @@ github_spot <-
   output
 }
 
-#' @rdname github_spot_things
+# see: github_spot_things
 github_spot_pkgs <-
   function(repo,
            branch = "main",
@@ -119,7 +121,7 @@ github_spot_pkgs <-
   github_spot(spot_pkgs, repo, branch, ..., preview = preview, rmv_index = rmv_index, custom_urls = custom_urls)
 }
 
-#' @rdname github_spot_things
+# see: github_spot_things
 github_spot_funs <-
   function(repo,
            branch = "main",
@@ -137,6 +139,7 @@ github_spot_funs <-
 
 
 #' Spot Packages or Functions from Github Repository
+#'
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
@@ -170,7 +173,6 @@ github_spot_funs <-
 #'   `urls` to override the default urls in the repo to parse. Default is
 #'   `NULL`. See README for example.
 #'
-#'
 #' @return Dataframe with `relative_paths` and `absolute_paths` of file paths
 #'   along with a list-column `spotted` containing `purrr::safely()` lists of
 #'   "result" and "error" for each file parsed. See `unnest_results()`
@@ -178,8 +180,8 @@ github_spot_funs <-
 #'
 #' @seealso spot_pkgs spot_funs spot_funs_custom unnest_results
 #'
-#' @keywords internal
 #' @name github_spot_things
+#' @noRd
 NULL
 
 

@@ -41,7 +41,7 @@ writeLines(file_lines, file_output)
 
 spot_pkgs(file_output) \%>\%
   check_pkgs_availability() \%>\%
-  funspotr::install_missing_pkgs()
+  install_missing_pkgs()
 }
 }
 \keyword{internal}

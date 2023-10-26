@@ -3,7 +3,6 @@
 \name{spot_funs_files}
 \alias{spot_funs_files}
 \alias{spot_pkgs_files}
-\alias{spot_things_files}
 \title{Spot Packages or Functions in dataframe of Paths}
 \usage{
 spot_funs_files(df, ..., .progress = TRUE)

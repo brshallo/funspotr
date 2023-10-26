@@ -28,18 +28,10 @@ reference:
   - check_pkgs_availability
   - spot_pkgs_used
   - spot_funs_custom
-- title: internal
-  desc: >
-    Unexported helpers and deprecated functions.
-  contents:
-  - call_r_list_functions_doc
-  - did_safely_error
-  - install_missing_pkgs
-  - list_functions_in_file
-  - list_functions_in_file_to_df
   - spot_pkgs_from_description
   - str_detect_r_docs
-  - github_spot_funs
-  - github_spot_pkgs
-  - github_contents
-  - github_contents_urls
+- title: internal
+  desc: >
+    Helpers and internal or deprecated functions.
+  contents:
+  - install_missing_pkgs

@@ -22,19 +22,6 @@ spot_files <- function(spot_type, df, ..., .progress = TRUE){
   output
 }
 
-#' @export
-#' @rdname spot_things_files
-spot_funs_files <- function(df, ..., .progress = TRUE){
-  spot_files(spot_funs, df, ..., .progress = .progress)
-}
-
-#' @export
-#' @rdname spot_things_files
-spot_pkgs_files <- function(df, ..., .progress = TRUE){
-  spot_files(spot_pkgs, df, ..., .progress = .progress)
-}
-
-
 #' Spot Packages or Functions in dataframe of Paths
 #'
 #' @description
@@ -63,7 +50,7 @@ spot_pkgs_files <- function(df, ..., .progress = TRUE){
 #'   unnest only the "result" values.
 #'
 #' @seealso [spot_pkgs()], [spot_funs()], [unnest_results()]
-#'
+#' @export
 #' @examples
 #' \donttest{
 #' library(funspotr)
@@ -72,9 +59,15 @@ spot_pkgs_files <- function(df, ..., .progress = TRUE){
 #' list_files_github_repo("brshallo/feat-eng-lags-presentation", branch = "main") %>%
 #'   spot_funs_files()
 #' }
-#' @name spot_things_files
-NULL
+spot_funs_files <- function(df, ..., .progress = TRUE){
+  spot_files(spot_funs, df, ..., .progress = .progress)
+}
 
+#' @export
+#' @rdname spot_funs_files
+spot_pkgs_files <- function(df, ..., .progress = TRUE){
+  spot_files(spot_pkgs, df, ..., .progress = .progress)
+}
 
 
 #' Unnest Results

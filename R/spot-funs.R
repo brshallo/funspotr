@@ -76,6 +76,8 @@ list_functions_in_file_to_df <- function(funs, keep_search_list = FALSE){
 #' https://github.com/rticulate/import/issues/57
 #' @name call_r_list_functions_doc
 #'
+#' @noRd
+#'
 #' @param pkgs Character vector of packages loaded via library, require, etc,
 #' @param file_temp character vector of path to file. In most cases will be a
 #'   temporary file.
@@ -85,7 +87,7 @@ list_functions_in_file_to_df <- function(funs, keep_search_list = FALSE){
 #' @param pkgs_explicit Packages used explicitly, e.g. `pkg::fun()`.
 NULL
 
-#'
+#' @noRd
 #' @rdname call_r_list_functions_doc
 call_r_list_functions <- function(pkgs, file_temp, show_each_use = FALSE){
 
@@ -127,7 +129,7 @@ attach_pkg_fun <- function(pkg_fun){
 
 try_attach_pkg_fun <- function(pkg_fun) try(attach_pkg_fun(pkg_fun))
 
-#'
+#' @noRd
 #' @rdname call_r_list_functions_doc
 call_r_list_functions_explicit <- function(pkgs, pkgs_explicit, file_temp, show_each_use = FALSE){
 
