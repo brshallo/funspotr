@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Helpers for parsing out the R functions 
+<meta name="description" content="Helpers for parsing out the R functions
   and packages used in R scripts and notebooks.">
 <title>Spot R Functions &amp; Packages • funspotr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -19,7 +19,7 @@
 <script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Spot R Functions &amp; Packages">
-<meta property="og:description" content="Helpers for parsing out the R functions 
+<meta property="og:description" content="Helpers for parsing out the R functions
   and packages used in R scripts and notebooks.">
 <meta property="og:image" content="https://brshallo.github.io/funspotr/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="index.html">funspotr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,7 +75,7 @@
 <a class="anchor" aria-label="anchor" href="#funspotr-"></a>
 </h1>
 </div>
-<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a> <a href="https://github.com/brshallo/funspotr/actions" class="external-link"><img src="https://github.com/brshallo/funspotr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></p>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a> <a href="https://github.com/brshallo/funspotr/actions" class="external-link"><img src="https://github.com/brshallo/funspotr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <a href="https://CRAN.R-project.org/package=funspotr" class="external-link"><img src="https://www.r-pkg.org/badges/version/funspotr" alt="CRAN status"></a></p>
 <ul>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#talks-and-posts">Talks and posts</a></li>
@@ -94,14 +94,15 @@
 <li><a href="#package-dependencies-in-another-file">Package dependencies in another file</a></li>
 <li><a href="#show-all-function-calls">Show all function calls</a></li>
 <li><a href="#helper-for-blogdown-tags">Helper for blogdown tags</a></li>
-<li><a href="#unexported-functions">Unexported functions</a></li>
 </ul>
 </li>
 <li><a href="#how-spot_funs-works">How <code>spot_funs()</code> works</a></li>
 <li><a href="#limitations-problems-musings">Limitations, problems, musings</a></li>
 </ul>
-<!-- README.md is generated from README.Rmd. Please edit that file --><!-- badges: start --><!-- badges: end --><p>The goal of funspotr (R function spotter) is to make it easy to identify which R functions and packages are used in files and projects. It was initially written to create reference tables of the functions and packages used in a few popular github repositories<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;The following posts were written using the initial API for funspotr – the key functions used in these posts have now been deprecated:&lt;br&gt;
-- &lt;a href="https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/" class="external-link"&gt;Identifying R Functions &amp;amp; Packages Used in GitHub Repos (funspotr part 1)&lt;/a&gt; - &lt;a href="https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/" class="external-link"&gt;Identifying R Functions &amp;amp; Packages in Github Gists (funspotr part 2)&lt;/a&gt; - &lt;a href="https://www.bryanshalloway.com/2022/03/17/network-plots-of-code-collections-funspotr-part-3/" class="external-link"&gt;Network Plots of Code Collections (funspotr part 3)&lt;/a&gt;&lt;/p&gt;'><sup>1</sup></a>.</p>
+<!-- README.md is generated from README.Rmd. Please edit that file --><!-- badges: start --><!-- Actually go to inst/header.md to add badges --><!-- badges: end --><p>The goal of funspotr (R function spotter) is to make it easy to identify which R functions and packages are used in files and projects. It was initially written to create reference tables of the functions and packages used in a few popular github repositories<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Prior posts (some of which used a now deprecated API):&lt;br&gt;
+- &lt;a href="https://www.bryanshalloway.com/2022/01/18/identifying-r-functions-packages-used-in-github-repos/" class="external-link"&gt;Identifying R Functions &amp;amp; Packages Used in GitHub Repos (funspotr part 1)&lt;/a&gt;&lt;br&gt;
+- &lt;a href="https://www.bryanshalloway.com/2022/02/07/identifying-r-functions-packages-in-your-github-gists/" class="external-link"&gt;Identifying R Functions &amp;amp; Packages in Github Gists (funspotr part 2)&lt;/a&gt;&lt;br&gt;
+- &lt;a href="https://www.bryanshalloway.com/2022/03/17/network-plots-of-code-collections-funspotr-part-3/" class="external-link"&gt;Network Plots of Code Collections (funspotr part 3)&lt;/a&gt;&lt;/p&gt;'><sup>1</sup></a>.</p>
 <p>There are roughly three types of functions in funspotr:</p>
 <ul>
 <li>
@@ -111,12 +112,15 @@
 <li>other helpers that manipulate or plot outputs from the above functions</li>
 </ul>
 <p>funspotr is set-up for parsing R, Rmarkdown or Quarto files. If you want to parse a Jupyter notebook you should first <a href="https://www.rdocumentation.org/packages/rmarkdown/versions/2.6/topics/convert_ipynb" class="external-link">convert it</a> to an appropriate file type. If you pass in a file type that is not recognized (e.g. a .txt file) funspotr will attempt to parse it as if it is a .R script.</p>
-<p>funspotr is primarily designed for identifying the functions / packages in self-contained files or collections of self-contained files (e.g. a <a href="https://github.com/rstudio/blogdown" class="external-link">blogdown</a> project<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Rather than, for example, &lt;a href="https://github.com/ropensci/targets" class="external-link"&gt;targets&lt;/a&gt; workflows. Also, in some cases funspotr may not identify &lt;em&gt;every&lt;/em&gt; function and/or package in a file (see &lt;a href="#limitations-problems-musings"&gt;Limitations, problems, musings&lt;/a&gt;) or read the source code for details).&lt;/p&gt;'><sup>2</sup></a>). Though see <a href="#package-dependencies-in-another-file">Package dependencies in another file</a> for examples of using it in other contexts.</p>
+<p>funspotr is primarily designed for identifying the functions / packages in self-contained files or collections of self-contained files (e.g. a <a href="https://github.com/rstudio/blogdown" class="external-link">blogdown</a> project<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Rather than, for example, &lt;a href="https://github.com/ropensci/targets" class="external-link"&gt;targets&lt;/a&gt; workflows. Also, in some cases funspotr may not identify &lt;em&gt;every&lt;/em&gt; function and/or package in a file (see &lt;a href="#limitations-problems-musings"&gt;Limitations, problems, musings&lt;/a&gt; or read the source code for details).&lt;/p&gt;'><sup>2</sup></a>). Though see <a href="#package-dependencies-in-another-file">Package dependencies in another file</a> for examples of using it in other contexts.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of funspotr from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>Install the latest stable version of funspotr from <a href="https://cran.r-project.org/" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"funspotr"</span><span class="op">)</span></span></code></pre></div>
+<p>You can install the development version of funspotr from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"brshallo/funspotr"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -147,7 +151,7 @@
 <h2 id="spot-functions-in-a-file">Spot functions in a file<a class="anchor" aria-label="anchor" href="#spot-functions-in-a-file"></a>
 </h2>
 <p>The primary function in funspotr is <code><a href="reference/spot_funs.html">spot_funs()</a></code> which returns a dataframe showing the functions and associated packages used in a file.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://brshallo.github.io/funspotr/">funspotr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">file_lines</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
@@ -187,23 +191,22 @@
 <li>
 <code>pkgs</code>: best guess as to the package the functions came from<br>
 </li>
-<li>…<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;&lt;code&gt;in_multiple_pkgs&lt;/code&gt;: (by default is dropped, pass in &lt;code&gt;keep_in_multiple_pkgs = TRUE&lt;/code&gt; to &lt;code&gt;...&lt;/code&gt; to display)Whether the function has multiple packages/environments on it’s (guessed) search space. By default only the package at the top of the search space is returned. E.g. &lt;code&gt;&lt;a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link"&gt;as_tibble()&lt;/a&gt;&lt;/code&gt; is attributed to &lt;a href="https://tidyr.tidyverse.org/" class="external-link"&gt;tidyr&lt;/a&gt; by &lt;code&gt;&lt;a href="reference/spot_funs.html"&gt;spot_funs()&lt;/a&gt;&lt;/code&gt; however &lt;code&gt;&lt;a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link"&gt;as_tibble()&lt;/a&gt;&lt;/code&gt; is also in &lt;a href="https://dplyr.tidyverse.org/" class="external-link"&gt;dplyr&lt;/a&gt;. I don’t worry about getting to the root source of the package or the fact that both of those packages are just reexporting it from &lt;a href="https://tibble.tidyverse.org/" class="external-link"&gt;tibble&lt;/a&gt;. Setting &lt;code&gt;keep_search_list = TRUE&lt;/code&gt; will return rows for each item in the search list which may be helpful if getting unexpected results.)&lt;/p&gt;'><sup>3</sup></a>
+<li>…<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Other arguments may produce additional columns. See &lt;code&gt;&lt;a href="reference/spot_funs.html"&gt;spot_funs()&lt;/a&gt;&lt;/code&gt; reference page for details.&lt;/p&gt;'><sup>3</sup></a>
 </li>
 </ul>
-<!-- The example below uses `spot_pkgs_from_DESCRIPTION()` to load in package dependencies and then passes the resulting character vector to `spot_funs_custom()`. -->
 </div>
 <div class="section level2">
 <h2 id="spot-functions-on-all-files-in-a-project">Spot functions on all files in a project<a class="anchor" aria-label="anchor" href="#spot-functions-on-all-files-in-a-project"></a>
 </h2>
-<p>funspotr has a few <code>list_files_*()</code> functions that return a dataframe of <code>relative_paths</code> and <code>absolute_paths</code> of all the R, Rmarkdown, or quarto files in a specified location (currently: github repo, gists, or local). These can be combined with a variant of <code><a href="reference/spot_funs.html">spot_funs()</a></code> that maps the function across each file path found, <code><a href="reference/spot_things_files.html">spot_funs_files()</a></code>:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<p>funspotr has a few <code>list_files_*()</code> functions that return a dataframe of <code>relative_paths</code> and <code>absolute_paths</code> of all the R, Rmarkdown, or quarto files in a specified location (currently: github repo, gists, or local). These can be combined with a variant of <code><a href="reference/spot_funs.html">spot_funs()</a></code> that maps the function across each file path found, <code><a href="reference/spot_funs_files.html">spot_funs_files()</a></code>:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># repo for an old presentation I gave</span></span>
 <span><span class="va">gh_ex</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/list_files_github_repo.html">list_files_github_repo</a></span><span class="op">(</span></span>
 <span>  repo <span class="op">=</span> <span class="st">"brshallo/feat-eng-lags-presentation"</span>, </span>
 <span>  branch <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="reference/spot_things_files.html">spot_funs_files</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="reference/spot_funs_files.html">spot_funs_files</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">gh_ex</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 3</span></span>
@@ -222,7 +225,7 @@
 <code>spotted</code>: <code><a href="https://purrr.tidyverse.org/reference/safely.html" class="external-link">purrr::safely()</a></code> style list-column of results<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;list-column output where each item is a list containing &lt;code&gt;result&lt;/code&gt; and &lt;code&gt;error&lt;/code&gt;.&lt;/p&gt;"><sup>4</sup></a> from mapping <code><a href="reference/spot_funs.html">spot_funs()</a></code> across <code>absolute_paths</code>.</li>
 </ul>
 <p>These results may then be unnested with the helper <code><a href="reference/unnest_results.html">funspotr::unnest_results()</a></code> to provide a table of functions and packages by filepath. This can be manipulated like any other dataframe – say we want to filter to only those files where <a href="https://here.r-lib.org/" class="external-link">here</a>, <a href="https://readr.tidyverse.org/" class="external-link">readr</a> or <a href="https://rsample.tidymodels.org/" class="external-link">rsample</a> packages are used.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gh_ex</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="reference/unnest_results.html">unnest_results</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">pkgs</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"here"</span>, <span class="st">"readr"</span>, <span class="st">"rsample"</span><span class="op">)</span><span class="op">)</span></span>
@@ -237,12 +240,12 @@
 <span><span class="co">#&gt; 6 sliding_period     rsample R/feat-engineering-lags.R     https://raw.githubus…</span></span>
 <span><span class="co">#&gt; 7 write_csv          readr   R/load-inspections-save-csv.R https://raw.githubus…</span></span>
 <span><span class="co">#&gt; 8 here               here    R/load-inspections-save-csv.R https://raw.githubus…</span></span></code></pre></div>
-<p>The outputs from <code><a href="reference/unnest_results.html">funspotr::unnest_results()</a></code> can also be passed into <code><a href="reference/network_plot.html">funspotr::network_plot()</a></code> to build a network visualization of the connections between functions/packages and files<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Took some inspiration from &lt;code&gt;&lt;a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link"&gt;plot()&lt;/a&gt;&lt;/code&gt; method in &lt;a href="https://github.com/ikosmidis/cranly" class="external-link"&gt;cranly&lt;/a&gt;.&lt;/p&gt;'><sup>5</sup></a>.</p>
+<p>The outputs from <code><a href="reference/unnest_results.html">funspotr::unnest_results()</a></code> can also be passed into <code><a href="reference/network_plot.html">funspotr::network_plot()</a></code> to build a network visualization of the connections between functions/packages and files<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Took inspiration from &lt;code&gt;&lt;a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link"&gt;plot()&lt;/a&gt;&lt;/code&gt; method in &lt;a href="https://github.com/ikosmidis/cranly" class="external-link"&gt;cranly&lt;/a&gt;.&lt;/p&gt;'><sup>5</sup></a>.</p>
 <div class="section level3">
 <h3 id="previewing-and-customizing-files-to-parse">Previewing and customizing files to parse<a class="anchor" aria-label="anchor" href="#previewing-and-customizing-files-to-parse"></a>
 </h3>
 <p>You might only want to parse certain file types or a subset of the files in a repo.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">preview_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/list_files_github_repo.html">list_files_github_repo</a></span><span class="op">(</span></span>
 <span>  repo <span class="op">=</span> <span class="st">"brshallo/feat-eng-lags-presentation"</span>, </span>
 <span>  branch <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span></span>
@@ -256,10 +259,10 @@
 <span><span class="co">#&gt; 3 R/load-inspections-save-csv.R https://raw.githubusercontent.com/brshallo/feat…</span></span>
 <span><span class="co">#&gt; 4 R/types-of-splits.R           https://raw.githubusercontent.com/brshallo/feat…</span></span></code></pre></div>
 <p>Say we only want to parse the “types-of-splits.R” and “Rmd-to-R.R” files.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">preview_files</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">relative_paths</span>, <span class="st">"types-of-splits|Rmd-to-R"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="reference/spot_things_files.html">spot_funs_files</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="reference/spot_funs_files.html">spot_funs_files</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="reference/unnest_results.html">unnest_results</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 24 × 4</span></span>
 <span><span class="co">#&gt;    funs      pkgs      relative_paths      absolute_paths                       </span></span>
@@ -285,7 +288,7 @@
 <h3 id="files-you-didnt-write">Files you didn’t write<a class="anchor" aria-label="anchor" href="#files-you-didnt-write"></a>
 </h3>
 <p>Functions created in the file as well as functions from unavailable packages (or packages that don’t exist) will output as <code>pkgs = "(unknown)"</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file_lines_missing_pkgs</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
 <span><span class="st">library(dplyr)</span></span>
 <span><span class="st"></span></span>
@@ -310,18 +313,19 @@
 <span><span class="co">#&gt; 3 print       base     </span></span>
 <span><span class="co">#&gt; 4 made_up_fun (unknown)</span></span>
 <span><span class="co">#&gt; 5 hello_world (unknown)</span></span></code></pre></div>
-<p><em>To spot which package a function is from you must have the package installed locally.</em> Hence for files on others’ github repos or that you created on a different machine, it is a good idea to start with <code><a href="reference/check_pkgs_availability.html">funspotr::check_pkgs_availability()</a></code> to see which packages you are missing.</p>
-<p><code>funspotr:::install_missing_pkgs()</code> is an unexported helper for installing missing packages (see “R/spot-pkgs.R” for documentation):</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/check_pkgs_availability.html">check_pkgs_availability</a></span><span class="op">(</span><span class="va">file_path</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu">funspotr</span><span class="fu">:::</span><span class="fu"><a href="reference/install_missing_pkgs.html">install_missing_pkgs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><em>To spot which package a function is from you must have the package installed locally.</em> Hence for files on others’ github repos or that you created on a different machine, it is a good idea to start with <code><a href="reference/check_pkgs_availability.html">funspotr::check_pkgs_availability()</a></code> to see which packages you are missing and install the missing packages locally. If you don’t want to edit your global library you may want to use <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> or other environment management tools.</p>
+<p>funspotr has an internal helper <code><a href="reference/install_missing_pkgs.html">funspotr::install_missing_pkgs()</a></code> for installing missing packages (see source “R/spot-pkgs.R” for documentation on use):</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/spot_pkgs.html">spot_pkgs</a></span><span class="op">(</span><span class="va">file_output</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/check_pkgs_availability.html">check_pkgs_availability</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">funspotr</span><span class="fu">::</span><span class="fu"><a href="reference/install_missing_pkgs.html">install_missing_pkgs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Alternatively, you may want to clone the repository locally and then use <code>renv::dependencies()</code> and only then start using funspotr<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;&lt;a href="https://rstudio.github.io/renv/" class="external-link"&gt;renv&lt;/a&gt; is a more robust approach to finding and installing dependencies – particularly in cases where you are missing many dependencies or don’t want to alter the packages in your global library.&lt;/p&gt;'><sup>6</sup></a>.</p>
 </div>
 <div class="section level3">
 <h3 id="package-dependencies-in-another-file">Package dependencies in another file<a class="anchor" aria-label="anchor" href="#package-dependencies-in-another-file"></a>
 </h3>
 <p><code><a href="reference/spot_funs.html">spot_funs()</a></code> is currently set-up for self-contained files. But <code><a href="reference/spot_funs_custom.html">spot_funs_custom()</a></code> allows the user to explicitly specify <code>pkgs</code> where functions may come from. This is useful in cases where the packages loaded are not in the same location as the <code>file_path</code> (e.g. they are loaded via <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> or a DESCRIPTION file, or some other workflow). For example, below is a made-up example where the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> calls are made in a separate file and <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code>d in.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># file where packages are loaded</span></span>
 <span><span class="va">file_libs</span> <span class="op">&lt;-</span> <span class="st">"library(dplyr)</span></span>
 <span><span class="st">library(lubridate)"</span></span>
@@ -357,14 +361,14 @@
 <span><span class="co">#&gt; 3 mutate dplyr    </span></span>
 <span><span class="co">#&gt; 4 today  lubridate</span></span>
 <span><span class="co">#&gt; 5 days   lubridate</span></span></code></pre></div>
-<p>Also see <code>funspotr:::spot_pkgs_from_description()</code>.</p>
+<p>Also see <code><a href="reference/spot_pkgs_from_DESCRIPTION.html">funspotr::spot_pkgs_from_description()</a></code>.</p>
 </div>
 <div class="section level3">
 <h3 id="show-all-function-calls">Show all function calls<a class="anchor" aria-label="anchor" href="#show-all-function-calls"></a>
 </h3>
-<p>Passing in <code>show_each_use = TRUE</code> to <code>...</code> in <code><a href="reference/spot_funs.html">spot_funs()</a></code> or <code><a href="reference/spot_things_files.html">spot_funs_files()</a></code> will return <em>all</em> instances of a function call rather than just once for each file.</p>
+<p>Passing in <code>show_each_use = TRUE</code> to <code>...</code> in <code><a href="reference/spot_funs.html">spot_funs()</a></code> or <code><a href="reference/spot_funs_files.html">spot_funs_files()</a></code> will return <em>all</em> instances of a function call rather than just once for each file.</p>
 <p>Compared to the initial example, <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> now shows-up at both rows 4 and 8:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/spot_funs.html">spot_funs</a></span><span class="op">(</span>file_path <span class="op">=</span> <span class="va">file_output</span>, show_each_use <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 11 × 2</span></span>
 <span><span class="co">#&gt;    funs         pkgs     </span></span>
@@ -385,7 +389,7 @@
 <h3 id="helper-for-blogdown-tags">Helper for <a href="https://pkgs.rstudio.com/blogdown/" class="external-link">blogdown</a> tags<a class="anchor" aria-label="anchor" href="#helper-for-blogdown-tags"></a>
 </h3>
 <p>Setting <code>as_yaml_tags = TRUE</code> in <code><a href="reference/spot_pkgs.html">spot_pkgs()</a></code> flattens the dependencies and outputs them in a format that can be copied and pasted into the <strong>tags</strong> section of a blogdown post’s YAML header.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example from old blogdown post</span></span>
 <span><span class="fu"><a href="reference/spot_pkgs.html">spot_pkgs</a></span><span class="op">(</span></span>
 <span>  file_path <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/brshallo/brshallo/master/content/post/2020-02-06-maximizing-magnetic-volume-the-perfect-bowl.Rmd"</span>,</span>
@@ -394,22 +398,15 @@
 <span><span class="co">#&gt;   - knitr</span></span>
 <span><span class="co">#&gt;   - tidyverse</span></span>
 <span><span class="co">#&gt;   - ggforce</span></span></code></pre></div>
-<p><code><a href="reference/spot_pkgs_used.html">spot_pkgs_used()</a></code> will only return those packages that have functions actually used<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;E.g. for cases when there are library calls that aren’t actually used in the file. This may be useful in cases when metapackages like tidyverse or tidymodels are loaded but not all packages are actually used.&lt;/p&gt;"><sup>7</sup></a>.</p>
-<p><em>To automatically have your packages used as the tags for a post</em> you can add the function <code><a href="reference/spot_tags.html">funspotr::spot_tags()</a></code> to a bullet in the <code>tags</code> argument of your YAML header<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;See (&lt;a href="https://github.com/rstudio/blogdown/issues/647#issuecomment-1041599327" class="external-link"&gt;blogdown#647&lt;/a&gt;, &lt;a href="https://github.com/rstudio/blogdown/issues/693" class="external-link"&gt;blogdown#693&lt;/a&gt;) for an explanation of how &lt;code&gt;&lt;a href="reference/spot_tags.html"&gt;funspotr::spot_tags()&lt;/a&gt;&lt;/code&gt; works.&lt;/p&gt;'><sup>8</sup></a>. For example:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> This is a post</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> brshallo</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>date<span class="sc">:</span> <span class="st">'2022-02-11'</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>tags<span class="sc">:</span> </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="sc">-</span> <span class="st">"`r funspotr::spot_tags()`"</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>slug<span class="sc">:</span> this<span class="sc">-</span>is<span class="sc">-</span>a<span class="sc">-</span>post</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="unexported-functions">Unexported functions<a class="anchor" aria-label="anchor" href="#unexported-functions"></a>
-</h3>
-<p>Many of the unexported functions in funspotr may be helpful in building up other workflows for mapping <code><a href="reference/spot_funs.html">spot_funs()</a></code> across multiple files<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Most unexported functions in &lt;code&gt;funspotr&lt;/code&gt; still include a man file and at least partial documentation.&lt;/p&gt;"><sup>9</sup></a> <em>If you have a suggestion for a function, feel free to open an issue.</em></p>
-<!-- **If you've used {funspotr} to map the R functions and packages of a public blog or repository, open an issue to add a link in the README.** -->
+<p><code><a href="reference/spot_pkgs_used.html">spot_pkgs_used()</a></code> will only return those packages that have functions actually used<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;E.g. for cases when there are library calls that aren’t actually used in the file. This may be useful in cases when metapackages like tidyverse or tidymodels are loaded but you want to return the specific packages from within those being used.&lt;/p&gt;"><sup>7</sup></a>.</p>
+<p><em>To automatically have your packages used as the tags for a blog post</em> you can add an inline function <code><a href="reference/spot_tags.html">funspotr::spot_tags()</a></code> to a bullet in the <code>tags</code> or <code>categories</code> argument of your YAML header. For example:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> This is a post</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> brshallo</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>date<span class="sc">:</span> <span class="st">'2022-02-11'</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>tags<span class="sc">:</span> [<span class="st">"`r funspotr::spot_tags()`"</span>]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>slug<span class="sc">:</span> this<span class="sc">-</span>is<span class="sc">-</span>a<span class="sc">-</span>post</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -417,14 +414,13 @@
 </h2>
 <p>funspotr mimics the search space of each file prior to identifying <code>pkgs</code>/<code>funs</code>. At a high-level…</p>
 <ol style="list-style-type: decimal">
-<li>Create a new R instance using <a href="https://github.com/r-lib/callr" class="external-link">callr</a> and clean-up the specified file using <a href="">formatR</a>
+<li>Create a new R instance using <a href="https://github.com/r-lib/callr" class="external-link">callr</a> and clean-up the specified file using <a href="https://github.com/yihui/formatR" class="external-link">formatR</a>
 </li>
-<li>Load packages. Explicit calls (e.g. <code>pkg::fun()</code>) are loaded individually via <a href="https://github.com/rticulate/import" class="external-link">import</a> and are loaded last (putting them at the top of the search space)<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;This heuristic is imperfect and means that a file with “library(dplyr); select(); MASS::select()” would view both &lt;code&gt;&lt;a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link"&gt;select()&lt;/a&gt;&lt;/code&gt; calls as coming from {MASS} – when what it should do is view the first was as coming from {dplyr} and the second from {MASS}.&lt;/p&gt;'><sup>10</sup></a>.</li>
+<li>Load packages. Explicit calls (e.g. <code>pkg::fun()</code>) are loaded individually via <a href="https://github.com/rticulate/import" class="external-link">import</a> and are loaded last (putting them at the top of the search space)<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;This heuristic is imperfect and means that a file with “library(dplyr); select(); MASS::select()” would view both &lt;code&gt;&lt;a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link"&gt;select()&lt;/a&gt;&lt;/code&gt; calls as coming from {MASS} – when what it should do is view the first was as coming from {dplyr} and the second from {MASS}.&lt;/p&gt;'><sup>8</sup></a>.</li>
 </ol>
 <p>(steps 1 and 2 needed so that step 4 has the best chance of identifying the package a function comes from in the file.)</p>
 <ol start="3" style="list-style-type: decimal">
-<li>Pass file through <code><a href="https://rdrr.io/r/utils/getParseData.html" class="external-link">utils::getParseData()</a></code> and filter to just functions<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;inspired by &lt;code&gt;NCmisc::list.functions.in.file()&lt;/code&gt;.&lt;/p&gt;"><sup>11</sup></a>
-</li>
+<li>Pass file through <code><a href="https://rdrr.io/r/utils/getParseData.html" class="external-link">utils::getParseData()</a></code> and filter to just functions</li>
 <li>Pass functions through <code><a href="https://rdrr.io/r/utils/apropos.html" class="external-link">utils::find()</a></code> to identify associated package</li>
 </ol>
 <p><em>Explainer slide from Rstudio Conf 2022 <a href="https://www.youtube.com/watch?v=c9oU7ALJS3o" class="external-link">presentation</a>:</em></p>
@@ -434,27 +430,27 @@
 <h2 id="limitations-problems-musings">Limitations, problems, musings<a class="anchor" aria-label="anchor" href="#limitations-problems-musings"></a>
 </h2>
 <ul>
-<li>funspotr is specific to R. If you try and pass in a file from a different language you will get a parsing error or the code commented out<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;For example… If you pass in a .Rmd or .qmd that has a mix of R and python code chunks, the python chunks will simply be commented out. If you pass in a python script, you will almost certainly get a parsing error for that file.&lt;/p&gt;"><sup>12</sup></a>. The steps taken by funspotr would also not be needed in many other programming languages<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;In a language like python, where calls are more explicit (e.g. &lt;code&gt;np.*&lt;/code&gt;), all of the stuff with recreating the search space would likely be unnecessary and you could more easily just identify packages/functions by parsing the text (which would run faster).&lt;/p&gt;"><sup>13</sup></a>.</li>
+<li>funspotr is specific to R. If you try and pass in a file from a different language you will get a parsing error or the code commented out<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;For example… If you pass in a .Rmd or .qmd that has a mix of R and python code chunks, the python chunks will simply be commented out. If you pass in a python script, you will almost certainly get a parsing error for that file.&lt;/p&gt;"><sup>9</sup></a>. The steps taken by funspotr would also not be needed in many other programming languages<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;In a language like python, where calls are more explicit (e.g. &lt;code&gt;np.*&lt;/code&gt;), all of the stuff with recreating the search space would likely be unnecessary and you could more easily just identify packages/functions by parsing the text.&lt;/p&gt;"><sup>10</sup></a>.</li>
 <li>funspotr does not work perfectly at identifying functions or packages. One common example example is it will not identify functions passed as arguments. For example it will not identify <code>mean</code> in this example: <code>lapply(x, mean)</code> . Similarly it will not identify functions within <code><a href="https://rdrr.io/r/base/switch.html" class="external-link">switch()</a></code>. See <a href="https://github.com/brshallo/funspotr/issues/13" class="external-link">#13</a>.</li>
 <li>If a file contains R syntax that is not well defined it will not be parsed and will return an error. See <a href="https://yihui.org/formatr/#6-further-notes" class="external-link">formatR#further-notes</a> (used by {funspotr} in parsing) for other common reasons for failure.</li>
 <li>
 <code><a href="https://rdrr.io/pkg/knitr/man/read_chunk.html" class="external-link">knitr::read_chunk()</a></code> and <code><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knitr::purl()</a></code> in a file passed to {funspotr} will also frequently cause an error in parsing. See <a href="https://github.com/yihui/knitr/issues/1753" class="external-link">knitr#1753</a> &amp; <a href="https://github.com/yihui/knitr/issues/1938" class="external-link">knitr#1938</a>
 </li>
 <li>Please open an issue if you find other cases where parsing breaks :-) .</li>
-<li>As mentioned elsewhere, the default parsing of <code><a href="reference/spot_funs.html">spot_funs()</a></code> is primarily for cases where package dependencies are loaded in the same file that they are used in<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;i.e. in interactive R scripts or Rmd or qmd documents where you use &lt;code&gt;&lt;a href="https://rdrr.io/r/base/library.html" class="external-link"&gt;library()&lt;/a&gt;&lt;/code&gt; or related calls within the script.&lt;/p&gt;'><sup>14</sup></a>. Scripts that are not self-contained typically should have the <code>pkgs</code> argument provided explicitly via <code><a href="reference/spot_funs_custom.html">spot_funs_custom()</a></code>.</li>
-<li>funspotr does not pay attention to when functions are reexported from elsewhere. For example, many tibble functions are reexported by dplyr and tidyr – funspotr though will not know the “true” home of these functions it is simply looking at the top of the search space<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;For example when reviewing David Robinson’s Tidy Tuesday code I found that the &lt;a href="https://github.com/GuangchuangYu/meme" class="external-link"&gt;meme&lt;/a&gt; package was used far more than I would have expected. Turns out it was just due to it reexporting the &lt;code&gt;aes()&lt;/code&gt; function from ggplot.&lt;/p&gt;'><sup>15</sup></a>.</li>
+<li>As mentioned elsewhere, the default parsing of <code><a href="reference/spot_funs.html">spot_funs()</a></code> is primarily for cases where package dependencies are loaded in the same file that they are used in<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;i.e. in interactive R scripts or Rmd or qmd documents where you use &lt;code&gt;&lt;a href="https://rdrr.io/r/base/library.html" class="external-link"&gt;library()&lt;/a&gt;&lt;/code&gt; or related calls within the script.&lt;/p&gt;'><sup>11</sup></a>. Scripts that are not self-contained typically should have the <code>pkgs</code> argument provided explicitly via <code><a href="reference/spot_funs_custom.html">spot_funs_custom()</a></code>.</li>
+<li>funspotr does not pay attention to when functions are reexported from elsewhere. For example, many tibble functions are reexported by dplyr and tidyr – funspotr though will not know the “true” home of these functions it is simply looking at the top of the search space<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;For example when reviewing David Robinson’s Tidy Tuesday code I found that the &lt;a href="https://github.com/GuangchuangYu/meme" class="external-link"&gt;meme&lt;/a&gt; package was used far more than I would have expected. Turns out it was just due to it reexporting the &lt;code&gt;aes()&lt;/code&gt; function from ggplot.&lt;/p&gt;'><sup>12</sup></a>.</li>
 <li>Feel free to open an issue if you’d be interested in a simplifying function or vignette for mapping <code><a href="reference/spot_funs.html">spot_funs()</a></code> through other folder structures not yet mentioned.</li>
-<li>All the functions in “R/spot-pkgs.R” would probably be better handled by something like <code>renv::dependencies()</code> or a parsing based approach. The simple regex’s I use have a variety of problems. As just one example <code>funspotr::get_pkgs()</code> will not recognize when a package is within quotes or being escaped<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;e.g. in this case &lt;code&gt;lines &amp;lt;- "library(pkg)"&lt;/code&gt; the &lt;code&gt;pkg&lt;/code&gt; would show-up as a dependency despite just being part of a quote rather than actually loaded.&lt;/p&gt;'><sup>16</sup></a>. See <a href="https://github.com/brshallo/funspotr/issues/14" class="external-link">#14</a>
+<li>All the functions in “R/spot-pkgs.R” would probably be better handled by something like <code>renv::dependencies()</code> or a parsing based approach. The simple regex’s I use have a variety of problems. As just one example <code>funspotr::get_pkgs()</code> will not recognize when a package is within quotes or being escaped<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;e.g. in this case &lt;code&gt;lines &amp;lt;- "library(pkg)"&lt;/code&gt; the &lt;code&gt;pkg&lt;/code&gt; would show-up as a dependency despite just being part of a quote rather than actually loaded.&lt;/p&gt;'><sup>13</sup></a>. See <a href="https://github.com/brshallo/funspotr/issues/14" class="external-link">#14</a>
 </li>
 <li>There may be something to be learned from how <code>R CMD check</code> does function parsing.
 <ul>
 <li>funspotr’s current approach is slow and uses imperfect heuristics</li>
 </ul>
 </li>
-<li>Does not identify infix operators, e.g. <code>+</code><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;maybe that’s fine though.&lt;/p&gt;"><sup>17</sup></a>
+<li>Does not identify infix operators, e.g. <code>+</code>
 </li>
 <li>funspotr has lots of dependencies. It may have make sense to move some of the non-core functionality into a separate package (e.g. stuff concerning <code>list_files*()</code>)</li>
-<li>Rather than running <code><a href="reference/list_files_github_repo.html">list_files_github_repo()</a></code> it may make sense to instead clone the repo locally and then run <code><a href="reference/list_files_wd.html">list_files_wd()</a></code> from the repo prior to running <code><a href="reference/spot_things_files.html">spot_funs_files()</a></code> as this will limit the number of API hits to github.</li>
+<li>Rather than running <code><a href="reference/list_files_github_repo.html">list_files_github_repo()</a></code> it may make sense to instead clone the repo locally and then run <code><a href="reference/list_files_wd.html">list_files_wd()</a></code> from the repo prior to running <code><a href="reference/spot_funs_files.html">spot_funs_files()</a></code> as this will limit the number of API hits to github.</li>
 <li>Currently it’s possible to have github block you pretty soon due to hitting too many files (in which case you’ll likely get a 403 or connection error). There are some things that could be done to reduce number of github API hits (e.g. above bullet, <code><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep()</a></code>, …).</li>
 <li>Throughout the code and package documentation I have “inspiration” bullets followed by a link pointing to places where I took stuff from stack overflow, github, or other packages. Also see the footnotes of the README.</li>
 </ul>
@@ -465,6 +461,7 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=funspotr" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/brshallo/funspotr/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/brshallo/funspotr/issues" class="external-link">Report a bug</a></li>
 </ul>

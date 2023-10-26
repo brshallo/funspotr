@@ -19,25 +19,10 @@
     <loc>https://brshallo.github.io/funspotr/news/index.html</loc>
   </url>
   <url>
-    <loc>https://brshallo.github.io/funspotr/reference/call_r_list_functions_doc.html</loc>
-  </url>
-  <url>
     <loc>https://brshallo.github.io/funspotr/reference/check_pkgs_availability.html</loc>
   </url>
   <url>
-    <loc>https://brshallo.github.io/funspotr/reference/did_safely_error.html</loc>
-  </url>
-  <url>
     <loc>https://brshallo.github.io/funspotr/reference/funspotr-package.html</loc>
-  </url>
-  <url>
-    <loc>https://brshallo.github.io/funspotr/reference/github_contents.html</loc>
-  </url>
-  <url>
-    <loc>https://brshallo.github.io/funspotr/reference/github_contents_urls.html</loc>
-  </url>
-  <url>
-    <loc>https://brshallo.github.io/funspotr/reference/github_spot_things.html</loc>
   </url>
   <url>
     <loc>https://brshallo.github.io/funspotr/reference/index.html</loc>
@@ -55,12 +40,6 @@
     <loc>https://brshallo.github.io/funspotr/reference/list_files_wd.html</loc>
   </url>
   <url>
-    <loc>https://brshallo.github.io/funspotr/reference/list_functions_in_file.html</loc>
-  </url>
-  <url>
-    <loc>https://brshallo.github.io/funspotr/reference/list_functions_in_file_to_df.html</loc>
-  </url>
-  <url>
     <loc>https://brshallo.github.io/funspotr/reference/network_plot.html</loc>
   </url>
   <url>
@@ -68,6 +47,9 @@
   </url>
   <url>
     <loc>https://brshallo.github.io/funspotr/reference/spot_funs_custom.html</loc>
+  </url>
+  <url>
+    <loc>https://brshallo.github.io/funspotr/reference/spot_funs_files.html</loc>
   </url>
   <url>
     <loc>https://brshallo.github.io/funspotr/reference/spot_pkgs.html</loc>
@@ -80,9 +62,6 @@
   </url>
   <url>
     <loc>https://brshallo.github.io/funspotr/reference/spot_tags.html</loc>
-  </url>
-  <url>
-    <loc>https://brshallo.github.io/funspotr/reference/spot_things_files.html</loc>
   </url>
   <url>
     <loc>https://brshallo.github.io/funspotr/reference/str_detect_r_docs.html</loc>
