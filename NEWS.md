@@ -1,3 +1,5 @@
+# funspotr (development version)
+
 # funspotr 0.0.3
 
 * Add support for quarto documents
