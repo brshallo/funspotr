@@ -1,4 +1,6 @@
-# funspotr (development version)
+# funspotr 0.0.4
+
+* Clean-up CRAN documentation (remove unnecessary man files)
 
 # funspotr 0.0.3
 

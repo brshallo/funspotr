@@ -1,6 +1,6 @@
 Package: funspotr
 Title: Spot R Functions & Packages
-Version: 0.0.3.9000
+Version: 0.0.4
 Authors@R: 
   person(given = "Bryan",
          family = "Shalloway",
