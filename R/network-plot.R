@@ -47,18 +47,18 @@ network_plot <- function(df, to = .data$pkgs, show_each_use = FALSE){
     select(id = {{to}}, value = n) %>%
     mutate(color = "#ECEEFC",
            shape = "dot") %>%
-    mutate(title = paste0("<p><b>", id,"</b><br>"))
+    mutate(title = paste0("<p><b>", .data$id,"</b><br>"))
 
   nodes_contents <- df %>%
     count(.data$relative_paths, .data$absolute_paths) %>%
     select(id = .data$relative_paths, value = .data$n, .data$absolute_paths) %>%
     mutate(color = "#4A6FE3",
            shape = "square") %>%
-    mutate(title = paste0("<p><b>", id,"</b><br> ", .data$absolute_paths, "</p>"))
+    mutate(title = paste0("<p><b>", .data$id,"</b><br> ", .data$absolute_paths, "</p>"))
 
   nodes <- bind_rows(nodes_pkgs,
                      nodes_contents) %>%
-    mutate(label = id)
+    mutate(label = .data$id)
 
   edges <- df %>%
     select(from = .data$relative_paths, to = {{to}}) %>%
