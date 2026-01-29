@@ -2,7 +2,7 @@
 % Please edit documentation in R/list-files-gh-gists.R
 \name{list_files_github_gists}
 \alias{list_files_github_gists}
-\title{List Files in Github Gists}
+\title{List Files in GitHub Gists}
 \usage{
 list_files_github_gists(
   user,
@@ -10,7 +10,7 @@ list_files_github_gists(
 )
 }
 \arguments{
-\item{user}{Github username, e.g. "brshallo"}
+\item{user}{GitHub username, e.g. "brshallo"}
 
 \item{pattern}{Regex pattern to keep only matching files. Default is
 \code{stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE)} which will
@@ -21,7 +21,7 @@ Dataframe with columns of \code{relative_paths} and \code{absolute_paths} for
 file path locations. \code{absolute_paths} will be urls to raw files.
 }
 \description{
-Return a dataframe containing the paths of files in a github user's gists.
+Return a dataframe containing the paths of files in a GitHub user's gists.
 Generally used prior to \verb{spot_\{funs/pkgs\}_files()}.
 }
 \examples{

@@ -50,12 +50,12 @@ get_gist_content <- function(user) {
   purrr::flatten(req_content)
 }
 
-#' List Files in Github Gists
+#' List Files in GitHub Gists
 #'
-#' Return a dataframe containing the paths of files in a github user's gists.
+#' Return a dataframe containing the paths of files in a GitHub user's gists.
 #' Generally used prior to `spot_{funs/pkgs}_files()`.
 #'
-#' @param user Github username, e.g. "brshallo"
+#' @param user GitHub username, e.g. "brshallo"
 #' @param pattern Regex pattern to keep only matching files. Default is
 #'   `stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE)` which will
 #'   keep only R, Rmarkdown and Quarto documents. To keep all files use `"."`.
