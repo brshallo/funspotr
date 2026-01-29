@@ -1,85 +1,18 @@
-get_gist_pages <- function(user) {
-
-  req_user <- httr::GET(glue::glue("https://api.github.com/users/{user}"))
-
-  # Check HTTP response first
-  if (httr::status_code(req_user) != 200) {
-    warning("Failed to fetch GitHub user info for '\", user,\"' (status ", httr::status_code(req_user), "). Returning 0 pages.")
-    return(0L)
-  }
-
-  body <- httr::content(req_user)
-  num_gists <- body$public_gists
-
-  # Defensive handling: ensure we have a single non-negative integer
-  if (is.null(num_gists) || length(num_gists) == 0) return(0L)
-  num_gists <- as.integer(num_gists)
-  if (is.na(num_gists) || num_gists <= 0L) return(0L)
-
-  # Compute pages using ceiling to avoid remainder logic problems
-  num_pages <- ceiling(num_gists / 100)
-  num_pages
-}
-
-get_gist_content <- function(user) {
-
-  num_pages <- get_gist_pages(user)
-
-  # If there are no pages, return an empty list
-  if (num_pages == 0L) return(list())
-
-  # gists themselves
-  req_content <- vector("list", num_pages)
-
-  for (i in seq_len(num_pages)) {
-
-    req <- httr::GET(
-      glue::glue("https://api.github.com/users/{user}/gists"),
-      query = list(per_page = 100, page = i)
-    )
-
-    if (httr::status_code(req) != 200) {
-      warning("Failed to fetch gists for page ", i, " (status ", httr::status_code(req), "). Skipping page.")
-      req_content[[i]] <- list()
-      next
-    }
-
-    req_content[[i]] <- httr::content(req)
-  }
-
-  purrr::flatten(req_content)
-}
-
-#' List Files in GitHub Gists
+#' List files from a user's GitHub gists
 #'
-#' Return a dataframe containing the paths of files in a GitHub user's gists.
-#' Generally used prior to `spot_{funs/pkgs}_files()`.
+#' Return a tibble of files (relative and raw URLs) from a user's public GitHub gists.
 #'
-#' @param user GitHub username, e.g. "brshallo"
-#' @param pattern Regex pattern to keep only matching files. Default is
-#'   `stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE)` which will
-#'   keep only R, Rmarkdown and Quarto documents. To keep all files use `"."`.
-#'
-#' @return Dataframe with columns of `relative_paths` and `absolute_paths` for
-#'   file path locations. `absolute_paths` will be urls to raw files.
-#'
+#' @param user Character. GitHub username whose gists will be inspected.
+#' @param pattern A regex (or object accepted by `stringr::regex()`) used to
+#'   filter file names. By default only R, R Markdown and Quarto files are kept.
+#' @return A tibble with columns `relative_paths` (file names) and
+#'   `absolute_paths` (raw file URLs). If the user has no gists an empty tibble
+#'   with those columns is returned.
 #' @export
-#'
-#' @seealso list_files_github_repo, list_files_wd
-#'
 #' @examples
-#' \donttest{
-#' library(dplyr)
-#' library(funspotr)
-#'
-#' # pulling and analyzing R file github gists
-#' gh_urls <- list_files_github_gists("brshallo")
-#'
-#' # Will just parse the first 2 files/gists
-#' contents <- spot_funs_files(slice(gh_urls, 1:2))
-#'
-#' contents %>%
-#'   unnest_results()
+#' \dontrun{
+#' files <- list_files_github_gists('hadley')
+#' head(files)
 #' }
 list_files_github_gists <- function(user,
                                     pattern = stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE)) {
