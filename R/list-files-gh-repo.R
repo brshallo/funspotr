@@ -207,7 +207,7 @@ NULL
 #' @seealso list_files_wd, list_files_github_gists
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(dplyr)
 #' library(funspotr)
 #'

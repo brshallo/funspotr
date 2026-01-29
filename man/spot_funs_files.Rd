@@ -41,7 +41,7 @@ Default settings are meant for files where package libraries are referenced
 \emph{within} the files themselves. See README for more details.
 }
 \examples{
-\donttest{
+\dontrun{
 library(funspotr)
 library(dplyr)
 
