@@ -50,6 +50,37 @@ get_gist_content <- function(user) {
   purrr::flatten(req_content)
 }
 
+#' List Files in Github Gists
+#'
+#' Return a dataframe containing the paths of files in a github user's gists.
+#' Generally used prior to `spot_{funs/pkgs}_files()`.
+#'
+#' @param user Github username, e.g. "brshallo"
+#' @param pattern Regex pattern to keep only matching files. Default is
+#'   `stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE)` which will
+#'   keep only R, Rmarkdown and Quarto documents. To keep all files use `"."`.
+#'
+#' @return Dataframe with columns of `relative_paths` and `absolute_paths` for
+#'   file path locations. `absolute_paths` will be urls to raw files.
+#'
+#' @export
+#'
+#' @seealso list_files_github_repo, list_files_wd
+#'
+#' @examples
+#' \donttest{
+#' library(dplyr)
+#' library(funspotr)
+#'
+#' # pulling and analyzing R file github gists
+#' gh_urls <- list_files_github_gists("brshallo")
+#'
+#' # Will just parse the first 2 files/gists
+#' contents <- spot_funs_files(slice(gh_urls, 1:2))
+#'
+#' contents %>%
+#'   unnest_results()
+#' }
 list_files_github_gists <- function(user,
                                     pattern = stringr::regex("(r|rmd|rmarkdown|qmd)$", ignore_case = TRUE)) {
 
