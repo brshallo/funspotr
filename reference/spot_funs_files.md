@@ -69,7 +69,6 @@ library(dplyr)
 
 list_files_github_repo("brshallo/feat-eng-lags-presentation", branch = "main") %>%
   spot_funs_files()
-#>  ■■■■■■■■■■■■■■■■                  50% |  ETA:  1s
 #> # A tibble: 4 × 3
 #>   relative_paths                absolute_paths                      spotted     
 #>   <chr>                         <chr>                               <list>      
