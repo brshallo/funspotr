@@ -2,7 +2,6 @@
 
 export(check_pkgs_availability)
 export(install_missing_pkgs)
-export(list_files_github_gists)
 export(list_files_github_repo)
 export(list_files_wd)
 export(network_plot)
