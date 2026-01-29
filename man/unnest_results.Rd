@@ -18,7 +18,7 @@ Run after running \verb{list_files_*() |> spot_\{funs|pkgs\}_files()} to unnest 
 \code{spotted} list-column.
 }
 \examples{
-\donttest{
+\dontrun{
 library(funspotr)
 library(dplyr)
 

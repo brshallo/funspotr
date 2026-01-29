@@ -16,7 +16,7 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(dplyr)
 #' library(funspotr)
 #'

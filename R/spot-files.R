@@ -52,7 +52,7 @@ spot_files <- function(spot_type, df, ..., .progress = TRUE){
 #' @seealso [spot_pkgs()], [spot_funs()], [unnest_results()]
 #' @export
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(funspotr)
 #' library(dplyr)
 #'
@@ -84,7 +84,7 @@ spot_pkgs_files <- function(df, ..., .progress = TRUE){
 #' @seealso [spot_funs_files()], [spot_pkgs_files()]
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(funspotr)
 #' library(dplyr)
 #'
