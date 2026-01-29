@@ -1,5 +1,8 @@
 # funspotr 0.0.5
 
+* make API calls more robust
+* comply with dplyr update
+
 # funspotr 0.0.4
 
 * Clean-up CRAN documentation (remove unnecessary man files)
