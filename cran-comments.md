@@ -2,4 +2,4 @@
 
 0 errors | 0 warnings | 0 notes
 
-* This submission only updated documentation (primarily by removing unnecessary man files)
+* Made API calls more robust and made to be in compliance with new dplyr version
