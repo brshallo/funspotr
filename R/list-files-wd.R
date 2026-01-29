@@ -17,7 +17,7 @@
 #' @return Dataframe with columns of `relative_paths` and `absolute_paths`.
 #' @export
 #'
-#' @seealso [funspotr::list_files_github_repo()], [funspotr::list_files_github_gists()]
+#' @seealso list_files_github_repo, list_files_github_gists
 #' @examples
 #' \donttest{
 #' library(dplyr)

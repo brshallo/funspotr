@@ -204,7 +204,7 @@ NULL
 #'
 #' @export
 #'
-#' @seealso [funspotr::list_files_wd()], [funspotr::list_files_github_gists()]
+#' @seealso list_files_wd, list_files_github_gists
 #'
 #' @examples
 #' \donttest{

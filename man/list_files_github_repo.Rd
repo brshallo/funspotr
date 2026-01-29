@@ -48,5 +48,5 @@ contents \%>\%
 }
 }
 \seealso{
-\code{\link[=list_files_wd]{list_files_wd()}}, \code{\link[=list_files_github_gists]{list_files_github_gists()}}
+list_files_wd, list_files_github_gists
 }
